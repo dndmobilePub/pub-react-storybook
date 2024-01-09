@@ -195,10 +195,6 @@ Button.propTypes = {
  */
   style: PropTypes.oneOf(['normal', 'round', 'shadow', 'line']),
   /**
-   * 버튼 split / grow
-   */
-  grow: PropTypes.bool,
-  /**
    * 버튼 사이즈
    */
   size: PropTypes.oneOf(['xs', 's', 'md', 'lg', 'xl']),

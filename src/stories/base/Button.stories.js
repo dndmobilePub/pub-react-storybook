@@ -17,7 +17,6 @@ export const Primary = {
   args: {
     setPage : '',
     primary: true,
-    grow: true,
     label: '기본BTN',
   },
 };
@@ -26,7 +25,6 @@ export const Txt = {
   args: {
     setPage : 'txt',
     primary: true,
-    grow: true,
     label: '기본BTN',
   },
 };

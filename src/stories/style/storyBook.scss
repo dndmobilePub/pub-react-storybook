@@ -10,6 +10,30 @@ table td{text-align: center;}
 
 img { object-fit: cover; } 
 
-.storybook{width: 300px;}
+.storybook{width: 100%; min-width: 500px;}
+.storybook.type02 {
+  width: calc(100% - 200px);
+  margin: 0 auto;
+}
+.storybook.type03 {
+  width: calc(100% - 0px);
+  margin: 0 auto;
+}
+
 .storybook .btnWrap{text-align: center; margin: 0;}
 .cp-content .btnWrap.grow > .btn{margin-bottom:1rem}
+
+
+.storybook .cp-tit + .component {
+  margin-top: 0.5rem;
+}
+.storybook .cp-tit.dep02 {
+  font-size: 1.8rem;
+  background: #a9b5ca;
+  padding: 0.5rem 1rem;
+}
+.storybook .cp-tit.dep02::before {
+  content: "";
+  display: block;
+  display: none;
+}
