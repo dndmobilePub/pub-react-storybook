@@ -1,0 +1,230 @@
+.tab-list-wrap {
+	overflow-x: auto;
+	position: relative;
+	width: 100%;
+	margin: 1.5rem auto;
+	border: 1px solid $color-light-gray1;
+	border-width: 0 0 1px 0;
+
+	.tab-list {
+		display: flex;
+		@include flex;
+		position: relative;
+
+		.tab {
+			display: block;
+			flex: none;
+			position: relative;
+			color: $color-gray4;
+			text-align: center;
+			transition: color .5s ease-in-out;
+
+			&~.tab {
+				margin-left: 2rem;
+			}
+
+			&:hover a {
+				color: $color-blue3;
+			}
+
+			&._is-active a {
+				color: $color-blue3;
+
+				@include el-content(before) {
+					position: absolute;
+					left: 50%;
+					bottom: 0;
+					width: 0;
+					height: 2px;
+					background-color: $color-blue3;
+					animation: widthAct .3s linear forwards;
+				}
+			}
+
+			a {
+				display: block;
+				padding: 1rem;
+			}
+		}
+	}
+
+	&.tab-expand {
+		.tab-list {
+			width: 100%;
+	
+			.tab {
+				flex: 1;
+			}
+		}
+	}
+
+	&.tab-center {
+		.tab-list {
+			justify-content: center;
+		}
+	}
+
+	&.tab-right {
+		.tab-list {
+			justify-content: right;
+		}
+	}
+
+	&.tab-line-top {
+		border-width: 1px 0 0 0;
+
+		&::before {
+			bottom: auto; top: 0;
+		}
+
+		.tab {
+			& a::before {
+				top: 0;
+				bottom: auto;
+			}
+		}
+	}
+}
+
+.tab-wrap {
+  	position: relative;
+
+	&.tab-vertical {
+		display: flex;
+		align-items: start;
+
+		.tab-list-wrap {
+			overflow-x: visible;
+			overflow-y: auto;
+			width: auto;
+			margin: 0;
+			border-width: 0 1px 1px 0;
+			
+			.tab-list {
+				flex-direction: column;
+				min-width: 9rem;
+				height: 30rem;
+				margin-left: 0;
+
+				.tab~.tab {
+					margin-left: 0;
+				}
+			}
+
+			&::before {
+				display: none;
+			}
+		}
+
+		.tab-contents-wrap {
+			flex: 1;
+			height: 30rem;
+
+			.tab-contents {
+				overflow: auto;
+				height: 100%;
+			}
+		}
+  }
+  
+	&.tab-scroll,
+	&.tab-scroll-height {
+		.tab-contents-wrap {
+			overflow-y: scroll;
+			position: relative;  
+			height: 200px;
+		}
+  	}
+
+	&:not(.tab-scroll, .tab-sticky) {
+		.tab-contents-wrap {        
+			.tab-contents {
+				display: none;
+
+				&._is-active {
+					display: block;
+				}
+			}
+		}
+	}
+
+	&.tab-moving {
+		.tab-list-wrap {
+			&.tab-line-top {
+				.highlight {
+					bottom: auto;
+					top: 0;
+				}
+			}
+			
+			.tab {
+				&::before {
+					display: none;
+				}
+			}
+			
+			.highlight {
+				position: absolute;
+				left: 0; bottom: 0;
+				width: 64px; height: 2px;
+				background-color: $color-blue3;
+				transition: 0.2s cubic-bezier(0.0, 0.0, 0.58, 1.0);
+			}
+			._is-active > a::before {
+				content:inherit;
+			}
+			
+		}
+		&.tab-vertical {
+			.highlight {
+				bottom: auto;
+				left: auto;
+				right: 0;
+				height: 4rem;
+				width: 2px;
+			}
+		}
+	}
+}
+
+.tab-contents-wrap {
+	border: 1px solid $color-valid;
+
+	.tab-contents {
+		padding: 3rem 5rem 5rem;
+
+		&:nth-child(even) {
+			background: $color-gray7;
+		}
+	}
+}
+
+@keyframes widthAct {
+	0% {
+		width: 0;
+		left: 50%;
+	}
+	100% {
+		width: 100%;
+		left: 0;
+	}
+}
+
+/* 탭메뉴 sticky */
+.tab-sticky {
+	// overflow: hidden;
+	// height: 100vh;
+
+	.tab-list-wrap {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background-color: $color-white;
+	}
+
+	.tab-contents-wrap {
+		// overflow-y: scroll;
+		// height: 100vh;
+		border: none;
+	}
+}

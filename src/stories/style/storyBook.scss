@@ -1,0 +1,15 @@
+
+// 2024 파일리스트 
+table{width: 100%;}
+table td{text-align: center;}
+
+// 2024 스토리북 적용 css 추가
+
+.sb-container { margin-bottom: 48px; } 
+.sb-section { width: 100%; display: flex; flex-direction: row; gap: 20px; } 
+
+img { object-fit: cover; } 
+
+.storybook{width: 300px;}
+.storybook .btnWrap{text-align: center; margin: 0;}
+.cp-content .btnWrap.grow > .btn{margin-bottom:1rem}
