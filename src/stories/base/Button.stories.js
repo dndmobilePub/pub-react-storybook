@@ -22,6 +22,15 @@ export const Primary = {
   },
 };
 
+export const Txt = {
+  args: {
+    setPage : 'txt',
+    primary: true,
+    grow: true,
+    label: '기본BTN',
+  },
+};
+
 export const Disable = {
   args: {
     setPage : '',
