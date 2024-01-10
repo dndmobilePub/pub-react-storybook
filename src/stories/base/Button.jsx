@@ -4,7 +4,7 @@ import './../style/storyBook.scss'
 import './../style/cm.common.scss';
 
 export const Button = ({setPage, primary, setShow, backgroundColor, style, size, label, ...props }) => {
-  const Disable = primary ? '' : 'disable';
+  const Disable = primary ? 'disable' : '';
   
   switch (setPage){
 
@@ -184,7 +184,7 @@ export const Button = ({setPage, primary, setShow, backgroundColor, style, size,
 // Docs 문서 작성 영역
 Button.propTypes = {
   /**
-   * 버튼 스타일 : 기본 & 라운드 & 그림자 & 라인
+   * 버튼 true 인 경우 Disabld 상태
    */
   primary: PropTypes.bool,
   /**

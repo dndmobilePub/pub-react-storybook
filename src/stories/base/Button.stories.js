@@ -16,7 +16,7 @@ export default {
 export const Primary = {
   args: {
     setPage : '',
-    primary: true,
+    primary: false,
     label: '기본BTN',
   },
 };

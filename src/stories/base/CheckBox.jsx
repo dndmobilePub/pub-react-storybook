@@ -4,7 +4,7 @@ import './../style/storyBook.scss'
 import './../style/cm.common.scss';
 
 
-export const Checkbox = ({setPage, primary, checked, readonly, disabled, backgroundColor, style, size, label, ...props }) => {
+export const Checkbox = ({setPage, checked, readonly, disabled }) => {
   const Disable = disabled ? 'disabled' : '';
   const Checked = checked ? 'checked' : '';
   const Readonly = readonly ? 'readonly' : 'false';
