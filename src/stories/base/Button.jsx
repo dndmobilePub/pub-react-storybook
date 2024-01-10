@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import './../style/storyBook.scss'
 import './../style/cm.common.scss';
 
-/**
- * Primary UI component for user interaction
- */
 export const Button = ({setPage, primary, setShow, backgroundColor, style, size, label, ...props }) => {
   const Disable = primary ? '' : 'disable';
   
@@ -191,7 +188,7 @@ Button.propTypes = {
    */
   primary: PropTypes.bool,
   /**
- * 버튼 SHAPE
+ * 버튼 타입 선택
  */
   style: PropTypes.oneOf(['normal', 'round', 'shadow', 'line']),
   /**
@@ -203,7 +200,7 @@ Button.propTypes = {
    */
   backgroundColor: PropTypes.string,
   /**
-   * Button contents
+   * 버튼 text 값 입력
    */
   label: PropTypes.string.isRequired,
 };
@@ -211,6 +208,7 @@ Button.propTypes = {
 // Docs 기본값
 Button.defaultProps = {
   backgroundColor: null,
+  style: 'normal',
   primary: false,
   size: 'md',
   onClick: undefined,
