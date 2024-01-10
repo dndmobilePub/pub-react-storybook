@@ -9,15 +9,22 @@ export default {
   },
   tags: ['autodocs'],
   argTypes: {
-    backgroundColor: { control: 'color' },
+    // backgroundColor: { control: 'color' },
   },
 } ;
 
-export const Primary = {
+export const Email = {
   args: {
-    setPage : '',
+    setPage : 'Email',
     invalid : false,
-    label: '기본BTN',
   },
 };
+
+export const ResidentNum = {
+  args: {
+    setPage : 'ResidentNum',
+    invalid : false,
+  },
+};
+
 
