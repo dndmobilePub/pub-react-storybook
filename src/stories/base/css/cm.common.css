@@ -2093,9 +2093,9 @@
 .no-scroll {
   overflow: hidden;
 }
-
+/* 2024 css 수정 - 조우성 */
 .modalPop {
-  display: none;
+  /* display: none; */
   position: fixed;
   left: 0;
   z-index: 9995;
@@ -2195,8 +2195,9 @@
 .modalPop .modal-footer .btnWrap {
   margin: 0;
 }
+/* 2024 css 수정 - 조우성 */
 .modalPop._is-active {
-  display: block;
+  /* display: block; */
 }
 
 .dimmed {

@@ -16,15 +16,22 @@ export default {
 export const Email = {
   args: {
     setPage : 'Email',
-    invalid : false,
+    errMsg : false,
   },
 };
 
 export const ResidentNum = {
   args: {
     setPage : 'ResidentNum',
-    invalid : false,
+    errMsg : false,
   },
 };
+
+export const UiSelect = {
+  args: {
+    setPage : 'UI select',
+  },
+};
+
 
 

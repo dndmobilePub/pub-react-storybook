@@ -2,7 +2,8 @@
 .no-scroll {@include overflow(both, hidden);}
 
 .modalPop {
-    @include display(none);
+    // 2024 storebook 수정
+    // @include display(none);
     @include pos(fixed) {left: 0; z-index: 9995;}
     @include el-size(100%, 100%);
     
@@ -95,8 +96,8 @@
             .btnWrap {margin:0;}
         }
     }
-
-    &._is-active {@include display(block);}
+    // 2024 storebook 수정
+    // &._is-active {@include display(block);}
 }
 
 .dimmed {
