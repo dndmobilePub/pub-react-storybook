@@ -17,12 +17,13 @@ export const Primary = {
     label: 'text default',
     placeholder: 'default',
     disabled: false,
+    fieldState : 'valid',
   },
 };
 
-export const exception = {
+export const Exception = {
   args: {
-    setPage : '',
+    setPage : 'exception',
     type: 'text',
     placeholder: 'clear btn 없음',
     disabled: false,
@@ -44,7 +45,7 @@ export const InfoMsg = {
     type: 'text',
     placeholder: 'placeholder',
     disabled: false,
-    invalid : false,
+    errMsg : false,
   },
 };
 
@@ -54,15 +55,39 @@ export const ValidState = {
     type: 'text',
     placeholder: 'placeholder',
     disabled: false,
-    invalid : false,
+    errMsg : false,
     fieldState : false,
   },
 };
-
 
 export const Password = {
   args: {
     setPage : 'password',
     type: 'password',
+    label: 'password',
+  },
+};
+
+export const ResidentNum = {
+  args: {
+    setPage : 'residentNum',
+    type: 'number',
+    label: '주민등록번호',
+    placeholder: '생년월일 6자리',
+    disabled: false,
+    errMsg : false,
+    fieldState : false,
+  },
+};
+
+export const PhoneNum = {
+  args: {
+    setPage : 'phoneNum',
+    type: 'tel',
+    label: '휴대폰번호 입력',
+    placeholder: '1234',
+    disabled: false,
+    errMsg : false,
+    fieldState : false,
   },
 };

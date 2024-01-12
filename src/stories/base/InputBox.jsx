@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './../style/storyBook.scss'
 import './../style/cm.common.scss';
 /**
  * Primary UI component for user interaction
  */
-export const InputBox = ({setPage, type, readonly, disabled, label, placeholder, invalid , fieldState}) => {
+export const InputBox = ({setPage, type, readonly, disabled, label, placeholder, errMsg , fieldState}) => {
   const Disable = disabled ? 'disabled' : '';
   //const Readonly = readonly ? 'readonly' : 'false';
 
-  let [inputBtn, setInputBtn] = useState(false)
+  const ErrMsg = errMsg ? 'hr' : '' 
+  const _fieldState = fieldState ? 'valid' : 'invalid';
 
-  const Invalid = invalid ? 'invalid' : '' 
+  let [widthCss, setWidthCss] = useState('')
+
+  // 이메일&주민등록번호 첫번째 input useState
+  let [inputBtn, setInputBtn] = useState(false)
+  let [inputVal, setInputVal] = useState('')
+  
+  // 주민등록번호 두번째 input useState
+  let [resInputBtn, setResInputBtn] = useState(false)
+  let [resInputVal, setResInputVal] = useState('')
+  let [resDisplay, setResDisplay] = useState('block')
+
+  let [dotLength] = useState(7)
+  
+  let [isActive, setIsActive] = useState('')
+  let [opacityNum, setOpacityNum] = useState('1')
 
   // input 값 입력값 체크 및 css 추가
   function inputChange(){
@@ -22,14 +37,73 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
     setInputBtn(true);
   }
 
+  // inputVal 값이 변경 될때마다 체크
+  useEffect(()=>{
+    if( inputVal == '' ){
+      setInputBtn(false)
+      setWidthCss('')
+    }
+  }, [inputVal])
+
+   // 이메일&주민등록번호 첫번째 input 값 입력값 체크 및 css 추가
+   function inputChange(val){
+    let _widthCss = 'calc(100% - 2.4rem)' 
+    setWidthCss(_widthCss)
+    setInputBtn(true);
+    setInputVal(val)
+  }
+  
+   // 주민등록번호 두번쨰 값이 변경 될때마다 체크
+   useEffect(()=>{
+    if( resInputVal == '' ){
+      setResInputBtn(false)
+      setIsActive('')
+      setResDisplay('block')
+    }
+    if( resInputVal != '' ){
+      setResDisplay('none')
+    }
+  }, [resInputVal])
+
+  // 주민등록번호 뒷자리 input 값 입력값 체크 및 css 추가
+  function _inputChange(val){
+    setIsActive('_is-active')
+    setResInputBtn(true);
+    setResInputVal(val)
+  }
+
+  let numDot = () => {
+    let result = [];
+    let left = 0;
+    let space = 13;
+    for( let i = 0; i < dotLength; i++){
+      result.push(
+        <i key={i} className={
+          i == 0 ? '_line ' + isActive : null
+        } aria-hidden="true" 
+        style={{
+          'left' : (
+            (i == 0) ? left :
+            (i == 1) ? space :
+            (i > 1 ) ? space += 16 : 0
+          ) + 'px', 
+          'opacity' : i == 0 ? opacityNum : null,
+          'display' : i == 0 ? resDisplay : null
+        }}
+      ></i>);
+    }
+    return result
+  }
+
+
   switch (setPage){
 
     case '':
     return (
       <div className='cp-content'>
-        <div className='field'>
-          {label}
-          <div className='field-outline'>
+        <div className={['field', ].join(' ')}>
+        <label className="field-label">{label}</label>
+          <div className="field-outline">
             <div className={['field-input', 'grow', '_input' ].join(' ')}>
               <input 
                 id="input"
@@ -46,7 +120,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
               }
             </div>
           </div>
-          <p className={"field-msg " + Invalid }>
+          <p className={"field-msg " + ErrMsg}>
             <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
           </p>
         </div>
@@ -62,7 +136,6 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
           <div className='field-outline'>
             <div className={['field-input', 'grow', '_input' ].join(' ')}>
               <input 
-                id="input"
                 type={type}
                 placeholder={placeholder}
                 disabled = {Disable}
@@ -134,12 +207,11 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       )
 
       case 'validState':
-      const _fieldState = fieldState ? 'valid' : 'invalid';
       return (
         <div className='cp-content'>
           <div className={['field',  _fieldState].join(' ')}>
-          {label}
-            <div className='field-outline'>
+          <label className="field-label">{label}</label>
+            <div className="field-outline">
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input 
                   id="input"
@@ -156,7 +228,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                 }
               </div>
             </div>
-            <p className={"field-msg " + Invalid + _fieldState }>
+            <p className={"field-msg " + ErrMsg} >
               <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
             </p>
           </div>
@@ -167,23 +239,142 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       return (
         <div className='cp-content'>
           <div className='field'>
-          {/* {label} */}
+          <label className="field-label">{label}</label>
             <div className='field-outline pw-group'>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <label className="_secureTxt" data-length="4" data-secureLine="2">
-                  <input 
-                    id="input"
-                    type={type}
-                    // readonly = {Readonly}
-                    className='_format _password'
-                    maxlength="2"
+              <div className="field-input grow _input">
+                <label className="_secureTxt _num" data-length="4" data-secureLine="2">
+                  <input type="tel" className="_format _password" placeholder="" maxLength="2" 
+                    onChange={(e)=>{
+                      let val = e.target.value
+                      _inputChange(val)
+                    }}
+                    // 포커스가 될때 opactiy 0.5
+                    onClick={()=>{
+                      setOpacityNum('0.5')
+                    }}
+                    // 포커스가 나갈때 opactiy 1
+                    onBlur={()=>{
+                      setOpacityNum('1')
+                    }}
                   />
+                  {numDot()}
                 </label>
               </div>
             </div>
           </div>
         </div>
       )
+
+      case 'residentNum':
+      return (
+        <div className='cp-content'>
+          <div className='field'>
+          <label className="field-label">{label}</label>
+            <div className="field-outline">
+              <div className="field-input grow _input">
+                <input className="_format _number" maxLength="6"
+                  type={type}
+                  placeholder={placeholder}
+                  style={{"width": widthCss}}
+                  value={inputVal}
+                  onChange={(e)=>{
+                    let val = e.target.value
+                    inputChange(val)
+                  }}
+                />
+              </div>
+              <span className="field-txt">-</span>
+              <div className="field-input grow _input">
+                <label className="_secureTxt _num" data-length={dotLength} data-secureLine="1">
+                  <input type="tel" className="_format _password" placeholder="" maxLength="1" 
+                    onChange={(e)=>{
+                      let val = e.target.value
+                      _inputChange(val)
+                    }}
+                    // 포커스가 될때 opactiy 0.5
+                    onClick={()=>{
+                      setOpacityNum('0.5')
+                    }}
+                    // 포커스가 나갈때 opactiy 1
+                    onBlur={()=>{
+                      setOpacityNum('1')
+                    }}
+                  />
+                  {numDot()}
+                </label>
+              </div>
+            </div>
+            <p className={"field-msg " + ErrMsg}>
+              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+            </p>
+          </div>
+        </div>
+      )
+
+      case 'phoneNum':
+      return (
+        <div className='cp-content'>
+          <div className={['field', '_label' ].join(' ')}>
+          <label className="field-label">{label}</label>
+            <div className="field-outline">
+              <div className={['field-input', 'grow', '_input' ].join(' ')}>
+                <input className="['_format', '_number' ]" 
+                  id="mobileNum1"
+                  type={type}
+                  placeholder={placeholder}
+                  disabled = {Disable}
+                // readonly = {Readonly}
+                  maxlength="3"
+                  onChange={(e)=>{
+                    inputChange(e)
+                  }}
+                />
+              {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
+              </div>
+              <span class="field-txt">-</span>
+              <div className={['field-input', 'grow', '_input' ].join(' ')}>
+                <input className="['_format', '_number' ]" 
+                  id="mobileNum1"
+                  type={type}
+                  placeholder={placeholder}
+                  disabled = {Disable}
+                // readonly = {Readonly}
+                  maxlength="3"
+                  onChange={(e)=>{
+                    inputChange(e)
+                  }}
+                />
+              {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
+              </div>
+              <span class="field-txt">-</span>
+              <div className={['field-input', 'grow', '_input' ].join(' ')}>
+                <input className="['_format', '_number' ]" 
+                  id="mobileNum1"
+                  type={type}
+                  placeholder={placeholder}
+                  disabled = {Disable}
+                // readonly = {Readonly}
+                  maxlength="3"
+                  onChange={(e)=>{
+                    inputChange(e)
+                  }}
+                />
+              {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
+              </div>
+            </div>
+            <p className={"field-msg " + ErrMsg}>
+              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+            </p>
+          </div>
+        </div>
+  
+    )
 
   }
 };
@@ -220,7 +411,7 @@ InputBox.propTypes = {
    /**
     * 오류 메시지 출력
    */
-   invalid: PropTypes.bool,
+   errMsg: PropTypes.bool,
   /**
   * input 상태
   */
@@ -229,6 +420,6 @@ InputBox.propTypes = {
 
 
 InputBox.defaultProps = {
-  invalid : false,
+  errMsg : false,
 };
 
