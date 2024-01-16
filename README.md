@@ -41,6 +41,15 @@ Doc 문서 필요 없는 경우
 
 -------------------------------------------------------------------------
 
-https://www.chromatic.com/apps?accountId=65a4e7b99a3d8fefcfaa58b1
+### chromatic 빌드 방법
 
-npx chromatic --project-token=chpt_ef84ed67219a313
+vscode 터미널에서 
+#### npx chromatic --project-token=chpt_db747a67334279
+명령어 실행후
+
+https://www.chromatic.com/builds?appId=65a61c48c27dade8ca0974fd
+
+위의 링크에서 빌드 되는걸 확인 
+
+새로운 빌드 클릭후 화면 중간의 view Storybook 버튼 클릭후 빌드된걸 확인
+
