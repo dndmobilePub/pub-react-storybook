@@ -21,9 +21,13 @@ export const Select = ({setPage, errMsg }) => {
   let [isActive, setIsActive] = useState('')
   let [opacityNum, setOpacityNum] = useState('1')
 
+  // 통신사 선택
+  let [comAgency, setComAgency] = useState(['선택', 'SKT', 'KT', 'LG U+', '알뜰폰']);
+  let [comNumber, setComNumber] = useState(0)
+
   const ErrMsg = errMsg ? 'invalid' : '' 
 
-  // modal Dimmned
+  // modal show&hide
   let [modal,  setModal] = useState(false)
   let [Ani,  setAni] = useState(false)
   
@@ -106,7 +110,7 @@ export const Select = ({setPage, errMsg }) => {
       <div className='cp-content storybook'>
         <div className="field">
           <label className="field-label">이메일</label>
-          <div className={"field-outline " + ErrMsg} >
+          <div className="field-outline">
             <div className="field-input grow _input">
               <input type="tel" className="_format _number" placeholder="메일아이디" maxLength="5"
                 style={{"width": widthCss}}
@@ -130,7 +134,7 @@ export const Select = ({setPage, errMsg }) => {
               </select>
             </div>
           </div>
-          <p className="field-msg" >
+          <p className={"field-msg " + ErrMsg} >
             <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
           </p>
           <p className="field-info">
@@ -145,7 +149,7 @@ export const Select = ({setPage, errMsg }) => {
       <div className='cp-content storybook'>
         <div className="field">
           <label className="field-label">주민등록번호</label>
-          <div className={"field-outline " + ErrMsg} >
+          <div className="field-outline">
             <div className="field-input grow _input">
               <input type="text" className="_format _number" placeholder="생년월일 6자리" maxLength="6"
                 style={{"width": widthCss}}
@@ -180,7 +184,7 @@ export const Select = ({setPage, errMsg }) => {
               </label>
             </div>
           </div>
-          <p className="field-msg">
+          <p className={"field-msg " + ErrMsg} >
             <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
           </p>
           <p className="field-info">
@@ -201,7 +205,7 @@ export const Select = ({setPage, errMsg }) => {
                 setModal(true)
               }}
             
-            >선택</button>
+            >{comAgency[comNumber]}</button>
             <div className="field-input grow _input">
               <input type="tel" className="_format _number" placeholder="휴대전화 앞자리" maxLength="3"
                 style={{"width": widthCss}}
@@ -218,7 +222,14 @@ export const Select = ({setPage, errMsg }) => {
           </div>
           {/* [s] modal : _bottom */}
           {
-            modal == true ? <ModalPop Ani={Ani} setAni={setAni} modal={modal} setModal={setModal}/> : null
+            modal == true ? 
+            <ModalPop comNumber={comNumber}
+            setComNumber={setComNumber} 
+            comAgency={comAgency} 
+            setComAgency={setComAgency} 
+            Ani={Ani} setAni={setAni} 
+            modal={modal} setModal={setModal}
+            /> : null
           }
           {/* [e] modal : _bottom */}
           {
@@ -256,7 +267,10 @@ function Dimmed(){
 
 function ModalPop(props){
 
-  let [ComAgency, setComAgency] = useState(['선택', 'SKT', 'KT', 'LG U+', '알뜰폰']);
+  let [countIndex, setCountIndex] = useState(props.comNumber);
+  let handleOnClick = (e, idx) =>{
+    setCountIndex(idx);
+  }
 
 
   return(
@@ -277,44 +291,35 @@ function ModalPop(props){
           </div>
           <div className="modal-container">
             <ul className="select-lst">
-
               {
-                ComAgency.map(function(item, i){
+                props.comAgency.map(function(data, idx){
                   return(
-                    <li key={i}>
-                      <a className="sel-opt" 
-                      onClick={(e)=>{
-                        e => e.preventDefault
-                        console.log(e)
-                      }}>{ComAgency[i]}
+                    <li key={idx} 
+                      className={ countIndex === idx ? '_is-active' : null }>
+                      <a href="javascript:" className="sel-opt " 
+                      onClick={ 
+                        e => handleOnClick(e, idx)
+                      }>{props.comAgency[idx]}
                       </a>
                     </li>
                   )
                 })
               }
-
-              {/* <li><a href="javascript:;" className="sel-opt" 
-              onClick={()=>{
-
-              }}>SKT</a></li>
-              <li><a href="javascript:;" className="sel-opt" 
-              onClick={()=>{
-
-              }}>KT</a></li>
-              <li><a href="javascript:;" className="sel-opt" 
-              onClick={()=>{
-
-              }}>LG U+</a></li>
-              <li><a href="javascript:;" className="sel-opt" 
-              onClick={()=>{
-
-              }}>알뜰폰</a></li> */}
             </ul>
           </div>
           <div className="modal-footer">
             <div className="btnWrap grow">
-              <button className="btn btn-size md type2 bg btn-selChoice">선택</button>
-              <button className="btn btn-size md bg btn-close-pop">취소</button>
+              <button className="btn btn-size md type2 bg btn-selChoice" 
+                onClick={()=>{
+                  props.setComNumber(countIndex)
+                  props.setModal(false)
+                }}
+              >선택</button>
+              <button className="btn btn-size md bg btn-close-pop"
+                onClick={(()=>{
+                  props.setModal(false)
+                })}
+              >취소</button>
             </div>
           </div>
       </div>
