@@ -24,7 +24,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
   let [resDisplay, setResDisplay] = useState('block')
 
   let [dotLength] = useState(7)
-  
+   
   let [isActive, setIsActive] = useState('')
   let [opacityNum, setOpacityNum] = useState('1')
 
@@ -92,6 +92,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         }}
       ></i>);
     }
+    
     return result
   }
 
@@ -235,35 +236,35 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         </div>
       )
 
-      case 'password':
-      return (
-        <div className='cp-content'>
-          <div className='field'>
-          <label className="field-label">{label}</label>
-            <div className='field-outline pw-group'>
-              <div className="field-input grow _input">
-                <label className="_secureTxt _num" data-length="4" data-secureLine="2">
-                  <input type="tel" className="_format _password" placeholder="" maxLength="2" 
-                    onChange={(e)=>{
-                      let val = e.target.value
-                      _inputChange(val)
-                    }}
-                    // 포커스가 될때 opactiy 0.5
-                    onClick={()=>{
-                      setOpacityNum('0.5')
-                    }}
-                    // 포커스가 나갈때 opactiy 1
-                    onBlur={()=>{
-                      setOpacityNum('1')
-                    }}
-                  />
-                  {numDot()}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
+      // case 'password':
+      // return (
+      //   <div className='cp-content'>
+      //     <div className='field'>
+      //     <label className="field-label">{label}</label>
+      //       <div className='field-outline pw-group'>
+      //         <div className="field-input grow _input">
+      //           <label id='password_secureTxt' className="_secureTxt _num" data-length='4' data-secureLine="2">
+      //             <input type="tel" className="_format _password" placeholder="" maxLength="2" 
+      //               onChange={(e)=>{
+      //                 let val = e.target.value
+      //                 _inputChange(val)
+      //               }}
+      //               // 포커스가 될때 opactiy 0.5
+      //               onClick={()=>{
+      //                 setOpacityNum('0.5')
+      //               }}
+      //               // 포커스가 나갈때 opactiy 1
+      //               onBlur={()=>{
+      //                 setOpacityNum('1')
+      //               }}
+      //             />
+      //             {numDot()}
+      //           </label>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // )
 
       case 'residentNum':
       return (
@@ -285,7 +286,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
               </div>
               <span className="field-txt">-</span>
               <div className="field-input grow _input">
-                <label className="_secureTxt _num" data-length={dotLength} data-secureLine="1">
+                <label className="_secureTxt _num" data-length='7' data-secureLine="1">
                   <input type="tel" className="_format _password" placeholder="" maxLength="1" 
                     onChange={(e)=>{
                       let val = e.target.value
@@ -325,47 +326,29 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                   disabled = {Disable}
                 // readonly = {Readonly}
                   maxlength="3"
-                  onChange={(e)=>{
-                    inputChange(e)
-                  }}
                 />
-              {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
               </div>
               <span class="field-txt">-</span>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input className="['_format', '_number' ]" 
-                  id="mobileNum1"
+                  id="mobileNum2"
                   type={type}
                   placeholder={placeholder}
                   disabled = {Disable}
                 // readonly = {Readonly}
-                  maxlength="3"
-                  onChange={(e)=>{
-                    inputChange(e)
-                  }}
+                  maxlength="4"
                 />
-              {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
               </div>
               <span class="field-txt">-</span>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input className="['_format', '_number' ]" 
-                  id="mobileNum1"
+                  id="mobileNum3"
                   type={type}
                   placeholder={placeholder}
                   disabled = {Disable}
                 // readonly = {Readonly}
-                  maxlength="3"
-                  onChange={(e)=>{
-                    inputChange(e)
-                  }}
+                  maxlength="4"
                 />
-              {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
               </div>
             </div>
             <p className={"field-msg " + ErrMsg}>

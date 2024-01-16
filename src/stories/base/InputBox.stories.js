@@ -60,13 +60,14 @@ export const ValidState = {
   },
 };
 
-export const Password = {
-  args: {
-    setPage : 'password',
-    type: 'password',
-    label: 'password',
-  },
-};
+// export const Password = {
+//   args: {
+//     setPage : 'password',
+//     type: 'password',
+//     label: 'password',
+//     ddd: 4
+//   },
+// };
 
 export const ResidentNum = {
   args: {
