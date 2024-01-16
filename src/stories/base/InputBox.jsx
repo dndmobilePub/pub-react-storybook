@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './../style/storyBook.scss'
-import './../style/cm.common.scss';
-/**
- * Primary UI component for user interaction
- */
+import './css/cm.common.css';
+import './css/storyBook.css';
+
+
 export const InputBox = ({setPage, type, readonly, disabled, label, placeholder, errMsg , fieldState}) => {
   const Disable = disabled ? 'disabled' : '';
   //const Readonly = readonly ? 'readonly' : 'false';

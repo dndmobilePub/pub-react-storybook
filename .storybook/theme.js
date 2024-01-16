@@ -1,4 +1,4 @@
-import dndLogo from "../src/assets/logo.svg";
+// import dndLogo from "../src/assets/logo.svg";
 import { create } from "@storybook/theming";
 
 

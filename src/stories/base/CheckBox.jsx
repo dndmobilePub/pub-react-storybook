@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './../style/storyBook.scss'
-import './../style/cm.common.scss';
+import './css/cm.common.css';
+import './css/storyBook.css';
 
 
 export const Checkbox = ({setPage, checked, readonly, disabled }) => {
@@ -69,7 +69,8 @@ export const Checkbox = ({setPage, checked, readonly, disabled }) => {
         </div>
       </div>
     )
-    case 'c-line':
+
+    case 'cline':
     return (
       <div className='cp-content'>
         <div className={"field " + setPage}>

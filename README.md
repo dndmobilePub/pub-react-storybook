@@ -1,48 +1,70 @@
-이 프로젝트는 [Create React App](https://github.com/facebook/create-react-app)으로 부트 스트랩 되었습니다.
+# Getting Started with Create React App
 
-### storybook 설치
-storybook react 타입 설치
-#### `npx -p @storybook/cli sb init --type react`
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-storybook 테마 설치
-#### `npm install -D @storybook/theming`
+## Available Scripts
 
-storybook 실행 명령어
-#### `npm run storybook`
+In the project directory, you can run:
 
-### storybook 테마 설치
-#### `npm install -D @storybook/theming` --> 설치 명령어
+### `npm start`
 
-storybook 폴더 내부에 테마 변경을 위한 
-theme.js / manager.js 생성
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
--------------------------------------------------------------------------------------------------------
-### 작업리스트
-#### 파일경로 및 이름
-/stories/Configure.mdx - list 파일
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-#### 퍼블파일
-jsx / js 각각 파일명 생성 ex) button.jsx / button.stories.js
+### `npm test`
 
-#### 파일경로
-/stories/base/
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-#### Scss 경로
-스토리북에서만 적용되는 css 수정 내용작성 /stories/style/storyBook.scss
+### `npm run build`
 
-### 작업가이드
-/stories/base/ 폴더안에 파일 생성 ex)Button.jsx / Button.stories.js 각각 생성
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Button.stories.js 파일 안에 title : 내용 수정 - 'ver_0.0/파일이름'
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-Doc 문서 필요 없는 경우
-- 파일명.stroies.js 안에 tags 검색후 주석처리\
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run eject`
 
--------------------------------------------------------------------------
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-https://www.chromatic.com/apps?accountId=65a4e7b99a3d8fefcfaa58b1
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-npx chromatic --project-token=chpt_ef84ed67219a313
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
--------------------------------------------------------------------------
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

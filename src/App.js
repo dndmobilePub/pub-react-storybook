@@ -1,5 +1,5 @@
-import './App.scss'
-import logo from 'assets/logo.svg'
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
   return (
@@ -7,19 +7,19 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          <code>src/App.js</code> 문서를 수정하면 실시간 업데이트 됩니다
+          Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
           className="App-link"
-          href="https://ko.reactjs.org"
-          rel="noopener noreferrer"
+          href="https://reactjs.org"
           target="_blank"
+          rel="noopener noreferrer"
         >
-          React를 배워보세요
+          Learn React
         </a>
       </header>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

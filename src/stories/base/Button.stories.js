@@ -40,7 +40,7 @@ export const Disable = {
 export const grow = {
   args: {
     setPage : 'grow',
-    primary: true,
+    primary: false,
     label: '기본BTN',
   },
 };
@@ -48,7 +48,7 @@ export const grow = {
 export const growFull = {
   args: {
     setPage : 'grow full',
-    primary: true,
+    primary: false,
     label: '기본BTN',
   },
 };
@@ -56,7 +56,7 @@ export const growFull = {
 export const full = {
   args: {
     setPage : 'full',
-    primary: true,
+    primary: false,
     label: '기본BTN',
   },
 };
@@ -64,7 +64,7 @@ export const full = {
 export const full_el = {
   args: {
     setPage : 'full el',
-    primary: true,
+    primary: false,
     label: '기본BTN',
   },
 };

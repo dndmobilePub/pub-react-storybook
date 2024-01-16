@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './../style/storyBook.scss'
-import './../style/cm.common.scss';
+import './css/cm.common.css';
+import './css/storyBook.css';
 
 /**
  * Primary UI component for user interaction

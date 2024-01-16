@@ -30,7 +30,7 @@ export const Circle = {
 
 export const CircleLine = {
   args: {
-    setPage : 'c-line',
+    setPage : 'cline',
   },
 };
 
