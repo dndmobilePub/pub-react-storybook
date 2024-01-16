@@ -36,5 +36,13 @@ jsx / js 각각 파일명 생성 ex) button.jsx / button.stories.js
 Button.stories.js 파일 안에 title : 내용 수정 - 'ver_0.0/파일이름'
 
 Doc 문서 필요 없는 경우
-- 파일명.stroies.js 안에 tags 검색후 주석처리
+- 파일명.stroies.js 안에 tags 검색후 주석처리\
 
+
+-------------------------------------------------------------------------
+
+https://www.chromatic.com/apps?accountId=65a4e7b99a3d8fefcfaa58b1
+
+npx chromatic --project-token=chpt_ef84ed67219a313
+
+-------------------------------------------------------------------------
