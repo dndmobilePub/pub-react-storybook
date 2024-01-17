@@ -20,7 +20,7 @@ export const Checkbox = ({setPage, checked, readonly, disabled }) => {
           <div className="field-group">
             <label className="field-checkbox">
                 { 
-                  readonly == true ? <input type="checkbox" 
+                  readonly === true ? <input type="checkbox" 
                   disabled = {Disable}
                   checked = {Checked}
                   readonly = {Readonly}

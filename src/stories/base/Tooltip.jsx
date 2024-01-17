@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './css/cm.common.css';
 import './css/storyBook.css';
+
+
 
 export const ToolTip = ({setPage, type,}) => {
   
@@ -18,15 +20,12 @@ export const ToolTip = ({setPage, type,}) => {
 
   let dataValueCheck = (e) => {
     let data = e.target.getBoundingClientRect()
-    // console.log(data.x)
-    let _arr = []
-    _arr.push(data.x, data.y )
-    console.log(_arr)
-    
+    console.log(data)
+    let _arr = [...postion]
+    _arr.length = 0;
+    _arr.push(data.top, data.left )
     setPostion(_arr)
   }
-
-  console.log(postion)
 
   // _is-active 시간차 추가
   useEffect(()=>{
@@ -46,10 +45,6 @@ export const ToolTip = ({setPage, type,}) => {
   
   }, [type])
 
-
-
-
-  
 
   switch (setPage){
 
@@ -76,11 +71,10 @@ export const ToolTip = ({setPage, type,}) => {
             >
             <span className="hide">툴팁</span>
           </a>
-          {
-            tooltipModal == true ? <ToolTipModal message={message} dirType={dirType} Ani={Ani} setAni={setAni} setTooltipModal={setTooltipModal}/> : null
-          }
         </div>
-        
+        {
+          tooltipModal == true ? <ToolTipModal tooltipModal={tooltipModal} postion={postion} message={message} dirType={dirType} Ani={Ani} setAni={setAni} setTooltipModal={setTooltipModal}/> : null
+        }
         {/* <div className="tooltipWrap">
           기본형
           <a href="javascript:;" className="ico ico-tooltip"
@@ -126,12 +120,47 @@ export const ToolTip = ({setPage, type,}) => {
 
 
 function ToolTipModal(props){
+
+  
+  
+  const ToolTipRef = useRef(null);
+  // Tooltip 위치 저장
+  let [width, setWidth] = useState(0)
+  let [height, setHeight] = useState(0)
+
+
+  useEffect(()=>{
+    // Tooltip 가로/세로 size 구하기
+    let Width = ToolTipRef.current.scrollWidth
+    let height = ToolTipRef.current.scrollHeight
+    setWidth(Width)
+    setHeight(height)
+  },[props.Ani])
+  console.log(width)
+  console.log(height)
+  let cc = ()=>{
+    let _dirType = props.dirType  
+    if( _dirType === 'default'){
+      
+    }
+  }
+
+  
+
+
+
+
   return(
-    <div id="" className={
+    <div ref={ToolTipRef} className={
       props.Ani == true ? "tooltip _is-active _" + props.dirType : 'modalPop _' + props.dirType
-    } 
+    }
     tabIndex="0" 
-    role="tooltip">
+    role="tooltip"
+    style={{
+      top: (props.postion[0] - ((height/2) - 10) ),
+      left: (props.postion[1] + 30)
+    }}
+    >
     <div className="tooltip-content">
         <p className="tooltip-message">
           ToolTip {props.dirType} :<br/><br/> 

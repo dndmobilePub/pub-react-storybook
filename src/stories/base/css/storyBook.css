@@ -88,12 +88,42 @@ img { object-fit: cover; }
 }
 
 /* // tooltip css */
-.storybook .tooltipWrap{text-align: center;}
+.storybook .tooltipWrap{}
 .storybook .tooltip{text-align: left;}
-.storybook .tooltip._default{ top:50%; left:50%; transform:translate(9%, -50%) ; -webkit-transform:translate(9%, -50%) ; -moz-transform:translate(9%, -50%) ; -ms-transform:translate(9%, -50%) ; -o-transform:translate(9%, -50%) ; }
-.storybook .tooltip._top{ top:50%; left:50%; transform:translate(-50%, -120%) ; -webkit-transform:translate(-50%, -120%) ; -moz-transform:translate(-50%, -120%) ; -ms-transform:translate(-50%, -120%) ; -o-transform:translate(-50%, -120%) ; }
-.storybook .tooltip._left{ top:50%; left:50%; transform:translate(-108.8%, -50%) ; -webkit-transform:translate(-108.8%, -50%) ; -moz-transform:translate(-108.8%, -50%) ; -ms-transform:translate(-108.8%, -50%) ; -o-transform:translate(-108.8%, -50%) ; }
-.storybook .tooltip._bottom{ top:50%; left:50%; transform:translate(-50%, 21%) ; -webkit-transform:translate(-50%, 21%) ; -moz-transform:translate(-50%, 21%) ; -ms-transform:translate(-50%, 21%) ; -o-transform:translate(-50%, 21%) ; }
+.storybook .tooltip._default{
+  /*top:50%;
+  left:50%;
+  */
+  /* transform:translate(-50%, -50%) ; */
+
+}
+.storybook .tooltip._top{ 
+  /* top:50%; 
+  left:50%; 
+  transform:translate(-50%, -120%) ; 
+  -webkit-transform:translate(-50%, -120%) ; 
+  -moz-transform:translate(-50%, -120%) ; 
+  -ms-transform:translate(-50%, -120%) ; 
+  -o-transform:translate(-50%, -120%) ;  */
+}
+.storybook .tooltip._left{ 
+  /* top:50%; 
+  left:50%; 
+  transform:translate(-108.8%, -50%) ; 
+  -webkit-transform:translate(-108.8%, -50%) ; 
+  -moz-transform:translate(-108.8%, -50%) ; 
+  -ms-transform:translate(-108.8%, -50%) ; 
+  -o-transform:translate(-108.8%, -50%) ;  */
+}
+.storybook .tooltip._bottom{ 
+  /* top:50%; 
+  left:50%; 
+  transform:translate(-50%, 21%) ; 
+  -webkit-transform:translate(-50%, 21%) ; 
+  -moz-transform:translate(-50%, 21%) ; 
+  -ms-transform:translate(-50%, 21%) ; 
+  -o-transform:translate(-50%, 21%) ;  */
+}
 
 
 
