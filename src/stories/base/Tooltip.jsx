@@ -5,7 +5,7 @@ import './css/storyBook.css';
 
 
 
-export const ToolTip = ({setPage, type,}) => {
+export const ToolTip = ({setPage, type}) => {
   
   // Tooltip show&hide
   let [tooltipModal,  setTooltipModal] = useState(false)
@@ -15,17 +15,35 @@ export const ToolTip = ({setPage, type,}) => {
   let [message, setMessage] =useState('')
   let [Ani,  setAni] = useState(false)
 
-  // 툴팁버튼 좌표
+  // 툴팁버튼 버튼 위치 값
   let [postion, setPostion] = useState([])
 
   let dataValueCheck = (e) => {
     let data = e.target.getBoundingClientRect()
-    console.log(data)
+    // console.log(data)
     let _arr = [...postion]
     _arr.length = 0;
     _arr.push(data.top, data.left )
     setPostion(_arr)
   }
+  
+  const BtnToolTipRef = useRef(null);
+
+  useEffect(()=>{
+    window.addEventListener('resize', ()=>{
+      let data = BtnToolTipRef.current.getBoundingClientRect()
+      // console.log(data)
+      let _arr = [...postion]
+      _arr.length = 0;
+      _arr.push(data.top, data.left)
+      setPostion(_arr)
+    })
+
+
+  },[])
+
+
+
 
   // _is-active 시간차 추가
   useEffect(()=>{
@@ -39,7 +57,7 @@ export const ToolTip = ({setPage, type,}) => {
   
   }, [tooltipModal])
 
-  // _is-active 시간차 추가
+  // tootip 방향 값 변경될때마다 추가
   useEffect(()=>{
     setDirType(type);
   
@@ -52,8 +70,8 @@ export const ToolTip = ({setPage, type,}) => {
     return (
       <div className='cp-content storybook'>
         <div className="tooltipWrap" style={{textAlign: 'center'}}>
-          {/* 기본형 */}
-          <a href="javascript:;" 
+          {/* 기본형  */}
+          <a ref={BtnToolTipRef} href="javascript:;" 
             className={
               Ani == true ? "ico ico-tooltip _" + dirType + " _is-active" : "ico ico-tooltip"
             }
@@ -68,87 +86,72 @@ export const ToolTip = ({setPage, type,}) => {
               setMessage(e.target.dataset.message)
               dataValueCheck(e)
             }}
-            >
+          >
             <span className="hide">툴팁</span>
           </a>
         </div>
         {
           tooltipModal == true ? <ToolTipModal tooltipModal={tooltipModal} postion={postion} message={message} dirType={dirType} Ani={Ani} setAni={setAni} setTooltipModal={setTooltipModal}/> : null
         }
-        {/* <div className="tooltipWrap">
-          기본형
-          <a href="javascript:;" className="ico ico-tooltip"
-            aria-roledescription="button"
-            data-focus="false"
-            data-direction="default"
-            data-message="ToolTip Default :<br><br> 일이삼사오육칠팔구십일이삼사오<br>ToolTip message"
-            data-toggle="tooltip">
-            <span className="hide">툴팁</span>
-          </a>
-        </div>
-        <div className="tooltipWrap">
-          기본형 가운데 가운데가운데가운데
-          <a href="javascript:;" className="ico ico-tooltip"
-            aria-roledescription="button"
-            data-focus="false"
-            data-direction="default"
-            data-message="ToolTip message : Default <br> ToolTip message <br> ToolTip message"
-            data-toggle="tooltip">
-            <span className="hide">툴팁</span>
-          </a>
-        </div>
-        <div className="tooltipWrap">
-          기본형 텍스트 길다 기본형 텍스트 길다 기본형 텍스트 길다
-          <a href="javascript:;" className="ico ico-tooltip"
-            aria-roledescription="button"
-            data-focus="false"
-            data-direction="default"
-            data-message="ToolTip message : Default <br> ToolTip message <br> ToolTip message"
-            data-toggle="tooltip">
-            <span className="hide">툴팁</span>
-          </a>
-        </div> */}
-        
+
       </div>
     )
 
+    
+
   }
 };
-{/* <div className={
-  props.Ani == true ? 'modalPop _is-active _' + checkPostion : 'modalPop _' + checkPostion 
-  }  */}
-
 
 function ToolTipModal(props){
 
   
-  
   const ToolTipRef = useRef(null);
   // Tooltip 위치 저장
-  let [width, setWidth] = useState(0)
-  let [height, setHeight] = useState(0)
+  let [poTop, setPoTop] = useState(0)
+  let [poLeft, setPoLeft] = useState(0)
 
 
   useEffect(()=>{
     // Tooltip 가로/세로 size 구하기
     let Width = ToolTipRef.current.scrollWidth
-    let height = ToolTipRef.current.scrollHeight
-    setWidth(Width)
-    setHeight(height)
-  },[props.Ani])
-  console.log(width)
-  console.log(height)
-  let cc = ()=>{
+    let Height = ToolTipRef.current.scrollHeight
+    
     let _dirType = props.dirType  
-    if( _dirType === 'default'){
-      
+    // type 위치별 툴팁 위치
+    if( props.Ani == true){
+      // default
+      if( _dirType == 'default'){
+        let _top = props.postion[0] - (( Height / 2) - 10)
+        let _left = props.postion[1] + 30
+        setPoLeft(_left)
+        setPoTop(_top)
+      } 
+      // top
+      else if (_dirType == 'top'){
+        let _top = props.postion[0] - (Height + 12)
+        let _left = props.postion[1] - ((Width / 2) - 10)
+        setPoLeft(_left)
+        setPoTop(_top)
+      }
+      // left
+      else if (_dirType == 'left'){
+        let _top = props.postion[0] - (( Height / 2) - 10)
+        let _left = props.postion[1] -(Width + 12)
+        setPoLeft(_left)
+        setPoTop(_top)
+      }
+      // bottom
+      else if (_dirType == 'bottom'){
+        let _top = props.postion[0] + 30
+        let _left = props.postion[1] - ((Width / 2) - 10)
+        setPoLeft(_left)
+        setPoTop(_top)
+      }
     }
-  }
-
-  
 
 
-
+    
+  },[props.Ani, props.dirType, props.postion])
 
   return(
     <div ref={ToolTipRef} className={
@@ -157,8 +160,8 @@ function ToolTipModal(props){
     tabIndex="0" 
     role="tooltip"
     style={{
-      top: (props.postion[0] - ((height/2) - 10) ),
-      left: (props.postion[1] + 30)
+      top: (poTop),
+      left: (poLeft)
     }}
     >
     <div className="tooltip-content">
@@ -184,7 +187,6 @@ function ToolTipModal(props){
 
 // Docs 문서 작성 영역
 ToolTip.propTypes = {
-  
   /**
    * tooltip 방향 설정
    */

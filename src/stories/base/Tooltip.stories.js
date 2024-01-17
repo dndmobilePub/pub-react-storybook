@@ -17,11 +17,9 @@ export default {
 export const Tooltip = {
   args: {
     setPage : 'Base',
-    type : 'default'
+    type : 'default',
   }
 };
-
-
 
 
 
