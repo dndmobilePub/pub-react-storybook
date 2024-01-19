@@ -17,6 +17,19 @@ export default {
 export const Base = {
   args: {
     setPage : 'Base',
+    type : 'default',
+  }
+};
+
+export const Tab = {
+  args: {
+    setPage : 'Tab',
+    type : 'default'
+  }
+};
+export const ScrollTab = {
+  args: {
+    setPage : 'ScrollTab',
     type : 'default'
   }
 };
