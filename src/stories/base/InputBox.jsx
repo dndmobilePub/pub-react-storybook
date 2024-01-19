@@ -8,7 +8,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
   const Disable = disabled ? 'disabled' : '';
   //const Readonly = readonly ? 'readonly' : 'false';
 
-  const ErrMsg = errMsg ? 'hr' : '' 
+  const ErrMsg = errMsg ? '' : 'hr' 
   const _fieldState = fieldState ? 'valid' : 'invalid';
 
   let [widthCss, setWidthCss] = useState('')
@@ -103,7 +103,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       <div className='cp-content'>
         <div className={['field', ].join(' ')}>
         <label className="field-label">{label}</label>
-          <div className="field-outline">
+          <div className={"field-outline " + Disable}>
             <div className={['field-input', 'grow', '_input' ].join(' ')}>
               <input 
                 id="input"
@@ -121,7 +121,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
             </div>
           </div>
           <p className={"field-msg " + ErrMsg}>
-            <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+            <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
           </p>
         </div>
       </div>
@@ -133,7 +133,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       <div className='cp-content'>
         <div className='field'>
           {label}
-          <div className='field-outline'>
+          <div className={"field-outline " + Disable}>
             <div className={['field-input', 'grow', '_input' ].join(' ')}>
               <input 
                 type={type}
@@ -154,7 +154,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         <div className='cp-content'>
           <div className='field'>
             {label}
-            <div className={['field-outline', 'disabled' ].join(' ')}>
+            <div className={"field-outline " + Disable}>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input 
                   id="input"
@@ -181,7 +181,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         <div className='cp-content'>
           <div className='field'>
             {label}
-            <div className='field-outline'>
+            <div className={"field-outline " + Disable}>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input 
                   id="input"
@@ -198,7 +198,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                 }
               </div>
             </div>
-            <p className="field-info">
+            <p className={"field-msg " + ErrMsg} >
               <span className="ico ico-info txt-r">안내성 메세지</span>
             </p>
           </div>
@@ -211,7 +211,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         <div className='cp-content'>
           <div className={['field',  _fieldState].join(' ')}>
           <label className="field-label">{label}</label>
-            <div className="field-outline">
+            <div className={"field-outline " + Disable}>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input 
                   id="input"
@@ -270,7 +270,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         <div className='cp-content'>
           <div className='field'>
           <label className="field-label">{label}</label>
-            <div className="field-outline">
+            <div className={"field-outline " + Disable}>
               <div className="field-input grow _input">
                 <input className="_format _number" maxLength="6"
                   type={type}
@@ -305,7 +305,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
               </div>
             </div>
             <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+              <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
             </p>
           </div>
         </div>
@@ -316,7 +316,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         <div className='cp-content'>
           <div className={['field', '_label' ].join(' ')}>
           <label className="field-label">{label}</label>
-            <div className="field-outline">
+            <div className={"field-outline " + Disable}>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
                 <input className="['_format', '_number' ]" 
                   id="mobileNum1"
@@ -351,7 +351,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
               </div>
             </div>
             <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+              <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
             </p>
           </div>
         </div>

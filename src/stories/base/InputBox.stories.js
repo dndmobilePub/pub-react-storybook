@@ -45,7 +45,7 @@ export const InfoMsg = {
     type: 'text',
     placeholder: 'placeholder',
     disabled: false,
-    errMsg : false,
+    errMsg : true,
   },
 };
 
@@ -55,7 +55,7 @@ export const ValidState = {
     type: 'text',
     placeholder: 'placeholder',
     disabled: false,
-    errMsg : false,
+    errMsg : true,
     fieldState : false,
   },
 };
