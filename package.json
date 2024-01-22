@@ -48,6 +48,7 @@
     "@storybook/blocks": "^7.6.8",
     "@storybook/preset-create-react-app": "^7.6.8",
     "@storybook/react": "^7.6.8",
+    "@storybook/react-vite": "^7.6.10",
     "@storybook/react-webpack5": "^7.6.8",
     "@storybook/test": "^7.6.8",
     "chromatic": "^10.2.2",
