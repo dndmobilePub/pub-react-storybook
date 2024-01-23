@@ -497,10 +497,12 @@ function Sampledata6(props){
                 }
                 >
                   <div>
-                    <p>{props.data[i].subT}</p>
-                    <p>{props.data[i].subT}</p>
-                    <p>{props.data[i].subT}</p>
-                    <p>{props.data[i].subT}</p>
+                    <CheckList 
+                      checkList={props.checkList}
+                      sub={props.sub} 
+                      handleSingleCheck={props.handleSingleCheck}
+                      checkItem={props.checkItem}
+                    />
                   </div>
               </dd>
             </dl>
@@ -523,7 +525,6 @@ function Sampledata7(props){
   // 임시 data 배열 길이 만큼 배열길이 
   let [toggleSub, setToggleSub] = useState(new Array(toggleData.length).fill(false))
 
-  // 아코디언 기본형
   const Toggle3 = (i) => {
       let arr = [...toggleSub]
       if( arr[i] === true){
@@ -660,7 +661,6 @@ function CheckList(props){
                 >
                 <label className="field-checkbox">
                   <input type="checkbox" name={item.id} id={i}
-                    handleSingleCheck = {props.handleSingleCheck}
                     onChange={(e)=>{ props.handleSingleCheck(e.target.name,e.target.checked, e.target.id) }}
                     checked={props.checkItem.includes(item.id) ? true :false}
                   />
