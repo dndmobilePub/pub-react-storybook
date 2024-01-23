@@ -45,7 +45,7 @@ export const Popup = ({setPage, type }) => {
 
   switch (setPage){
 
-    case 'POPUP':
+    case 'TOP':
     return (
       <div className='cp-content storybook'>
         <div className="btnWrap">
@@ -56,33 +56,6 @@ export const Popup = ({setPage, type }) => {
               
             }}
           data-modal="modal1">Top Modal</button>
-          <button className="btn btn-size md bg _modalBtn" data-value='Center'
-            onClick={(e)=>{
-              dataValueCheck(e)
-              setModal(true)
-              
-            }}
-          data-modal="modal2">Center Modal</button>
-          <button className="btn btn-size md bg _modalBtn" data-value='Left'
-            onClick={(e)=>{
-              dataValueCheck(e)
-              setModal(true)
-              
-            }}
-          data-modal="modal3">Left Modal</button>
-          <button className="btn btn-size md bg _modalBtn" data-value='Bottom'
-            onClick={(e)=>{
-              dataValueCheck(e)
-              setModal(true)
-              
-            }}
-          data-modal="modal4">Bottom Modal</button>
-          <button className="btn btn-size md bg _toastBtn" data-value='toast'
-            onClick={()=>{
-              setToastModal(true)
-              
-            }}
-          data-toast="토스트 팝업메세지를 출력" >토스트팝업</button>
         </div>
 
         {/* [s] modal */}
@@ -104,6 +77,131 @@ export const Popup = ({setPage, type }) => {
       </div>
     )
 
+    case 'CENTER':
+    return (
+      <div className='cp-content storybook'>
+        <div className="btnWrap">
+          <button className="btn btn-size md bg _modalBtn" data-value='Center'
+            onClick={(e)=>{
+              dataValueCheck(e)
+              setModal(true)
+              
+            }}
+          data-modal="modal2">Center Modal</button>
+        </div>
+
+        {/* [s] modal */}
+        {
+          modal == true ? 
+          <ModalPop  
+          postion = {postion}
+          Ani={Ani} setAni={setAni} 
+          modal={modal} setModal={setModal}
+          /> : null
+        }
+        {/* [e] modal  */}
+        {
+          modal == true ? <Dimmed /> : null
+        }  
+        {
+          toastModal == true ? <ToastPop/> : null
+        }
+      </div>
+    )
+
+    case 'LEFT':
+    return (
+      <div className='cp-content storybook'>
+        <div className="btnWrap">
+          <button className="btn btn-size md bg _modalBtn" data-value='Left'
+            onClick={(e)=>{
+              dataValueCheck(e)
+              setModal(true)
+              
+            }}
+          data-modal="modal3">Left Modal</button>
+        </div>
+
+        {/* [s] modal */}
+        {
+          modal == true ? 
+          <ModalPop  
+          postion = {postion}
+          Ani={Ani} setAni={setAni} 
+          modal={modal} setModal={setModal}
+          /> : null
+        }
+        {/* [e] modal  */}
+        {
+          modal == true ? <Dimmed /> : null
+        }  
+        {
+          toastModal == true ? <ToastPop/> : null
+        }
+      </div>
+    )
+
+    case 'BOTTOM':
+      return (
+        <div className='cp-content storybook'>
+          <div className="btnWrap">
+            <button className="btn btn-size md bg _modalBtn" data-value='Bottom'
+              onClick={(e)=>{
+                dataValueCheck(e)
+                setModal(true)
+                
+              }}
+            data-modal="modal4">Bottom Modal</button>
+          </div>
+  
+          {/* [s] modal */}
+          {
+            modal == true ? 
+            <ModalPop  
+            postion = {postion}
+            Ani={Ani} setAni={setAni} 
+            modal={modal} setModal={setModal}
+            /> : null
+          }
+          {/* [e] modal  */}
+          {
+            modal == true ? <Dimmed /> : null
+          }  
+          {
+            toastModal == true ? <ToastPop/> : null
+          }
+        </div>
+      )
+      case 'TOAST':
+        return (
+          <div className='cp-content storybook'>
+            <div className="btnWrap">
+              <button className="btn btn-size md bg _toastBtn" data-value='toast'
+                onClick={()=>{
+                  setToastModal(true)
+                  
+                }}
+              data-toast="토스트 팝업메세지를 출력" >토스트팝업</button>
+            </div>
+    
+            {/* [s] modal */}
+            {
+              modal == true ? 
+              <ModalPop  
+              postion = {postion}
+              Ani={Ani} setAni={setAni} 
+              modal={modal} setModal={setModal}
+              /> : null
+            }
+            {/* [e] modal  */}
+            {
+              modal == true ? <Dimmed /> : null
+            }  
+            {
+              toastModal == true ? <ToastPop/> : null
+            }
+          </div>
+        )
 
   }
 };

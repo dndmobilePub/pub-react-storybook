@@ -13,11 +13,37 @@ export default {
   },
 } ;
 
-export const PopupModal = {
+export const ModalTop = {
   args: {
-    setPage : 'POPUP',
+    setPage : 'TOP',
   }
 };
+
+export const ModalCenter = {
+  args: {
+    setPage : 'CENTER',
+  }
+};
+
+export const ModalLeft = {
+  args: {
+    setPage : 'LEFT',
+  }
+};
+
+export const ModalBottom = {
+  args: {
+    setPage : 'BOTTOM',
+  }
+};
+
+export const ModalToast = {
+  args: {
+    setPage : 'TOAST',
+  }
+};
+
+
 
 
 

@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 
-/* // 2024 파일리스트  */
+/* 2024 파일리스트  */
 table{width: 100%;}
 table td{text-align: center;}
 
-/* // 2024 스토리북 적용 css 추가 */
+/* 2024 스토리북 적용 css 추가 */
 
 .sb-container { margin-bottom: 48px; } 
 .sb-section { width: 100%; display: flex; flex-direction: row; gap: 20px; } 
@@ -40,7 +40,7 @@ img { object-fit: cover; }
   display: none;
 }
 
-/* // modal css */
+/* modal css */
 .storybook .modalPop{
   visibility: hidden;
 
@@ -87,43 +87,34 @@ img { object-fit: cover; }
   -o-transform: translate(-50%, -50%);
 }
 
-/* // tooltip css */
-.storybook .tooltipWrap{}
+/* tooltip css */
 .storybook .tooltip{text-align: left;}
-.storybook .tooltip._default{
-  /*top:50%;
-  left:50%;
-  */
-  /* transform:translate(-50%, -50%) ; */
-
-}
-.storybook .tooltip._top{ 
-  /* top:50%; 
-  left:50%; 
-  transform:translate(-50%, -120%) ; 
-  -webkit-transform:translate(-50%, -120%) ; 
-  -moz-transform:translate(-50%, -120%) ; 
-  -ms-transform:translate(-50%, -120%) ; 
-  -o-transform:translate(-50%, -120%) ;  */
-}
-.storybook .tooltip._left{ 
-  /* top:50%; 
-  left:50%; 
-  transform:translate(-108.8%, -50%) ; 
-  -webkit-transform:translate(-108.8%, -50%) ; 
-  -moz-transform:translate(-108.8%, -50%) ; 
-  -ms-transform:translate(-108.8%, -50%) ; 
-  -o-transform:translate(-108.8%, -50%) ;  */
-}
-.storybook .tooltip._bottom{ 
-  /* top:50%; 
-  left:50%; 
-  transform:translate(-50%, 21%) ; 
-  -webkit-transform:translate(-50%, 21%) ; 
-  -moz-transform:translate(-50%, 21%) ; 
-  -ms-transform:translate(-50%, 21%) ; 
-  -o-transform:translate(-50%, 21%) ;  */
-}
 
 
+/* accordion css */
+.storybook .accordion-contents{
+  display: inherit;
+  max-height: 0;
+  padding:0rem;
+  overflow: hidden;
+  border-top: 0px solid #ccc;
+  transition: all 0.5s cubic-bezier(0,1,0,1);
+  -webkit-transition: all 0.5s cubic-bezier(0,1,0,1);
+  -moz-transition: all 0.5s cubic-bezier(0,1,0,1);
+  -ms-transition: all 0.5s cubic-bezier(0,1,0,1);
+  -o-transition: all 0.5s cubic-bezier(0,1,0,1);
+}
+.storybook .accordion-contents.active{
+  height: auto;
+  max-height: 9999px;
+  transition: all 0.5s cubic-bezier(1,0,1,0);
+  -webkit-transition: all 0.5s cubic-bezier(1,0,1,0);
+  -moz-transition: all 0.5s cubic-bezier(1,0,1,0);
+  -ms-transition: all 0.5s cubic-bezier(1,0,1,0);
+  -o-transition: all 0.5s cubic-bezier(1,0,1,0);
+}
 
+.storybook .accordion-contents > div:not(.accordion-wrap){
+  border-top: 1px solid #ccc;
+  padding:1rem 2rem;
+}
