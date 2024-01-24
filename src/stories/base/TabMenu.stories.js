@@ -17,12 +17,14 @@ export default {
 export const Base = {
   args: {
     setPage : 'Base',
+    poLine : 'default',
   }
 };
 
 export const TabAction = {
   args: {
     setPage : 'TabAction',
+    postion : 'default'
   }
 };
 
