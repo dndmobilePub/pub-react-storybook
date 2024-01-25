@@ -7,17 +7,39 @@ export default {
   parameters: {
     layout: 'centered',
   },
-  // tags: ['autodocs'],
-  argTypes: {
-    // backgroundColor: { control: 'color' },
-  },
+  tags: ['autodocs'],
 } ;
 
 
 export const Base = {
   args: {
     setPage : 'Base',
-    type : 'default',
+    captionState : true,
+    caption: '기존 caption을 그대로 보여줘',
+    dataTblTitle: '테이블 제목을 작성함'
+  }
+};
+
+export const InnerTbl = {
+  args: {
+    setPage : 'InnerTbl',
+  }
+};
+
+export const TitleTbl = {
+  args: {
+    setPage : 'TitleTbl',
+    captionState : true,
+    caption: '기존 caption을 그대로 보여줘',
+    dataTblTitle: '테이블 제목을 작성함'
+  }
+};
+
+export const ScopeTbl = {
+  args: {
+    setPage : 'ScopeTbl',
+    captionState : true,
+    caption: '기존 caption을 그대로 보여줘',
   }
 };
 

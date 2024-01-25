@@ -7,30 +7,24 @@ export default {
   parameters: {
     layout: 'centered',
   },
-  // tags: ['autodocs'],
-  argTypes: {
-    // backgroundColor: { control: 'color' },
-  },
+  tags: ['autodocs'],
 } ;
 
 
 export const Base = {
   args: {
     setPage : 'Base',
-    type : 'default',
   }
 };
 
 export const Tab = {
   args: {
     setPage : 'Tab',
-    type : 'default'
   }
 };
 export const ScrollTab = {
   args: {
     setPage : 'ScrollTab',
-    type : 'default'
   }
 };
 

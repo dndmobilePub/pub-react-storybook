@@ -18,9 +18,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 
-export const TySwiper = ({setPage, navState}) => {
-
-  const NavState = navState ? 'true' : '' 
+export const TySwiper = ({setPage}) => {
 
   const [currentTab, clickTab] = useState(0);
   const [swiper, setSwiper] = useState();

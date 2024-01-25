@@ -7,17 +7,15 @@ export default {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  // tags: ['autodocs'],
 } ;
 
-export const Primary = {
+export const Base = {
   args: {
-    setPage : '',
+    setPage : 'Base',
     type: 'text',
     label: 'text default',
     placeholder: 'default',
-    disabled: false,
-    fieldState : 'valid',
   },
 };
 
@@ -26,7 +24,6 @@ export const Exception = {
     setPage : 'exception',
     type: 'text',
     placeholder: 'clear btn 없음',
-    disabled: false,
   },
 };
 
@@ -54,7 +51,6 @@ export const ValidState = {
     setPage : 'validState',
     type: 'text',
     placeholder: 'placeholder',
-    disabled: false,
     errMsg : true,
     fieldState : false,
   },
@@ -76,19 +72,15 @@ export const ResidentNum = {
     label: '주민등록번호',
     placeholder: '생년월일 6자리',
     disabled: false,
-    errMsg : false,
-    fieldState : false,
+    // errMsg : false,
+    // fieldState : false,
   },
 };
 
 export const PhoneNum = {
   args: {
     setPage : 'phoneNum',
-    type: 'tel',
     label: '휴대폰번호 입력',
     placeholder: '1234',
-    disabled: false,
-    errMsg : false,
-    fieldState : false,
   },
 };

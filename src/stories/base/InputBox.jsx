@@ -98,7 +98,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
 
   switch (setPage){
 
-    case '':
+    case 'Base':
     return (
       <div className='cp-content'>
         <div className={['field', ].join(' ')}>
@@ -268,12 +268,12 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       case 'residentNum':
       return (
         <div className='cp-content'>
-          <div className='field'>
+          <div className={['field',  ].join(' ')}>
           <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
               <div className="field-input grow _input">
                 <input className="_format _number" maxLength="6"
-                  type={type}
+                  type='text'
                   placeholder={placeholder}
                   style={{"width": widthCss}}
                   value={inputVal}
@@ -282,11 +282,14 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                     inputChange(val)
                   }}
                 />
+                {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
               </div>
               <span className="field-txt">-</span>
               <div className="field-input grow _input">
                 <label className="_secureTxt _num" data-length='7' data-secureLine="1">
-                  <input type="tel" className="_format _password" placeholder="" maxLength="1" 
+                  <input type="text" className="_format _password" placeholder="" maxLength="1" 
                     onChange={(e)=>{
                       let val = e.target.value
                       _inputChange(val)
@@ -302,10 +305,13 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                   />
                   {numDot()}
                 </label>
+                {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
               </div>
             </div>
             <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
+              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
             </p>
           </div>
         </div>
@@ -318,36 +324,45 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
           <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input className="['_format', '_number' ]" 
-                  id="mobileNum1"
-                  type={type}
+                <input className={['_format', '_number' ].join(' ')}
+                  id="input"
+                  type='text'
                   placeholder={placeholder}
                   disabled = {Disable}
                 // readonly = {Readonly}
                   maxlength="3"
                 />
+                {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
               </div>
               <span class="field-txt">-</span>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input className="['_format', '_number' ]" 
-                  id="mobileNum2"
-                  type={type}
+                <input className={['_format', '_number' ].join(' ')}
+                  id="input"
+                  type='text'
                   placeholder={placeholder}
                   disabled = {Disable}
                 // readonly = {Readonly}
                   maxlength="4"
                 />
+                {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
               </div>
               <span class="field-txt">-</span>
               <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input className="['_format', '_number' ]" 
-                  id="mobileNum3"
-                  type={type}
+                <input className={['_format', '_number' ].join(' ')}
+                  id="input"
+                  type='text'
                   placeholder={placeholder}
                   disabled = {Disable}
                 // readonly = {Readonly}
                   maxlength="4"
                 />
+                {
+                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                }
               </div>
             </div>
             <p className={"field-msg " + ErrMsg}>
@@ -389,19 +404,8 @@ InputBox.propTypes = {
    /**
    * input 타입
    */
-   type: PropTypes.oneOf(['text', 'number', 'button','password']),
-   /**
-    * 오류 메시지 출력
-   */
-   errMsg: PropTypes.bool,
-  /**
-  * input 상태
-  */
-  fieldState: PropTypes.bool,
+   type: PropTypes.oneOf(['text', 'number', 'password']),
 };
 
 
-InputBox.defaultProps = {
-  errMsg : false,
-};
 
