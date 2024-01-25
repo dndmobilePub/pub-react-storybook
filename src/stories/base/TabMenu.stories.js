@@ -28,5 +28,13 @@ export const TabAction = {
   }
 };
 
+export const TabDirection = {
+  args: {
+    setPage : 'TabDirection',
+    direction : 'horizontal'
+  }
+};
+
+
 
 

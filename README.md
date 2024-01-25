@@ -4,10 +4,7 @@
 storybook react 타입 설치
 #### `npx -p @storybook/cli sb init --type react`
 
-storybook 테마 설치
-#### `npm install -D @storybook/theming`
-
-storybook 실행 명령어
+### storybook 실행 명령어
 #### `npm run storybook`
 
 ### storybook 테마 설치
@@ -36,7 +33,7 @@ jsx / js 각각 파일명 생성 ex) button.jsx / button.stories.js
 Button.stories.js 파일 안에 title : 내용 수정 - 'ver_0.0/파일이름'
 
 Doc 문서 필요 없는 경우
-- 파일명.stroies.js 안에 tags 검색후 주석처리\
+- 파일명.stroies.js 안에 tags 검색후 주석처리
 
 
 -------------------------------------------------------------------------

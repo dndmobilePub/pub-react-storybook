@@ -23,7 +23,6 @@ export const Button = ({setPage, primary, setShow, backgroundColor, style, size,
           </button>
         </div>
       </div>
-  
     )
 
     case 'txt':
