@@ -87,9 +87,9 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
 
   //input 2개 이상일 경우
   const [inputStates, setInputStates] = useState([
-    { value: '', active: false, widthCss: '' },
-    { value: '', active: false, widthCss: '' },
-    { value: '', active: false, widthCss: '' },
+    { value: '', active: false, widthCss: '', placeholder: '010', maxLength:'3'},
+    { value: '', active: false, widthCss: '', placeholder: '1234', maxLength:'4'},
+    { value: '', active: false, widthCss: '', placeholder: '5678', maxLength:'4'},
   ]);
 
   const handleInputChange = (index, value) => {
@@ -306,9 +306,9 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                   <div className="field-input grow _input">
                     <input
                       className="_format _number _format1"
-                      maxLength="3"
+                      maxLength={inputState.maxLength}
                       type='text'
-                      placeholder={placeholder}
+                      placeholder={inputState.placeholder} 
                       disabled={Disable}
                       style={{ "width": inputState.widthCss }}
                       value={inputState.value}
@@ -370,10 +370,6 @@ InputBox.propTypes = {
    * input 타이틀
    */
   label: PropTypes.string.isRequired,
-   /**
-   * placeholder
-   */
-   placeholder: PropTypes.string.isRequired,
    /**
    * input 타입
    */

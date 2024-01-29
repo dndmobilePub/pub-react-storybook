@@ -72,6 +72,5 @@ export const PhoneNum = {
   args: {
     setPage : 'phoneNum',
     label: '휴대폰번호 입력',
-    placeholder: '1234',
   },
 };
