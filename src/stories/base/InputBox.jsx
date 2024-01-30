@@ -19,62 +19,56 @@ import './scss/_cp.input.scss';
  */
 
 
-export const InputBox = ({setPage, type, readonly, disabled, label, placeholder, errMsg , fieldState}) => {
+export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , fieldState}) => {
   const Disable = disabled ? 'disabled' : '';
-  //const Readonly = readonly ? 'readonly' : 'false';
 
   const ErrMsg = errMsg ? '' : 'hr' 
   const _fieldState = fieldState ? 'valid' : 'invalid';
 
-  let [widthCss, setWidthCss] = useState('')
+  let [widthCss, setWidthCss] = useState()
 
-  // 이메일&주민등록번호 첫번째 input useState
+  // 이메일 & 주민등록번호 첫번째 input 
   let [inputBtn, setInputBtn] = useState(false)
   let [inputVal, setInputVal] = useState('')
   
   // 주민등록번호 두번째 input useState
-  let [resInputBtn, setResInputBtn] = useState(false)
   let [resInputVal, setResInputVal] = useState('')
+  
+  // 첫번째 dot display style 
   let [resDisplay, setResDisplay] = useState('block')
 
+  // dot 갯수
   let [dotLength] = useState(7)
-   
+
+  // input 값 입력시 클래스 변경 
   let [isActive, setIsActive] = useState('')
+  // input 값 입력시 투명도값 변경
   let [opacityNum, setOpacityNum] = useState('1')
+  
 
-  // input 값 입력값 체크 및 css 추가
-  function inputChange(){
-    let widthCss = 'calc(100% - 2.4rem)'
-    let selectInput = document.getElementById('input') 
-    // let value = selectInput.value;
-    selectInput.style.width = widthCss
-    setInputBtn(true);
-  }
-
-  // inputVal 값이 변경 될때마다 체크
+  // inputVal 값이 변경 될때마다 체크 (inputVal값이 변경될때마다)
   useEffect(()=>{
-    if( inputVal == '' ){
+    if( inputVal === '' ){
       setInputBtn(false)
       setWidthCss('')
     }
   }, [inputVal])
 
-   // 이메일&주민등록번호 첫번째 input 값 입력값 체크 및 css 추가
-   function inputChange(val){
+  // 이메일&주민등록번호 첫번째 input 값 입력값 체크 및 css 추가
+  function inputChange(val){
     let _widthCss = 'calc(100% - 2.4rem)' 
     setWidthCss(_widthCss)
     setInputBtn(true);
     setInputVal(val)
   }
-  
-   // 주민등록번호 두번쨰 값이 변경 될때마다 체크
-   useEffect(()=>{
-    if( resInputVal == '' ){
-      setResInputBtn(false)
+
+  // 주민등록번호 두번쨰 값이 변경 될때마다 체크 (resInputVal값이 변경될때마다)
+  useEffect(()=>{
+    if( resInputVal === '' ){
       setIsActive('')
       setResDisplay('block')
     }
-    if( resInputVal != '' ){
+    if( resInputVal !== '' ){
       setResDisplay('none')
     }
   }, [resInputVal])
@@ -82,10 +76,10 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
   // 주민등록번호 뒷자리 input 값 입력값 체크 및 css 추가
   function _inputChange(val){
     setIsActive('_is-active')
-    setResInputBtn(true);
     setResInputVal(val)
   }
 
+  // dot 배열
   let numDot = () => {
     let result = [];
     let left = 0;
@@ -93,20 +87,19 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
     for( let i = 0; i < dotLength; i++){
       result.push(
         <i key={i} className={
-          i == 0 ? '_line ' + isActive : null
+          i === 0 ? '_line ' + isActive : null
         } aria-hidden="true" 
         style={{
           'left' : (
-            (i == 0) ? left :
-            (i == 1) ? space :
+            (i === 0) ? left :
+            (i === 1) ? space :
             (i > 1 ) ? space += 16 : 0
           ) + 'px', 
-          'opacity' : i == 0 ? opacityNum : null,
-          'display' : i == 0 ? resDisplay : null
+          'opacity' : i === 0 ? opacityNum : null,
+          'display' : i === 0 ? resDisplay : null
         }}
       ></i>);
     }
-    
     return result
   }
 
@@ -135,22 +128,29 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
     case 'Base':
     return (
       <div className='cp-content'>
-        <div className={['field', ].join(' ')}>
-        <label className="field-label">{label}</label>
+        <div className="field">
+          <label className="field-label">{label}</label>
           <div className={"field-outline " + Disable}>
-            <div className={['field-input', 'grow', '_input' ].join(' ')}>
-              <input 
-                id="input"
+            <div className="field-input grow _input">
+              <input className="_format" 
                 type={type}
                 placeholder={placeholder}
                 disabled = {Disable}
-              // readonly = {Readonly}
+                style={{"width": widthCss}}
+                value={inputVal}
                 onChange={(e)=>{
-                  inputChange(e)
+                  let val = e.target.value
+                  inputChange(val)
                 }}
               />
-            {
-                inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+              {
+                inputBtn === true ? 
+                <InputDelBtn 
+                  setWidthCss={setWidthCss} 
+                  inputVal={inputVal} setInputVal={setInputVal} 
+                  inputBtn={inputBtn} setInputBtn={setInputBtn}
+                /> 
+                : null 
               }
             </div>
           </div>
@@ -168,14 +168,13 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         <div className='field'>
           {label}
           <div className={"field-outline " + Disable}>
-            <div className={['field-input', 'grow', '_input' ].join(' ')}>
+            <div className="field-input grow _input">
               <input 
                 type={type}
                 placeholder={placeholder}
                 disabled = {Disable}
-                //readonly = {Readonly}
-              >
-              </input>
+                style={{"width": widthCss}}
+              />
             </div>
           </div>
         </div>
@@ -189,19 +188,26 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
           <div className='field'>
             {label}
             <div className={"field-outline " + Disable}>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input 
-                  id="input"
+              <div className="field-input grow _input">
+                <input className="_format" 
                   type={type}
                   placeholder={placeholder}
                   disabled = {Disable}
-                // readonly = {Readonly}
+                  style={{"width": widthCss}}
+                  value={inputVal}
                   onChange={(e)=>{
-                    inputChange(e)
+                    let val = e.target.value
+                    inputChange(val)
                   }}
                 />
-              {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                {
+                  inputBtn === true ? 
+                  <InputDelBtn 
+                    setWidthCss={setWidthCss} 
+                    inputVal={inputVal} setInputVal={setInputVal} 
+                    inputBtn={inputBtn} setInputBtn={setInputBtn}
+                  /> 
+                  : null 
                 }
               </div>
             </div>
@@ -216,19 +222,26 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
           <div className='field'>
             {label}
             <div className={"field-outline " + Disable}>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input 
-                  id="input"
+              <div className="field-input grow _input">
+                <input className="_format" 
                   type={type}
                   placeholder={placeholder}
                   disabled = {Disable}
-                // readonly = {Readonly}
+                  style={{"width": widthCss}}
+                  value={inputVal}
                   onChange={(e)=>{
-                    inputChange(e)
+                    let val = e.target.value
+                    inputChange(val)
                   }}
                 />
-              {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                {
+                  inputBtn === true ? 
+                  <InputDelBtn 
+                    setWidthCss={setWidthCss} 
+                    inputVal={inputVal} setInputVal={setInputVal} 
+                    inputBtn={inputBtn} setInputBtn={setInputBtn}
+                  /> 
+                  : null 
                 }
               </div>
             </div>
@@ -246,19 +259,26 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
           <div className={['field',  _fieldState].join(' ')}>
           <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input 
-                  id="input"
+              <div className="field-input grow _input">
+                <input className="_format" 
                   type={type}
                   placeholder={placeholder}
                   disabled = {Disable}
-                // readonly = {Readonly}
+                  style={{"width": widthCss}}
+                  value={inputVal}
                   onChange={(e)=>{
-                    inputChange(e)
+                    let val = e.target.value
+                    inputChange(val)
                   }}
                 />
-              {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                {
+                  inputBtn === true ? 
+                  <InputDelBtn 
+                    setWidthCss={setWidthCss} 
+                    inputVal={inputVal} setInputVal={setInputVal} 
+                    inputBtn={inputBtn} setInputBtn={setInputBtn}
+                  /> 
+                  : null 
                 }
               </div>
             </div>
@@ -272,13 +292,11 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       case 'residentNum':
       return (
         <div className='cp-content'>
-          <div className={['field',  ].join(' ')}>
-          <label className="field-label">{label}</label>
-            <div className={"field-outline " + Disable}>
+          <div className="field">
+            <label className="field-label">주민등록번호</label>
+            <div className="field-outline">
               <div className="field-input grow _input">
-                <input className="_format _number" maxLength="6"
-                  type='text'
-                  placeholder={placeholder}
+                <input type="text" className="_format _number" placeholder="생년월일 6자리" maxLength="6"
                   style={{"width": widthCss}}
                   value={inputVal}
                   onChange={(e)=>{
@@ -287,13 +305,20 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                   }}
                 />
                 {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                  inputBtn === true ? 
+                  <InputDelBtn 
+                    setWidthCss={setWidthCss} 
+                    inputVal={inputVal} setInputVal={setInputVal} 
+                    inputBtn={inputBtn} setInputBtn={setInputBtn}
+                  /> 
+                  : null 
                 }
               </div>
               <span className="field-txt">-</span>
               <div className="field-input grow _input">
-                <label className="_secureTxt _num" data-length='7' data-secureLine="1">
-                  <input type="text" className="_format _password" placeholder="" maxLength="1" 
+              {/* data-secureLine -> data-secureline 으로 수정 */}
+                <label className="_secureTxt _num" data-length="7" data-secureline="1">
+                  <input type="tel" className="_format _password" placeholder="" maxLength="1" 
                     onChange={(e)=>{
                       let val = e.target.value
                       _inputChange(val)
@@ -309,13 +334,13 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
                   />
                   {numDot()}
                 </label>
-                {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
               </div>
             </div>
-            <p className={"field-msg " + ErrMsg}>
+            <p className={"field-msg " + ErrMsg} >
               <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+            </p>
+            <p className="field-info">
+              <span className="ico ico-info txt-r">안내성 메세지</span>
             </p>
           </div>
         </div>
@@ -364,14 +389,16 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
 // 삭제 버튼 
 function InputDelBtn(props){
   return(
-    <button type="button" class="field-btn _input-clear _active"
+    <button type="button" className="field-btn _input-clear _active"
       onClick={()=>{
-        props.setInputBtn(false);
-        let selectInput = document.getElementById('input') 
-        selectInput.value = null;
-        selectInput.style.width = null
+
+        props.setInputBtn(false)
+        let selectInput = document.getElementsByClassName('_format')[0] 
+        selectInput.value = null
+        props.setWidthCss('')
+        props.setInputVal('')
       }}
-    ><span class="hide">입력값삭제</span></button>
+    ><span className="hide">입력값삭제</span></button>
 
   )
 }
