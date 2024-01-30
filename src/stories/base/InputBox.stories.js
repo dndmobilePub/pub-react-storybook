@@ -52,9 +52,18 @@ export const ValidState = {
     type: 'text',
     placeholder: 'placeholder',
     errMsg : true,
-    fieldState : 'valid',
+    fieldState : false,
   },
 };
+
+// export const Password = {
+//   args: {
+//     setPage : 'password',
+//     type: 'password',
+//     label: 'password',
+//     ddd: 4
+//   },
+// };
 
 export const ResidentNum = {
   args: {
@@ -63,8 +72,8 @@ export const ResidentNum = {
     label: '주민등록번호',
     placeholder: '생년월일 6자리',
     disabled: false,
-    errMsg : false,
-    fieldState : '',
+    // errMsg : false,
+    // fieldState : false,
   },
 };
 
@@ -72,5 +81,6 @@ export const PhoneNum = {
   args: {
     setPage : 'phoneNum',
     label: '휴대폰번호 입력',
+    placeholder: '1234',
   },
 };
