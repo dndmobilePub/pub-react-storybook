@@ -20,7 +20,7 @@ import 'swiper/css/scrollbar';
 
 export const TySwiper = ({setPage}) => {
 
-  const [currentTab, clickTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(0);
   const [swiper, setSwiper] = useState();
 
   const menuArr = [
@@ -37,7 +37,7 @@ export const TySwiper = ({setPage}) => {
   ];
 
   const swiperHandler = (index) => {
-    clickTab(index);
+    setCurrentTab(index);
   };
 
   const onClickTab = (index) => {
