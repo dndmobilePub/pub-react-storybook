@@ -1,6 +1,10 @@
+/****************************************/
+/*	PART: IMPORT CSS
+/****************************************/
 @import 'variables';
 @import 'mixin';
 @import 'transition';
+
 
 .accordion-wrap {
     border: 2px solid $color-black;

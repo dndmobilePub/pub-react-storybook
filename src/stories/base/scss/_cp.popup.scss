@@ -1,13 +1,9 @@
-<<<<<<<<< Temporary merge branch 1
-%transition3s {@include transition(.3s, all, ease-in-out);}
-=========
-
-
-
+/****************************************/
+/*	PART: IMPORT CSS
+/****************************************/
 @import 'transition';
 
 
->>>>>>>>> Temporary merge branch 2
 .no-scroll {@include overflow(both, hidden);}
 
 .modalPop {

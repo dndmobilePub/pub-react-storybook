@@ -2,9 +2,21 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes, { func } from 'prop-types';
 
 // scss&css import
-// import './scss/cm.common.scss';
+import './scss/cm.common.scss';
 import './scss/_cp.accodion.scss';
-import './css/storyBook.css';
+import './scss/storyBook.scss';
+
+
+/** 
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * onChkBox - checkbox show/hide
+ */
+
+
+/** 
+ * Accordion 컴포넌트 정의
+ */
 
 export const Accordion = ({setPage, onChkBox}) => {
   
