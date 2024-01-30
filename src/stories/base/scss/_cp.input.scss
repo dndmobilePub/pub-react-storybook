@@ -1,3 +1,10 @@
+/****************************************/
+/*	PART: IMPORT SCSS
+/****************************************/
+@import 'variables';
+@import 'mixin';
+
+
 #{$field} {
     
     input[type=password] {

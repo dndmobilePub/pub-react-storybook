@@ -5,17 +5,22 @@ import SwiperCore from 'swiper';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Mousewheel } from 'swiper/modules';
-// Import Swiper styles
-import 'swiper/css';
 
-import './css/cm.common.css';
-import './css/storyBook.css';
+// scss import
+import './scss/cm.common.scss';
+import './scss/_cp.swiper.scss';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+
+
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ */
 
 
 export const TySwiper = ({setPage}) => {

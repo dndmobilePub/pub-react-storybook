@@ -1,8 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import './css/cm.common.css';
-import './css/storyBook.css';
+// scss import
+import './scss/cm.common.scss';
+import './scss/_cp.table.scss';
+
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * captionState - 캡션 타입 설정
+ * caption - 캡션에 들어갈 내용
+ * dataTblTitle - 테이블 내용
+ */
 
 
 export const Table = ({setPage , captionState, caption, dataTblTitle}) => {

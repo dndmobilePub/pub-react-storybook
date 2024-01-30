@@ -3,6 +3,21 @@ import PropTypes from 'prop-types';
 import './css/cm.common.css';
 import './css/storyBook.css';
 
+// scss import
+import './scss/cm.common.scss';
+import './scss/_cp.input.scss';
+
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * type - input 타입
+ * label - label 내용 
+ * placeholder - placeholder 내용
+ * disabled -버튼 Disabld 상태
+ * errMsg - errMsg 노출
+ * fieldState - input 상태 선택
+ */
+
 
 export const InputBox = ({setPage, type, readonly, disabled, label, placeholder, errMsg , fieldState}) => {
   const Disable = disabled ? 'disabled' : '';
@@ -94,6 +109,25 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
     
     return result
   }
+
+  //input 2개 이상일 경우
+  const [inputStates, setInputStates] = useState([
+    { value: '', active: false, widthCss: '', placeholder: '010', maxLength:'3'},
+    { value: '', active: false, widthCss: '', placeholder: '1234', maxLength:'4'},
+    { value: '', active: false, widthCss: '', placeholder: '5678', maxLength:'4'},
+  ]);
+
+  const handleInputChange = (index, value) => {
+    const updatedInputStates = [...inputStates];
+    updatedInputStates[index] = { ...updatedInputStates[index], value, widthCss: 'calc(100% - 2.4rem)', active: true };
+    setInputStates(updatedInputStates);
+  };
+
+  const handleInputClear = (index) => {
+    const updatedInputStates = [...inputStates];
+    updatedInputStates[index] = { ...updatedInputStates[index], value: '', widthCss: '', active: false };
+    setInputStates(updatedInputStates);
+  };
 
 
   switch (setPage){
@@ -235,36 +269,6 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
         </div>
       )
 
-      // case 'password':
-      // return (
-      //   <div className='cp-content'>
-      //     <div className='field'>
-      //     <label className="field-label">{label}</label>
-      //       <div className='field-outline pw-group'>
-      //         <div className="field-input grow _input">
-      //           <label id='password_secureTxt' className="_secureTxt _num" data-length='4' data-secureLine="2">
-      //             <input type="tel" className="_format _password" placeholder="" maxLength="2" 
-      //               onChange={(e)=>{
-      //                 let val = e.target.value
-      //                 _inputChange(val)
-      //               }}
-      //               // 포커스가 될때 opactiy 0.5
-      //               onClick={()=>{
-      //                 setOpacityNum('0.5')
-      //               }}
-      //               // 포커스가 나갈때 opactiy 1
-      //               onBlur={()=>{
-      //                 setOpacityNum('1')
-      //               }}
-      //             />
-      //             {numDot()}
-      //           </label>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   </div>
-      // )
-
       case 'residentNum':
       return (
         <div className='cp-content'>
@@ -320,50 +324,31 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
       case 'phoneNum':
       return (
         <div className='cp-content'>
-          <div className={['field', '_label' ].join(' ')}>
-          <label className="field-label">{label}</label>
+          <div className={['field', '_label', fieldState].join(' ')}>
+            <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input className={['_format', '_number' ].join(' ')}
-                  id="input"
-                  type='text'
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                // readonly = {Readonly}
-                  maxlength="3"
-                />
-                {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
-              </div>
-              <span class="field-txt">-</span>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input className={['_format', '_number' ].join(' ')}
-                  id="input"
-                  type='text'
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                // readonly = {Readonly}
-                  maxlength="4"
-                />
-                {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
-              </div>
-              <span class="field-txt">-</span>
-              <div className={['field-input', 'grow', '_input' ].join(' ')}>
-                <input className={['_format', '_number' ].join(' ')}
-                  id="input"
-                  type='text'
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                // readonly = {Readonly}
-                  maxlength="4"
-                />
-                {
-                  inputBtn === true ? <InputDelBtn inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-                }
-              </div>
+              {inputStates.map((inputState, index) => (
+                <React.Fragment key={index}>
+                  <div className="field-input grow _input">
+                    <input
+                      className="_format _number _format1"
+                      maxLength={inputState.maxLength}
+                      type='text'
+                      placeholder={inputState.placeholder} 
+                      disabled={Disable}
+                      style={{ "width": inputState.widthCss }}
+                      value={inputState.value}
+                      onChange={(e) => handleInputChange(index, e.target.value)}
+                    />
+                    {inputState.active && (
+                      <InputDelBtn2
+                        handleInputClear={() => handleInputClear(index)}
+                      />
+                    )}
+                  </div>
+                  {index !== inputStates.length - 1 && <span className="field-txt">-</span>}
+                </React.Fragment>
+              ))}
             </div>
             <p className={"field-msg " + ErrMsg}>
               <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
@@ -371,7 +356,7 @@ export const InputBox = ({setPage, type, readonly, disabled, label, placeholder,
           </div>
         </div>
   
-    )
+      )
 
   }
 };
@@ -391,16 +376,25 @@ function InputDelBtn(props){
   )
 }
 
+// input 2개 이상일 경우 삭제 버튼 
+function InputDelBtn2({ handleInputClear }) {
+  return (
+    <button
+      type="button"
+      className="field-btn _input-clear _active"
+      onClick={handleInputClear}
+    >
+      <span className="hide">입력값삭제</span>
+    </button>
+  );
+}
+
 // Docs 문서 작성 영역
 InputBox.propTypes = {
   /**
    * input 타이틀
    */
   label: PropTypes.string.isRequired,
-   /**
-   * placeholder
-   */
-   placeholder: PropTypes.string.isRequired,
    /**
    * input 타입
    */
