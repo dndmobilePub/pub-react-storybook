@@ -9,9 +9,13 @@ export const TabMenu = ({ setPage, postion, poLine, direction }) => {
   const Postion = postion == 'center' ? 'tab-center' : ''
   const PoLine = poLine == 'top' ? 'tab-line-top' : ''
   const Direction = direction === 'horizontal' ? '' : 'tab-vertical'
-  let [ menuPostion] = useState(Postion)
+
+ 
   // 탭메뉴 개수
   let [tabList] = useState([...new Array(5)].map((_, i) => i + 1))
+  
+  let [ menuPostion] = useState(Postion)
+ 
   // 탭메뉴 index
   let [selected, setSelected] = useState(0)
   // 탭 line 위치 값

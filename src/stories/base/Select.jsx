@@ -1,44 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
+// sass&css import
 import './css/cm.common.css';
 import './css/storyBook.css';
 
+/** 
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * errMsg - 에러메시지 on/off
+ */
+
+/** 
+ * Select 컴포넌트 정의
+ */
+
 export const Select = ({setPage, errMsg }) => {
   
-  let [widthCss, setWidthCss] = useState('')
+  // 에러 메시지 true일대 invalid 클래스 추가
+  const ErrMsg = errMsg ? 'invalid' : null 
 
-  // 이메일&주민등록번호 첫번째 input useState
+  let [widthCss, setWidthCss] = useState()
+
+  // 이메일 & 주민등록번호 첫번째 input 
   let [inputBtn, setInputBtn] = useState(false)
   let [inputVal, setInputVal] = useState('')
   
   // 주민등록번호 두번째 input useState
-  let [resInputBtn, setResInputBtn] = useState(false)
   let [resInputVal, setResInputVal] = useState('')
+  
+  // 첫번째 dot display style 
   let [resDisplay, setResDisplay] = useState('block')
 
+  // dot 갯수
   let [dotLength] = useState(7)
-  
+
+  // input 값 입력시 클래스 변경 
   let [isActive, setIsActive] = useState('')
+  // input 값 입력시 투명도값 변경
   let [opacityNum, setOpacityNum] = useState('1')
 
-  // 통신사 선택
+  // 통신사 정보
   let [comAgency, setComAgency] = useState(['선택', 'SKT', 'KT', 'LG U+', '알뜰폰']);
+  // 통신사 index 기본값
   let [comNumber, setComNumber] = useState(0)
 
-  const ErrMsg = errMsg ? 'invalid' : '' 
-
-  // modal show&hide
+  // modal show & hide
   let [modal,  setModal] = useState(false)
+  // modal 활성화시 애니메이션 효과 추가
   let [Ani,  setAni] = useState(false)
   
-  // inputVal 값이 변경 될때마다 체크
+  // inputVal 값이 변경 될때마다 체크 (inputVal값이 변경될때마다)
   useEffect(()=>{
-    if( inputVal == '' ){
+    if( inputVal === '' ){
       setInputBtn(false)
       setWidthCss('')
     }
   }, [inputVal])
- 
+
   // 이메일&주민등록번호 첫번째 input 값 입력값 체크 및 css 추가
   function inputChange(val){
     let _widthCss = 'calc(100% - 2.4rem)' 
@@ -47,15 +66,13 @@ export const Select = ({setPage, errMsg }) => {
     setInputVal(val)
   }
 
-  
-   // 주민등록번호 두번쨰 값이 변경 될때마다 체크
-   useEffect(()=>{
-    if( resInputVal == '' ){
-      setResInputBtn(false)
+  // 주민등록번호 두번쨰 값이 변경 될때마다 체크 (resInputVal값이 변경될때마다)
+  useEffect(()=>{
+    if( resInputVal === '' ){
       setIsActive('')
       setResDisplay('block')
     }
-    if( resInputVal != '' ){
+    if( resInputVal !== '' ){
       setResDisplay('none')
     }
   }, [resInputVal])
@@ -63,10 +80,10 @@ export const Select = ({setPage, errMsg }) => {
   // 주민등록번호 뒷자리 input 값 입력값 체크 및 css 추가
   function _inputChange(val){
     setIsActive('_is-active')
-    setResInputBtn(true);
     setResInputVal(val)
   }
 
+  // dot 배열
   let numDot = () => {
     let result = [];
     let left = 0;
@@ -74,32 +91,31 @@ export const Select = ({setPage, errMsg }) => {
     for( let i = 0; i < dotLength; i++){
       result.push(
         <i key={i} className={
-          i == 0 ? '_line ' + isActive : null
+          i === 0 ? '_line ' + isActive : null
         } aria-hidden="true" 
         style={{
           'left' : (
-            (i == 0) ? left :
-            (i == 1) ? space :
+            (i === 0) ? left :
+            (i === 1) ? space :
             (i > 1 ) ? space += 16 : 0
           ) + 'px', 
-          'opacity' : i == 0 ? opacityNum : null,
-          'display' : i == 0 ? resDisplay : null
+          'opacity' : i === 0 ? opacityNum : null,
+          'display' : i === 0 ? resDisplay : null
         }}
       ></i>);
     }
     return result
   }
 
- // _is-active 시간차 추가
+  // _is-active 시간차 추가 (modal값이 변경될때 마다)
   useEffect(()=>{
-    if( modal == true){
+    if( modal === true){
       setTimeout(()=>{
         setAni(true)
       }, 600)
     } else {
       setAni(false)
     }
-  
   }, [modal])
 
 
@@ -121,7 +137,12 @@ export const Select = ({setPage, errMsg }) => {
                 }}
               />
               {
-                inputBtn === true ? <InputDelBtn setWidthCss={setWidthCss} inputVal={inputVal} setInputVal={setInputVal} inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                inputBtn === true ? 
+                <InputDelBtn 
+                  setWidthCss={setWidthCss} 
+                  inputVal={inputVal} setInputVal={setInputVal} 
+                  inputBtn={inputBtn} setInputBtn={setInputBtn}
+                /> : null 
               }
             </div>
             <span className="field-txt">@</span>
@@ -160,12 +181,19 @@ export const Select = ({setPage, errMsg }) => {
                 }}
               />
               {
-                inputBtn === true ? <InputDelBtn setWidthCss={setWidthCss} inputVal={inputVal} setInputVal={setInputVal} inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
+                inputBtn === true ? 
+                <InputDelBtn 
+                  setWidthCss={setWidthCss} 
+                  inputVal={inputVal} setInputVal={setInputVal} 
+                  inputBtn={inputBtn} setInputBtn={setInputBtn}
+                /> 
+                : null 
               }
             </div>
             <span className="field-txt">-</span>
             <div className="field-input grow _input">
-              <label className="_secureTxt _num" data-length="7" data-secureLine="1">
+            {/* data-secureLine -> data-secureline 으로 수정 */}
+              <label className="_secureTxt _num" data-length="7" data-secureline="1">
                 <input type="tel" className="_format _password" placeholder="" maxLength="1" 
                   onChange={(e)=>{
                     let val = e.target.value
@@ -222,24 +250,25 @@ export const Select = ({setPage, errMsg }) => {
           </div>
           {/* [s] modal : _bottom */}
           {
-            modal == true ? 
-            <ModalPop comNumber={comNumber}
-            setComNumber={setComNumber} 
-            comAgency={comAgency} 
-            setComAgency={setComAgency} 
-            Ani={Ani} setAni={setAni} 
-            modal={modal} setModal={setModal}
+            modal === true ? 
+            <ModalPop 
+              comNumber={comNumber}
+              setComNumber={setComNumber} 
+              comAgency={comAgency} 
+              setComAgency={setComAgency} 
+              Ani={Ani} setAni={setAni} 
+              modal={modal} setModal={setModal}
             /> : null
           }
           {/* [e] modal : _bottom */}
           {
-            modal == true ? <Dimmed /> : null
+            modal === true ? <Dimmed /> : null
           }
         
         </div>
       </div>
     )
-
+    default:
   }
 };
 // 삭제 버튼 
@@ -247,42 +276,44 @@ function InputDelBtn(props){
   return(
     <button type="button" className="field-btn _input-clear _active"
       onClick={()=>{
-        props.setInputBtn(false);
+
+        props.setInputBtn(false)
         let selectInput = document.getElementsByClassName('_format')[0] 
-        selectInput.value = null;
+        selectInput.value = null
         props.setWidthCss('')
         props.setInputVal('')
-        
       }}
     ><span className="hide">입력값삭제</span></button>
 
   )
 }
-
+// Dimmed 영역
 function Dimmed(){
   return(
     <div className="dimmed" aria-hidden="true"></div>
   )
 }
 
+// Modal
 function ModalPop(props){
 
+  // modal 통신사 선택 기본 index 값 
   let [countIndex, setCountIndex] = useState(props.comNumber);
+  // 클릭시 통신사 setCountIndex으로 변경된 index 값 전달
   let handleOnClick = (e, idx) =>{
     setCountIndex(idx);
   }
 
-
   return(
     <div className={
-      props.Ani == true ? 'modalPop _bottom _is-active' : 'modalPop _bottom'
+      props.Ani === true ? 'modalPop _bottom _is-active' : 'modalPop _bottom'
       } 
       select-target="select1"
     >
       <div className="modalWrap">
           <div className="modal-title">
             <h2 className="tit dep02">통신사를 선택해주세요</h2>
-            <a className="btn-close-pop ico ico-pop-close" role="button"
+            <a href="{()=>false}" className="btn-close-pop ico ico-pop-close" role="button"
               onClick={()=>{
                 props.setModal(false)
                 props.setAni(false)
@@ -296,7 +327,7 @@ function ModalPop(props){
                   return(
                     <li key={idx} 
                       className={ countIndex === idx ? '_is-active' : null }>
-                      <a href="javascript:" className="sel-opt " 
+                      <a href="{()=>false}" className="sel-opt " 
                       onClick={ 
                         e => handleOnClick(e, idx)
                       }>{props.comAgency[idx]}

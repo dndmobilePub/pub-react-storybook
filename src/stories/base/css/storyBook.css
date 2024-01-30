@@ -118,3 +118,8 @@ img { object-fit: cover; }
   border-top: 1px solid #ccc;
   padding:1rem 2rem;
 }
+
+.storybook .accordion-contents.be-after::before,
+.storybook .accordion-contents.be-after::after{clear: both;content: '';display: inline-block;height: 1rem;}
+.storybook .accordion-contents.be-after.active::before,
+.storybook .accordion-contents.be-after.active::after{height: 1rem;}
