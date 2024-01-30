@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // scss&css import
-// import './scss/cm.common.scss';
+import './scss/cm.common.scss';
 import './scss/_cp.button.scss';
+// import './css/cm.common.css';
 import './css/storyBook.css';
 
 /** 

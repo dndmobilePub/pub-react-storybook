@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes, { func } from 'prop-types';
-import './css/cm.common.css';
+
+// scss&css import
+// import './scss/cm.common.scss';
+import './scss/_cp.accodion.scss';
 import './css/storyBook.css';
 
 export const Accordion = ({setPage, onChkBox}) => {
