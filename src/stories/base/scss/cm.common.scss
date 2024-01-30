@@ -59,7 +59,8 @@ table {background-color:transparent;border-spacing:0;}
 input,
 textarea,
 select {background-color: transparent;}
-input:checked[type='checkbox'] {background-color:#666; -webkit-appearance:checkbox;}
+// 2024 스토리북 css 수정
+// input:checked[type='checkbox'] {background-color:#666; -webkit-appearance:checkbox;}
 input[type='text'],input[type='password'],input[type='submit'],
 input[type='search'],input[type='tel'],input[type='email'] { -webkit-appearance:none; border-radius:0; -webkit-border-radius:0; -moz-border-radius:0; -ms-border-radius:0; -o-border-radius:0;}
 input[type='search']::-webkit-search-cancel-button {-webkit-appearance:none;}
