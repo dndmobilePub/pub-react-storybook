@@ -159,91 +159,91 @@ export const Checkbox = ({setPage, checked, readonly, disabled }) => {
       </div>
     )
     case 's-line':
-      return (
-        <div className='cp-content'>
-          <div className={"field " + setPage}>
-            <div className="field-group">
-              <label className="field-checkbox">
-                  <input type="checkbox" />
-                <i className="field-icon"></i>
-                <span className="field-label">미체크</span>
-              </label>
-              <label className="field-checkbox">
-                <input type="checkbox" checked="checked" />
-                <i className="field-icon"></i>
-                <span className="field-label">체크</span>
-              </label>
-              <label className="field-checkbox">
-                <input type="checkbox" readonly="readonly" />
-                <i className="field-icon"></i>
-                <span className="field-label">readonly</span>
-              </label>
-              <label className="field-checkbox">
-                <input type="checkbox" disabled="disabled" />
-                <i className="field-icon"></i>
-                <span className="field-label">disabled</span>
-              </label>
-            </div>
+    return (
+      <div className='cp-content'>
+        <div className={"field " + setPage}>
+          <div className="field-group">
+            <label className="field-checkbox">
+                <input type="checkbox" />
+              <i className="field-icon"></i>
+              <span className="field-label">미체크</span>
+            </label>
+            <label className="field-checkbox">
+              <input type="checkbox" checked="checked" />
+              <i className="field-icon"></i>
+              <span className="field-label">체크</span>
+            </label>
+            <label className="field-checkbox">
+              <input type="checkbox" readonly="readonly" />
+              <i className="field-icon"></i>
+              <span className="field-label">readonly</span>
+            </label>
+            <label className="field-checkbox">
+              <input type="checkbox" disabled="disabled" />
+              <i className="field-icon"></i>
+              <span className="field-label">disabled</span>
+            </label>
           </div>
         </div>
-      )
+      </div>
+    )
 
-      case 'switch':
-      return (
-        <div className='cp-content'>
-          <div className={"field " + setPage}>
-            <div className="field-group">
-              <label className={"field-" + setPage}>
-                  <input type="checkbox" name={setPage}/>
-                <i className="field-icon"></i>
-              </label>
-              <label className={"field-" + setPage + " txt"}>
+    case 'switch':
+    return (
+      <div className='cp-content'>
+        <div className={"field " + setPage}>
+          <div className="field-group">
+            <label className={"field-" + setPage}>
                 <input type="checkbox" name={setPage}/>
-                <i className="field-icon"></i>
-              </label>
-              <label className={"field-" + setPage + " lg"}>
-                <input type="checkbox" name={setPage}/>
-                <i className="field-icon"></i>
-              </label>
-              <label className={"field-" + setPage}>
-                <input type="checkbox" name="switch" readonly="readonly" checked="checked"/>
-                <i className="field-icon"></i>
-              </label>
-              <label className={"field-" + setPage}>
-                <input type="checkbox" name="switch" disabled="disabled"/>
-                <i className="field-icon"></i>
-              </label>
-            </div>
+              <i className="field-icon"></i>
+            </label>
+            <label className={"field-" + setPage + " txt"}>
+              <input type="checkbox" name={setPage}/>
+              <i className="field-icon"></i>
+            </label>
+            <label className={"field-" + setPage + " lg"}>
+              <input type="checkbox" name={setPage}/>
+              <i className="field-icon"></i>
+            </label>
+            <label className={"field-" + setPage}>
+              <input type="checkbox" name="switch" readonly="readonly" checked="checked"/>
+              <i className="field-icon"></i>
+            </label>
+            <label className={"field-" + setPage}>
+              <input type="checkbox" name="switch" disabled="disabled"/>
+              <i className="field-icon"></i>
+            </label>
           </div>
         </div>
-      )
+      </div>
+    )
 
-      case 'box':
-      return (
-        <div className='cp-content storybook'>
-          <div className={"field " + setPage}>
-            <div className="field-group textBox">
-              <label className="field-checkbox">
-                <input type="checkbox"/>
-                <span className="field-label">08<br/>미체크</span>
-              </label>
-              <label className="field-checkbox">
-                <input type="checkbox" checked="checked"/>
-                <span className="field-label">09<br/>체크</span>
-              </label>
-              <label className="field-checkbox">
-                <input type="checkbox" readonly="readonly"/>
-                <span className="field-label">10<br/>readonly</span>
-              </label>
-              <label className="field-checkbox">
-                <input type="checkbox" disabled="disabled"/>
-                <span className="field-label">11<br/>disabled</span>
-              </label>
-            </div>
+    case 'box':
+    return (
+      <div className='cp-content storybook'>
+        <div className={"field " + setPage}>
+          <div className="field-group textBox">
+            <label className="field-checkbox">
+              <input type="checkbox"/>
+              <span className="field-label">08<br/>미체크</span>
+            </label>
+            <label className="field-checkbox">
+              <input type="checkbox" checked="checked"/>
+              <span className="field-label">09<br/>체크</span>
+            </label>
+            <label className="field-checkbox">
+              <input type="checkbox" readonly="readonly"/>
+              <span className="field-label">10<br/>readonly</span>
+            </label>
+            <label className="field-checkbox">
+              <input type="checkbox" disabled="disabled"/>
+              <span className="field-label">11<br/>disabled</span>
+            </label>
           </div>
         </div>
-      )
-    
+      </div>
+    )
+    default:
 
 
   }
@@ -256,8 +256,6 @@ Checkbox.propTypes = {
 
 // Docs 기본값
 Checkbox.defaultProps = {
-  // checked: false,
-  // readonly: false,
-  // disabled: false,
+
 };
 

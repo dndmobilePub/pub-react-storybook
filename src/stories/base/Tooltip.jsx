@@ -39,11 +39,7 @@ export const ToolTip = ({setPage, type}) => {
       setPostion(_arr)
     })
 
-
   },[])
-
-
-
 
   // _is-active 시간차 추가
   useEffect(()=>{

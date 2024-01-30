@@ -21,7 +21,6 @@ export const Accordion = ({setPage, onChkBox}) => {
       let arr = [...sub]
       if( arr[i] === true){
         arr[i] = false;
-        
       } else {
         arr[i] = true;
       }
@@ -55,7 +54,7 @@ export const Accordion = ({setPage, onChkBox}) => {
       arr[i] = true;
     }
     setSub(arr)
-  }  
+  }
 
   // 하나만 열림
   const toggle2 = (i) => {
@@ -91,9 +90,7 @@ export const Accordion = ({setPage, onChkBox}) => {
 
   // 체크된 체크박스 담을 배열
   let [checkItem, setCheckItem] = useState([])
-
   let checkList = [{id : 'exChk1'},{id : 'exChk2'},{id : 'exChk3'}]
-
   // 체크박스 단일 선택 
   let handleSingleCheck = (id, checked) => {
     // console.log(id)
@@ -132,7 +129,13 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-            <Sampledata onChkBox={onChkBox} sub={sub} setSub={setSub} toggle1={toggle1} data={data} selected={selected} setSelected={setSelected}/>            
+            <Sampledata 
+              data={data}
+              onChkBox={onChkBox} 
+              sub={sub} setSub={setSub} 
+              toggle1={toggle1} 
+              selected={selected} setSelected={setSelected}
+            />            
 					</div>
 				</div>
       </div>
@@ -142,7 +145,13 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-            <Sampledata2 onChkBox={onChkBox} sub={sub} handleScroll={handleScroll} setSub={setSub} toggleTop={toggleTop} data={data} selected={selected} setSelected={setSelected}/>                            
+            <Sampledata2 
+              data={data}
+              onChkBox={onChkBox} 
+              sub={sub} setSub={setSub}
+              handleScroll={handleScroll} toggleTop={toggleTop}  
+              selected={selected} setSelected={setSelected}
+            />                            
             <SampleDummy data={data}/>                            
             <SampleDummy data={data}/>                            
             <SampleDummy data={data}/>                            
@@ -155,7 +164,14 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-            <Sampledata3 onChkBox={onChkBox} sub={sub} handleScroll={handleScroll} setSub={setSub} toggle2={toggle2} data={data} selected={selected} setSelected={setSelected}/>                            
+            <Sampledata3 
+              data={data}
+              onChkBox={onChkBox} 
+              sub={sub} setSub={setSub}
+              handleScroll={handleScroll}  
+              toggle2={toggle2}  
+              selected={selected} setSelected={setSelected}
+            />                            
           </div>
 				</div>
       </div>
@@ -165,7 +181,13 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-          <Sampledata4 onChkBox={onChkBox} sub={sub} setSub={setSub} toggle1={toggle1} data={data} selected={selected} setSelected={setSelected}/>
+          <Sampledata4 
+            data={data} 
+            onChkBox={onChkBox} 
+            sub={sub} setSub={setSub} 
+            toggle1={toggle1} 
+            selected={selected} setSelected={setSelected}
+          />
           </div>
 				</div>
       </div>
@@ -225,7 +247,7 @@ export const Accordion = ({setPage, onChkBox}) => {
         </div>
       </div>
     )
-    
+    default:
 
   }
 };
@@ -238,9 +260,13 @@ function Sampledata(props){
         props.data.map(function(item, i){
           return(
             <dl className="accordion" key={i}>
-              <dt className={ props.onChkBox === true ? "accordion-header flex square" : "accordion-header" }
-                data-index={i}
-                >
+              <dt
+                data-index={i} 
+                className={ 
+                  props.onChkBox === true ? 
+                  "accordion-header flex square" : "accordion-header" 
+                }
+              >
                 {
                   props.onChkBox === true ? <CheckBoxBase /> :  null
                 }
@@ -563,10 +589,10 @@ function Sampledata7(props){
                 </a>
               </dt>
               <dd className={ 
-                props.sub[i] == true ? "accordion-contents active" : "accordion-contents"
+                props.sub[i] == true ? "accordion-contents be-after active" : "accordion-contents be-after"
               }
                 style={{
-                    padding : props.sub[i] == true ? '1rem 2rem' : '0rem 2rem',
+                    padding : props.sub[i] == true ? '0rem 2rem' : '0rem 2rem',
                     borderTop : props.sub[i] == true ? '1px solid #ccc' : '0px solid #ccc',
                   }
                 }
