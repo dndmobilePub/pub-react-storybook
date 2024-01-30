@@ -1,10 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
+// import PropTypes from 'prop-types';
+
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/storyBook.scss';
+
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ */
+
 
 /**
- * Primary UI component for user interaction
+ * 
  */
 export const Title = ({setPage}) => {  
 
@@ -45,8 +53,9 @@ export const Title = ({setPage}) => {
         <div className="hgroup split">
             <h2 className="tit dep02">2depth + 버튼</h2>
             <div className="col">
-              <a href="#" className="btn btn-size bg s">버튼명1</a>
-              <a href="#" className="btn btn-size bg s disabled" aria-disabled="disabled">버튼명2</a>
+              <a onClick={(e)=> e.preventDefault()} href="#!" className="btn btn-size bg s">버튼명1</a>
+              {/* aria-disabled 기존 disabled -> true/false 변경 */}
+              <a onClick={(e)=> e.preventDefault()} href="#!" className="btn btn-size bg s disabled" aria-disabled="true">버튼명2</a>
             </div>
         </div>
 
@@ -55,8 +64,9 @@ export const Title = ({setPage}) => {
         <div className="hgroup split">
           <h2 className="tit dep02">2depth + 버튼</h2>
           <div className="col">
-            <a href="#" className="btn btn-size s txt">버튼명1</a>
-            <a href="#" className="btn btn-size s txt disabled" aria-disabled="disabled">버튼명2</a>
+            <a onClick={(e)=> e.preventDefault()} href="#!" className="btn btn-size s txt">버튼명1</a>
+            {/* aria-disabled 기존 disabled -> true/false 변경 */}
+            <a onClick={(e)=> e.preventDefault()} href="#!" className="btn btn-size s txt disabled" aria-disabled="true">버튼명2</a>
           </div>
         </div>
 
@@ -172,7 +182,7 @@ export const Title = ({setPage}) => {
 
       </div>
     )
-
+    default:
 
 
   }

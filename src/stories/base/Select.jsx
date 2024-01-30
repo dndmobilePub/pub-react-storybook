@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-// sass&css import
-import './css/cm.common.css';
-import './css/storyBook.css';
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/_cp.select.scss';
+import './scss/storyBook.scss';
 
-/** 
+/*
  * 파라미터 설명
  * setPage - 카테고리 화면별 스토리 이름
  * errMsg - 에러메시지 on/off
@@ -313,8 +314,9 @@ function ModalPop(props){
       <div className="modalWrap">
           <div className="modal-title">
             <h2 className="tit dep02">통신사를 선택해주세요</h2>
-            <a href="{()=>false}" className="btn-close-pop ico ico-pop-close" role="button"
-              onClick={()=>{
+            <a href="#/" className="btn-close-pop ico ico-pop-close" role="button"
+              onClick={(e)=>{
+                e.preventDefault()
                 props.setModal(false)
                 props.setAni(false)
               }}
@@ -327,9 +329,11 @@ function ModalPop(props){
                   return(
                     <li key={idx} 
                       className={ countIndex === idx ? '_is-active' : null }>
-                      <a href="{()=>false}" className="sel-opt " 
-                      onClick={ 
-                        e => handleOnClick(e, idx)
+                      <a href="#/" className="sel-opt " 
+                      onClick={ (e)=>{
+                        handleOnClick(e, idx)
+                        e.preventDefault()
+                      }
                       }>{props.comAgency[idx]}
                       </a>
                     </li>

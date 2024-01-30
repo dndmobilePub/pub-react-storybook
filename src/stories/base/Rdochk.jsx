@@ -1,8 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
+// import PropTypes from 'prop-types';
 
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/storyBook.scss';
+
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * checked - checked 속성 on/ off
+ * readonly - readonly 속성 on/off
+ * disabled - disabled 속성 on/off
+ */
+
+/** 
+ * Raido 컴포넌트 정의
+ */
 
 export const Raido = ({setPage, checked, readonly, disabled }) => {
   const Disable = disabled ? 'disabled' : '';
@@ -20,7 +33,7 @@ export const Raido = ({setPage, checked, readonly, disabled }) => {
           <div className="field-group">
             <label className="field-radio">
                 { 
-                  readonly == true ? <input type="radio" 
+                  readonly === true ? <input type="radio" 
                   disabled = {Disable}
                   checked = {Checked}
                   readonly = {Readonly}
@@ -153,7 +166,7 @@ export const Raido = ({setPage, checked, readonly, disabled }) => {
         </div>
       </div>
     )
-    
+    default:
 
 
   }

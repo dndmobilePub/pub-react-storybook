@@ -1,13 +1,16 @@
 /****************************************/
 /*	PART: IMPORT CSS
 /****************************************/
+@import 'variables';
+@import 'mixin';
 @import 'transition';
 
 
 .no-scroll {@include overflow(both, hidden);}
 
 .modalPop {
-    @include display(none);
+    // 2024 스토리북 주석
+    // @include display(none);
     @include pos(fixed) {left: 0; z-index: 9995;}
     @include el-size(100%, 100%);
     

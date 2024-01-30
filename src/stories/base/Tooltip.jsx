@@ -1,10 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
 
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/storyBook.scss';
 
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * type - tooltip box 방향(defalut/top/left/bottom)
+ */
 
+/** 
+ * ToolTip 컴포넌트 정의
+ */
 export const ToolTip = ({setPage, type}) => {
   
   // Tooltip show&hide
@@ -39,11 +48,11 @@ export const ToolTip = ({setPage, type}) => {
       setPostion(_arr)
     })
 
-  },[])
+  },[postion])
 
   // _is-active 시간차 추가
   useEffect(()=>{
-    if( tooltipModal == true){
+    if( tooltipModal === true){
       setTimeout(()=>{
         setAni(true)
       }, 600)
@@ -67,9 +76,9 @@ export const ToolTip = ({setPage, type}) => {
       <div className='cp-content storybook'>
         <div className="tooltipWrap" style={{textAlign: 'center'}}>
           {/* 기본형  */}
-          <a ref={BtnToolTipRef} href="javascript:;" 
+          <a ref={BtnToolTipRef} href="#/" 
             className={
-              Ani == true ? "ico ico-tooltip _" + dirType + " _is-active" : "ico ico-tooltip"
+              Ani === true ? "ico ico-tooltip _" + dirType + " _is-active" : "ico ico-tooltip"
             }
             aria-roledescription="button"
             data-focus="false"
@@ -77,6 +86,7 @@ export const ToolTip = ({setPage, type}) => {
             data-message="일이삼사오육칠팔구십일이삼사오"
             data-toggle="tooltip"
             onClick={(e)=>{
+              e.preventDefault()
               setTooltipModal(true)
               setDirType(e.target.dataset.direction)
               setMessage(e.target.dataset.message)
@@ -87,13 +97,13 @@ export const ToolTip = ({setPage, type}) => {
           </a>
         </div>
         {
-          tooltipModal == true ? <ToolTipModal tooltipModal={tooltipModal} postion={postion} message={message} dirType={dirType} Ani={Ani} setAni={setAni} setTooltipModal={setTooltipModal}/> : null
+          tooltipModal === true ? <ToolTipModal tooltipModal={tooltipModal} postion={postion} message={message} dirType={dirType} Ani={Ani} setAni={setAni} setTooltipModal={setTooltipModal}/> : null
         }
 
       </div>
     )
 
-    
+    default:
 
   }
 };
@@ -114,30 +124,30 @@ function ToolTipModal(props){
     
     let _dirType = props.dirType  
     // type 위치별 툴팁 위치
-    if( props.Ani == true){
+    if( props.Ani === true){
       // default
-      if( _dirType == 'default'){
+      if( _dirType === 'default'){
         let _top = props.postion[0] - (( Height / 2) - 10)
         let _left = props.postion[1] + 30
         setPoLeft(_left)
         setPoTop(_top)
       } 
       // top
-      else if (_dirType == 'top'){
+      else if (_dirType === 'top'){
         let _top = props.postion[0] - (Height + 12)
         let _left = props.postion[1] - ((Width / 2) - 10)
         setPoLeft(_left)
         setPoTop(_top)
       }
       // left
-      else if (_dirType == 'left'){
+      else if (_dirType === 'left'){
         let _top = props.postion[0] - (( Height / 2) - 10)
         let _left = props.postion[1] -(Width + 12)
         setPoLeft(_left)
         setPoTop(_top)
       }
       // bottom
-      else if (_dirType == 'bottom'){
+      else if (_dirType === 'bottom'){
         let _top = props.postion[0] + 30
         let _left = props.postion[1] - ((Width / 2) - 10)
         setPoLeft(_left)
@@ -151,7 +161,7 @@ function ToolTipModal(props){
 
   return(
     <div ref={ToolTipRef} className={
-      props.Ani == true ? "tooltip _is-active _" + props.dirType : 'modalPop _' + props.dirType
+      props.Ani === true ? "tooltip _is-active _" + props.dirType : 'modalPop _' + props.dirType
     }
     tabIndex="0" 
     role="tooltip"
@@ -166,9 +176,10 @@ function ToolTipModal(props){
           {props.message}<br/>
           ToolTip message
         </p>
-        <a href="javascript:void(0);"  
+        <a href="#/"  
         className="ico-tooltip-close"
-        onClick={()=>{
+        onClick={(e)=>{
+          e.preventDefault();
           props.setTooltipModal(false)
         }}
         >

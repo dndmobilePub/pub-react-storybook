@@ -6,7 +6,7 @@ import './scss/cm.common.scss';
 import './scss/_cp.button.scss';
 import './scss/storyBook.scss';
 
-/** 
+/*
  * 파라미터 설명
  * setPage - 카테고리 화면별 스토리 이름
  * disabled - 버튼 Disabld 상태
@@ -15,7 +15,6 @@ import './scss/storyBook.scss';
  * size - 버튼 크기 설정
  * label - 버튼 label
  */
-
 
 /** 
  * Button 컴포넌트 정의
@@ -56,9 +55,9 @@ export const Button = ({setPage, disabled, backgroundColor, style, size, label  
       return (
         <div className='cp-content storybook'>
           <div className='btnWrap'>
-            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ].join(' ')} aria-role="button">기본링크</a>
-            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ,'uline' ].join(' ')}  aria-role="button">라인링크</a>
-            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` , 'ico arrow'].join(' ')}  aria-role="button">링크+화살표</a>
+            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ].join(' ')} ariaRole="button">기본링크</a>
+            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ,'uline' ].join(' ')}  ariaRole="button">라인링크</a>
+            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` , 'ico arrow'].join(' ')}  ariaRole="button">링크+화살표</a>
           </div>
         </div>
     

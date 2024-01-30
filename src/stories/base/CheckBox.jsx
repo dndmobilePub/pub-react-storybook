@@ -1,9 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
+// import PropTypes from 'prop-types';
+
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/storyBook.scss';
 
 
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * checked - checked 속성 on/ off
+ * readonly - readonly 속성 on/off
+ * disabled - disabled 속성 on/off
+ */
+
+
+/** 
+ * Checkbox 컴포넌트 정의
+ */
 export const Checkbox = ({setPage, checked, readonly, disabled }) => {
   const Disable = disabled ? 'disabled' : '';
   const Checked = checked ? 'checked' : '';

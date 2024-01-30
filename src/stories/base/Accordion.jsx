@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes, { func } from 'prop-types';
+import React, { useEffect, useState} from 'react';
+// import PropTypes, { func } from 'prop-types';
 
 // scss&css import
 import './scss/cm.common.scss';
@@ -73,7 +73,7 @@ export const Accordion = ({setPage, onChkBox}) => {
 
   // 하나만 열림
   const toggle2 = (i) => {
-    if(selected == i){
+    if(selected === i){
       return setSelected(null)
     }
     setSelected(i)
@@ -130,13 +130,13 @@ export const Accordion = ({setPage, onChkBox}) => {
 
   // checkItem 길이가 3개면 아코디언 닫기
   useEffect(()=>{
-    if(checkItem.length == 3){
+    if(checkItem.length === 3){
       setSub(new Array(data.length).fill(true))
     } else {
       setSub(new Array(data.length).fill(false))
       
     }
-  },[checkItem])
+  },[checkItem, data])
 
   switch (setPage){
     case 'Base':
@@ -286,11 +286,11 @@ function Sampledata(props){
                   props.onChkBox === true ? <CheckBoxBase /> :  null
                 }
                 
-                <a href="javascript:void(0);" 
-                  className={ props.sub[i] == true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
-                  aria-expanded={ props.sub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.sub[i] == true ? '열기' : '닫기'}
-                  onClick={()=> {
+                <a href="#/" 
+                  className={ props.sub[i] === true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
+                  aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.sub[i] === true ? '열기' : '닫기'}
+                  onClick={(e)=> { e.preventDefault()
                     props.toggle1(i)
                   }}
                 >
@@ -298,7 +298,7 @@ function Sampledata(props){
                 </a>
               </dt>
               <dd className={ 
-                  props.sub[i] == true ? "accordion-contents active" : "accordion-contents"
+                  props.sub[i] === true ? "accordion-contents active" : "accordion-contents"
                 }
                 >
                   <div>
@@ -331,11 +331,12 @@ function Sampledata2(props){
                 {
                   props.onChkBox === true ? <CheckBoxBase /> :  null
                 }
-                <a href="javascript:void(0);" 
-                  className={ props.sub[i] == true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
-                  aria-expanded={ props.sub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.sub[i] == true ? '열기' : '닫기'}
+                <a href="#/" 
+                  className={ props.sub[i] === true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
+                  aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.sub[i] === true ? '열기' : '닫기'}
                   onClick={(e)=> {
+                    e.preventDefault()
                     props.toggleTop(i)
                     props.handleScroll(e)
                   }}
@@ -344,7 +345,7 @@ function Sampledata2(props){
                 </a>
               </dt>
               <dd className={ 
-                  props.sub[i] == true ? "accordion-contents active" : "accordion-contents"
+                  props.sub[i] === true ? "accordion-contents active" : "accordion-contents"
                 }
                 >
                   <div>
@@ -376,11 +377,14 @@ function Sampledata3(props){
                 {
                   props.onChkBox === true ? <CheckBoxBase /> :  null
                 }
-                <a href="javascript:void(0);" 
+                <a href="#/" 
                   className={ props.selected === i ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
                   aria-expanded={ props.selected === i ? 'false' : 'true'} 
                   aria-label={ props.selected === i ? '열기' : '닫기'}
-                  onClick={()=> props.toggle2(i)}
+                  onClick={(e)=> {
+                    e.preventDefault()
+                    props.toggle2(i)
+                  }}
                 >
                   <span>{"하나만 열림 : " +props.data[i].title}</span>
                 </a>
@@ -419,17 +423,20 @@ function Sampledata4(props){
                   props.onChkBox === true ? <CheckBoxBase /> :  null
                 }
                 <span className="toggle-tit ">{"버튼만 토글 : " + props.data[i].title}</span>
-                <a href="javascript:void(0);" 
-                  className={ props.sub[i] == true ? "btn-toggle btn-act-orange _is-active" :  "btn-toggle btn-act-orange"} 
-                  aria-expanded={ props.sub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.sub[i] == true ? '열기' : '닫기'}
-                  onClick={(e)=> props.toggle1(i)}
+                <a href="#/" 
+                  className={ props.sub[i] === true ? "btn-toggle btn-act-orange _is-active" :  "btn-toggle btn-act-orange"} 
+                  aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.sub[i] === true ? '열기' : '닫기'}
+                  onClick={(e)=> {
+                    e.preventDefault()
+                    props.toggle1(i)
+                  }}
                 >
                   
                 </a>
               </dt>
               <dd className={ 
-                  props.sub[i] == true  ? "accordion-contents active" : "accordion-contents"
+                  props.sub[i] === true  ? "accordion-contents active" : "accordion-contents"
                 }
                 >
                   <div>
@@ -461,17 +468,20 @@ function Sampledata5(props){
                 {
                   props.onChkBox === true ? <CheckBox i={i} IsChecked={props.IsChecked}/> :  null
                 }
-                <a href="javascript:void(0);" 
-                  className={ props.sub[i] == true ? "btn-toggle toggle-tit _is-active" :  "btn-toggle toggle-tit"} 
-                  aria-expanded={ props.sub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.sub[i] == true ? '열기' : '닫기'}
-                  onClick={(e)=> props.CheckBoxToggle(i)}
+                <a href="#/" 
+                  className={ props.sub[i] === true ? "btn-toggle toggle-tit _is-active" :  "btn-toggle toggle-tit"} 
+                  aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.sub[i] === true ? '열기' : '닫기'}
+                  onClick={(e)=> {
+                    e.preventDefault()
+                    props.CheckBoxToggle(i)
+                  }}
                 >
                 <span>{"버튼만 토글 : " + props.data[i].title}</span>
                 </a>
               </dt>
               <dd className={ 
-                  props.sub[i] == false  ? "accordion-contents active" : "accordion-contents"
+                  props.sub[i] === false  ? "accordion-contents active" : "accordion-contents"
                 }
                 >
                   <div>
@@ -524,17 +534,20 @@ function Sampledata6(props){
                   
                   :  null
                 }
-                <a href="javascript:void(0);" 
-                  className={ props.sub[i] == true ? "btn-toggle toggle-tit _is-active" :  "btn-toggle toggle-tit"} 
-                  aria-expanded={ props.sub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.sub[i] == true ? '열기' : '닫기'}
-                  onClick={(e)=> props.CheckBoxToggle(i)}
+                <a href="#/" 
+                  className={ props.sub[i] === true ? "btn-toggle toggle-tit _is-active" :  "btn-toggle toggle-tit"} 
+                  aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.sub[i] === true ? '열기' : '닫기'}
+                  onClick={(e)=> {
+                    e.preventDefault()
+                    props.CheckBoxToggle(i)
+                  }}
                 >
                   <span>{"버튼만 토글 : " + props.data[i].title}</span>
                 </a>
               </dt>
               <dd className={ 
-                  props.sub[i] == false  ? "accordion-contents active" : "accordion-contents"
+                  props.sub[i] === false  ? "accordion-contents active" : "accordion-contents"
                 }
                 >
                   <div>
@@ -592,11 +605,12 @@ function Sampledata7(props){
                   props.onChkBox === true ? <CheckBoxBase /> :  null
                 }
                 
-                <a href="javascript:void(0);" 
-                  className={ props.sub[i] == true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
-                  aria-expanded={ props.sub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.sub[i] == true ? '열기' : '닫기'}
-                  onClick={()=> {
+                <a href="#/" 
+                  className={ props.sub[i] === true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
+                  aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.sub[i] === true ? '열기' : '닫기'}
+                  onClick={(e)=> {
+                    e.preventDefault()
                     props.toggle1(i)
                   }}
                 >
@@ -604,11 +618,11 @@ function Sampledata7(props){
                 </a>
               </dt>
               <dd className={ 
-                props.sub[i] == true ? "accordion-contents be-after active" : "accordion-contents be-after"
+                props.sub[i] === true ? "accordion-contents be-after active" : "accordion-contents be-after"
               }
                 style={{
-                    padding : props.sub[i] == true ? '0rem 2rem' : '0rem 2rem',
-                    borderTop : props.sub[i] == true ? '1px solid #ccc' : '0px solid #ccc',
+                    padding : props.sub[i] === true ? '0rem 2rem' : '0rem 2rem',
+                    borderTop : props.sub[i] === true ? '1px solid #ccc' : '0px solid #ccc',
                   }
                 }
               >
@@ -666,8 +680,9 @@ function SampleDummy(props){
               <dt className="accordion-header"
                 data-index={i}
                 >
-                <a href="javascript:void(\);" 
+                <a href="#/" 
                   className="toggle-tit btn-toggle" 
+                  onClick={(e) => e.preventDefault()}
                 >
                   <span>더미</span>
                 </a>
@@ -728,11 +743,12 @@ function ToggleInToggle(props){
           return(
             <dl className="accordion">
               <dt className="accordion-header">
-                <a href="javascript:void(0);" 
-                  className={ props.toggleSub[i] == true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
-                  aria-expanded={ props.toggleSub[i] == true ? 'false' : 'true'} 
-                  aria-label={ props.toggleSub[i] == true ? '열기' : '닫기'}
-                  onClick={()=> {
+                <a href="#/" 
+                  className={ props.toggleSub[i] === true ? "toggle-tit btn-toggle _is-active" : "toggle-tit btn-toggle"} 
+                  aria-expanded={ props.toggleSub[i] === true ? 'false' : 'true'} 
+                  aria-label={ props.toggleSub[i] === true ? '열기' : '닫기'}
+                  onClick={(e)=> {
+                    e.preventDefault()
                     props.Toggle3(i)
                   }}
                 >
@@ -740,7 +756,7 @@ function ToggleInToggle(props){
                 </a>
               </dt>
               <dd className={ 
-                props.toggleSub[i] == true ? "accordion-contents active" : "accordion-contents"
+                props.toggleSub[i] === true ? "accordion-contents active" : "accordion-contents"
               }
               >
                 <div>

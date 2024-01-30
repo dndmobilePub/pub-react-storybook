@@ -1,3 +1,9 @@
+/****************************************/
+/*	PART: IMPORT CSS
+/****************************************/
+@import 'variables';
+@import 'mixin';
+
 .tab-list-wrap {
 	overflow-x: auto;
 	position: relative;

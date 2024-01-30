@@ -1,21 +1,33 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes, { func } from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/_cp.tab.scss';
+import './scss/storyBook.scss';
 
 
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ * postion - tabmenu 가운데 정렬
+ * poLine - tabmenu line 위치 (top/bottom)
+ * direction - tabmenu 방향(가로 horizontal/세로 vertical)
+ */
+
+/** 
+ * TabMenu 컴포넌트 정의
+ */
 export const TabMenu = ({ setPage, postion, poLine, direction }) => {
 
-  const Postion = postion == 'center' ? 'tab-center' : ''
-  const PoLine = poLine == 'top' ? 'tab-line-top' : ''
+  const Postion = postion === 'center' ? 'tab-center' : ''
+  const PoLine = poLine === 'top' ? 'tab-line-top' : ''
   const Direction = direction === 'horizontal' ? '' : 'tab-vertical'
 
  
   // 탭메뉴 개수
   let [tabList] = useState([...new Array(5)].map((_, i) => i + 1))
-  
-  let [ menuPostion] = useState(Postion)
- 
+   
   // 탭메뉴 index
   let [selected, setSelected] = useState(0)
   // 탭 line 위치 값
@@ -178,7 +190,7 @@ export const TabMenu = ({ setPage, postion, poLine, direction }) => {
 
       </div>
     )
-
+    default:
   }
 };
 
@@ -190,8 +202,9 @@ function TabList(props){
         props.tabList.map(function(item, i){
           return (
             <li key={i} className={ props.selected === i ? "tab _is-active" : "tab"}>
-              <a href="javascript:void(0);" target=""
+              <a href="#" target=""
                 onClick={(e)=>{
+                  e.preventDefault()
                   props.tabMenu(i)
                 }}
               > Tab 0{props.tabList[i]}
@@ -224,8 +237,9 @@ function TabList2(props){
         props.tabList.map(function(item, i){
           return (
             <li id={'tab_' + i} key={i} className={ props.selected === i ? "tab _is-active" : "tab"}>
-              <a href="javascript:void(0);" target=""
+              <a href="#" target=""
                 onClick={(e)=>{
+                  e.preventDefault()
                   props.tabMenu(i)
                   props.tabLineCheck(e, i)
                 }}

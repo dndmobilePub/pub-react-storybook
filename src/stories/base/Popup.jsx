@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
+// import PropTypes from 'prop-types';
 
-export const Popup = ({setPage, type }) => {
+// scss&css import
+import './scss/cm.common.scss';
+import './scss/_cp.popup.scss';
+import './scss/storyBook.scss';
+
+
+/*
+ * 파라미터 설명
+ * setPage - 카테고리 화면별 스토리 이름
+ */
+
+
+/** 
+ * Popup 컴포넌트 정의
+ */
+export const Popup = ({setPage }) => {
   
   // modal show&hide
   let [modal,  setModal] = useState(false)
@@ -20,7 +33,7 @@ export const Popup = ({setPage, type }) => {
 
  // _is-active 시간차 추가
   useEffect(()=>{
-    if( modal == true){
+    if( modal === true){
       setTimeout(()=>{
         setAni(true)
       }, 600)
@@ -32,16 +45,14 @@ export const Popup = ({setPage, type }) => {
 
   // toast Popup 
   useEffect(()=>{
-    if( toastModal == true){
+    if( toastModal === true){
       setTimeout(()=>{
         setToastModal(false)
       }, 4000)
     } 
   }, [toastModal])
 
-  // tootip 방향 useState 저장
-  let [dirType, setDirType] = useState() 
-  
+
 
   switch (setPage){
 
@@ -60,7 +71,7 @@ export const Popup = ({setPage, type }) => {
 
         {/* [s] modal */}
         {
-          modal == true ? 
+          modal === true ? 
           <ModalPop  
           postion = {postion}
           Ani={Ani} setAni={setAni} 
@@ -69,10 +80,10 @@ export const Popup = ({setPage, type }) => {
         }
         {/* [e] modal  */}
         {
-          modal == true ? <Dimmed /> : null
+          modal === true ? <Dimmed /> : null
         }  
         {
-          toastModal == true ? <ToastPop/> : null
+          toastModal === true ? <ToastPop/> : null
         }
       </div>
     )
@@ -92,7 +103,7 @@ export const Popup = ({setPage, type }) => {
 
         {/* [s] modal */}
         {
-          modal == true ? 
+          modal === true ? 
           <ModalPop  
           postion = {postion}
           Ani={Ani} setAni={setAni} 
@@ -101,10 +112,10 @@ export const Popup = ({setPage, type }) => {
         }
         {/* [e] modal  */}
         {
-          modal == true ? <Dimmed /> : null
+          modal === true ? <Dimmed /> : null
         }  
         {
-          toastModal == true ? <ToastPop/> : null
+          toastModal === true ? <ToastPop/> : null
         }
       </div>
     )
@@ -124,7 +135,7 @@ export const Popup = ({setPage, type }) => {
 
         {/* [s] modal */}
         {
-          modal == true ? 
+          modal === true ? 
           <ModalPop  
           postion = {postion}
           Ani={Ani} setAni={setAni} 
@@ -133,76 +144,76 @@ export const Popup = ({setPage, type }) => {
         }
         {/* [e] modal  */}
         {
-          modal == true ? <Dimmed /> : null
+          modal === true ? <Dimmed /> : null
         }  
         {
-          toastModal == true ? <ToastPop/> : null
+          toastModal === true ? <ToastPop/> : null
         }
       </div>
     )
 
     case 'BOTTOM':
-      return (
-        <div className='cp-content storybook'>
-          <div className="btnWrap">
-            <button className="btn btn-size md bg _modalBtn" data-value='Bottom'
-              onClick={(e)=>{
-                dataValueCheck(e)
-                setModal(true)
-                
-              }}
-            data-modal="modal4">Bottom Modal</button>
-          </div>
-  
-          {/* [s] modal */}
-          {
-            modal == true ? 
-            <ModalPop  
-            postion = {postion}
-            Ani={Ani} setAni={setAni} 
-            modal={modal} setModal={setModal}
-            /> : null
-          }
-          {/* [e] modal  */}
-          {
-            modal == true ? <Dimmed /> : null
-          }  
-          {
-            toastModal == true ? <ToastPop/> : null
-          }
+    return (
+      <div className='cp-content storybook'>
+        <div className="btnWrap">
+          <button className="btn btn-size md bg _modalBtn" data-value='Bottom'
+            onClick={(e)=>{
+              dataValueCheck(e)
+              setModal(true)
+              
+            }}
+          data-modal="modal4">Bottom Modal</button>
         </div>
-      )
-      case 'TOAST':
-        return (
-          <div className='cp-content storybook'>
-            <div className="btnWrap">
-              <button className="btn btn-size md bg _toastBtn" data-value='toast'
-                onClick={()=>{
-                  setToastModal(true)
-                  
-                }}
-              data-toast="토스트 팝업메세지를 출력" >토스트팝업</button>
-            </div>
-    
-            {/* [s] modal */}
-            {
-              modal == true ? 
-              <ModalPop  
-              postion = {postion}
-              Ani={Ani} setAni={setAni} 
-              modal={modal} setModal={setModal}
-              /> : null
-            }
-            {/* [e] modal  */}
-            {
-              modal == true ? <Dimmed /> : null
-            }  
-            {
-              toastModal == true ? <ToastPop/> : null
-            }
-          </div>
-        )
 
+        {/* [s] modal */}
+        {
+          modal === true ? 
+          <ModalPop  
+          postion = {postion}
+          Ani={Ani} setAni={setAni} 
+          modal={modal} setModal={setModal}
+          /> : null
+        }
+        {/* [e] modal  */}
+        {
+          modal === true ? <Dimmed /> : null
+        }  
+        {
+          toastModal === true ? <ToastPop/> : null
+        }
+      </div>
+    )
+    case 'TOAST':
+    return (
+      <div className='cp-content storybook'>
+        <div className="btnWrap">
+          <button className="btn btn-size md bg _toastBtn" data-value='toast'
+            onClick={()=>{
+              setToastModal(true)
+              
+            }}
+          data-toast="토스트 팝업메세지를 출력" >토스트팝업</button>
+        </div>
+
+        {/* [s] modal */}
+        {
+          modal === true ? 
+          <ModalPop  
+          postion = {postion}
+          Ani={Ani} setAni={setAni} 
+          modal={modal} setModal={setModal}
+          /> : null
+        }
+        {/* [e] modal  */}
+        {
+          modal === true ? <Dimmed /> : null
+        }  
+        {
+          toastModal === true ? <ToastPop/> : null
+        }
+      </div>
+    )
+    default:
   }
 };
 
@@ -220,7 +231,7 @@ function ModalPop(props){
 
   return(
     <div className={
-      props.Ani == true ? 'modalPop _is-active _' + checkPostion : 'modalPop _' + checkPostion 
+      props.Ani === true ? 'modalPop _is-active _' + checkPostion : 'modalPop _' + checkPostion 
       } 
       select-target="modal1"
     >
@@ -228,12 +239,13 @@ function ModalPop(props){
         <div className="modal-header">
           {/* center&bottom 일경우 이전페이지 버튼 숨기기 */}
           {
-            (checkPostion == 'center') ? null :
-            (checkPostion == 'bottom') ? null : <Hisprec />
+            (checkPostion === 'center') ? null :
+            (checkPostion === 'bottom') ? null : <Hisprec />
           }
           <h1 className="mp-title dep01">{props.postion} Modal</h1>
-          <a href="javascript:;" className="btn-close-pop ico ico-pop-close" role="button"
-            onClick={()=>{
+          <a href="#/" className="btn-close-pop ico ico-pop-close" role="button"
+            onClick={(e)=>{
+              e.preventDefault()
               props.setModal(false)
               props.setAni(false)
             }}
@@ -244,7 +256,7 @@ function ModalPop(props){
         <div className="modal-container">
           <p 
             style={
-              checkPostion == 'bottom' ? {
+              checkPostion === 'bottom' ? {
                 height: 100 + 'px',
                 background: 'yellow' 
               } : null
@@ -262,7 +274,9 @@ function ModalPop(props){
 
 function Hisprec(){
   return(
-    <a href="#" className="ico ico-his-prev" role="button">
+    <a href="#/" className="ico ico-his-prev" role="button"
+      onClick={(e)=> e.preventDefault()}
+    >
       <span className="hide">이전페이지</span>
   </a>
   )
@@ -272,14 +286,14 @@ function BtnWrap(props){
   return(
     <div className="btnWrap grow">
       <button className={ 
-        props.checkPostion == 'center' ? 'btn btn-size md type2 bg btn-close-pop' : 'btn btn-size md type2 bg' 
+        props.checkPostion === 'center' ? 'btn btn-size md type2 bg btn-close-pop' : 'btn btn-size md type2 bg' 
       }
         onClick={()=>{
           props.setModal(false)
         }}
       >확인</button>
       {
-        props.checkPostion == 'center' ? null : 
+        props.checkPostion === 'center' ? null : 
         <button className="btn btn-size md bg btn-close-pop"
           onClick={(()=>{
             props.setModal(false)
@@ -295,7 +309,9 @@ function ToastPop(){
   return(
     <div className='toastWrap' role='alert' aria-live="assertive" tabIndex={0}>
       <div className='toast-msg'>토스트팝업메시지를 출력</div>
-      <a href="javascript:;" className='btn icon-close' aria-label='Close' tabIndex={-1}>
+      <a href="#/" className='btn icon-close' aria-label='Close' tabIndex={-1}
+        onClick={(e)=>e.preventDefault()}
+      >
         <span className='hide'>토스트팝업닫기</span>
       </a>
     </div>

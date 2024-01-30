@@ -81,7 +81,7 @@ input[type='text']:disabled, input[type='password']:disabled {background:#f6f6f6
 
 strong {@include webfont("NotoSansKR", 400);}
 b {@include webfont("NotoSansKR", 600);}
-a {display:inline-block; color:$color-default; text-decoration:none;/*outline:transparent;*/} 
+a {display:inline-block; color:$color-default; text-decoration:none;/*outline:transparent;*/ cursor: pointer;} 
 a:active, a:hover {text-decoration:none;}
 
 legend, caption{@include ir("hide");}
