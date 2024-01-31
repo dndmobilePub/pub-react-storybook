@@ -127,7 +127,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
     case 'Base':
     return (
-      <div className='cp-content'>
+      <div className='cp-content storybook'>
         <div className="field">
           <label className="field-label">{label}</label>
           <div className={"field-outline " + Disable}>
@@ -164,7 +164,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
     case 'exception':
     return (
-      <div className='cp-content'>
+      <div className='cp-content storybook'>
         <div className='field'>
           {label}
           <div className={"field-outline " + Disable}>
@@ -184,7 +184,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
     case 'disable':
       return (
-        <div className='cp-content'>
+        <div className='cp-content storybook'>
           <div className='field'>
             {label}
             <div className={"field-outline " + Disable}>
@@ -218,7 +218,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
       case 'infoMsg':
       return (
-        <div className='cp-content'>
+        <div className='cp-content storybook'>
           <div className='field'>
             {label}
             <div className={"field-outline " + Disable}>
@@ -255,7 +255,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
       case 'validState':
       return (
-        <div className='cp-content'>
+        <div className='cp-content storybook'>
           <div className={['field',  _fieldState].join(' ')}>
           <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
@@ -291,7 +291,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
       case 'residentNum':
       return (
-        <div className='cp-content'>
+        <div className='cp-content storybook'>
           <div className="field">
             <label className="field-label">주민등록번호</label>
             <div className="field-outline">
@@ -348,7 +348,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
       case 'phoneNum':
       return (
-        <div className='cp-content'>
+        <div className='cp-content storybook'>
           <div className={['field', '_label', fieldState].join(' ')}>
             <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
@@ -382,6 +382,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
         </div>
   
       )
+      default:
 
   }
 };
