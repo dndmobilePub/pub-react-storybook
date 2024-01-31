@@ -621,7 +621,7 @@ function Sampledata7(props){
                 props.sub[i] === true ? "accordion-contents be-after active" : "accordion-contents be-after"
               }
                 style={{
-                    padding : props.sub[i] === true ? '0rem 2rem' : '0rem 2rem',
+                    padding : props.sub[i] === true ? '0em 2rem' : '0rem 2rem',
                     borderTop : props.sub[i] === true ? '1px solid #ccc' : '0px solid #ccc',
                   }
                 }

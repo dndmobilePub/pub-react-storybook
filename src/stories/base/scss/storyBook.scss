@@ -94,14 +94,11 @@ img { object-fit: cover; }
   overflow: hidden;
   border-top: 0px solid #ccc;
   transition: all 0.5s cubic-bezier(0,1,0,1);
-  -webkit-transition: all 0.5s cubic-bezier(0,1,0,1);
-  -moz-transition: all 0.5s cubic-bezier(0,1,0,1);
-  -ms-transition: all 0.5s cubic-bezier(0,1,0,1);
-  -o-transition: all 0.5s cubic-bezier(0,1,0,1);
+
 }
 .storybook .accordion-contents.active{
   height: auto;
-  max-height: 9999px;
+  max-height: 1500px;
   transition: all 0.5s cubic-bezier(1,0,1,0);
   -webkit-transition: all 0.5s cubic-bezier(1,0,1,0);
   -moz-transition: all 0.5s cubic-bezier(1,0,1,0);

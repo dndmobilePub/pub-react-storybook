@@ -55,9 +55,9 @@ export const Button = ({setPage, disabled, backgroundColor, style, size, label  
       return (
         <div className='cp-content storybook'>
           <div className='btnWrap'>
-            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ].join(' ')} ariaRole="button">기본링크</a>
-            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ,'uline' ].join(' ')}  ariaRole="button">라인링크</a>
-            <a href="{()=>false}" className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` , 'ico arrow'].join(' ')}  ariaRole="button">링크+화살표</a>
+            <a href="#/" onClick={(e)=> e.preventDefault()} className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ].join(' ')} ariaRole="button">기본링크</a>
+            <a href="#/" onClick={(e)=> e.preventDefault()} className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ,'uline' ].join(' ')}  ariaRole="button">라인링크</a>
+            <a href="#/" onClick={(e)=> e.preventDefault()} className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` , 'ico arrow'].join(' ')}  ariaRole="button">링크+화살표</a>
           </div>
         </div>
     
@@ -219,7 +219,7 @@ Button.propTypes = {
    /**
    * 버튼 true 인 경우 Disabld 상태
    */
-   disabled: PropTypes.bool,
+   disabled: PropTypes.func,
   /**
  * 버튼 타입 선택
  */
@@ -235,7 +235,7 @@ Button.propTypes = {
   /**
    * 버튼 text 값 입력
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
 };
 
 // Docs Parameter 기본값 설정

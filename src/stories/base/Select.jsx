@@ -113,7 +113,7 @@ export const Select = ({setPage, errMsg }) => {
     if( modal === true){
       setTimeout(()=>{
         setAni(true)
-      }, 600)
+      }, 1000)
     } else {
       setAni(false)
     }

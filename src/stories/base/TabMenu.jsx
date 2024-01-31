@@ -132,16 +132,16 @@ export const TabMenu = ({ setPage, postion, poLine, direction }) => {
           >
 					<div className="tab-list-wrap">
 						<ul className="tab-list">
-							<li className="tab _is-active"><a href="javascript:void(0);">Tab 01</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 02</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 03</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 04</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 05</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 06</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 07</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 08</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 09</a></li>
-							<li className="tab"><a href="javascript:void(0);">Tab 10</a></li>
+							<li className="tab _is-active"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 01</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 02</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 03</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 04</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 05</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 06</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 07</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 08</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 09</a></li>
+							<li className="tab"><a href="#/" onClick={(e)=> e.preventDefault()}>Tab 10</a></li>
 						</ul>
 					</div>
 					<div className="tab-contents-wrap">
@@ -202,7 +202,7 @@ function TabList(props){
         props.tabList.map(function(item, i){
           return (
             <li key={i} className={ props.selected === i ? "tab _is-active" : "tab"}>
-              <a href="#" target=""
+              <a href="#/" target=""
                 onClick={(e)=>{
                   e.preventDefault()
                   props.tabMenu(i)
@@ -229,7 +229,7 @@ function TabList2(props){
       props.setLinePo(ele)
 
     }
-  },[props.postion])
+  },[props.postion, props])
 
   return(
     <ul className="tab-list" id="tabList">
@@ -237,7 +237,7 @@ function TabList2(props){
         props.tabList.map(function(item, i){
           return (
             <li id={'tab_' + i} key={i} className={ props.selected === i ? "tab _is-active" : "tab"}>
-              <a href="#" target=""
+              <a href="#/" target=""
                 onClick={(e)=>{
                   e.preventDefault()
                   props.tabMenu(i)
@@ -271,7 +271,7 @@ function TabListDirection(props){
                   props.setDirectionPo(tabList[i].direction)
                 }}
             >
-              <a href="javascript:void(0);">{tabList[i].direction}</a>
+              <a href="#/" onClick={(e)=> e.preventDefault()}>{tabList[i].direction}</a>
             </li>
           )
         })
