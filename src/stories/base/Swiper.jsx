@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import SwiperCore from 'swiper';
+import React, { useState } from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -153,6 +151,7 @@ export const TySwiper = ({setPage}) => {
             </div>
         </div>
       )
+      default:
   
 
   }

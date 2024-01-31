@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 
 // scss import
 import './scss/cm.common.scss';
@@ -241,6 +240,7 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
           </div>
         </div>
       )
+      default:
   }
 
   
