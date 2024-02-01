@@ -21,7 +21,7 @@ export const Select = ({setPage, errMsg }) => {
   // 에러 메시지 true일대 invalid 클래스 추가
   const ErrMsg = errMsg ? 'invalid' : null 
 
-  let [widthCss, setWidthCss] = useState()
+  let [widthCss, setWidthCss] = useState(false)
 
   // 이메일 & 주민등록번호 첫번째 input 
   let [inputBtn, setInputBtn] = useState(false)
@@ -52,20 +52,16 @@ export const Select = ({setPage, errMsg }) => {
   let [Ani,  setAni] = useState(false)
   
   // inputVal 값이 변경 될때마다 체크 (inputVal값이 변경될때마다)
+  // input 값이 공백일때 clear 버튼 hide / txt-none class 제거
   useEffect(()=>{
     if( inputVal === '' ){
       setInputBtn(false)
-      setWidthCss('')
+      setWidthCss(false)
+    } else {
+      setWidthCss(true)
+      setInputBtn(true)
     }
   }, [inputVal])
-
-  // 이메일&주민등록번호 첫번째 input 값 입력값 체크 및 css 추가
-  function inputChange(val){
-    let _widthCss = 'calc(100% - 2.4rem)' 
-    setWidthCss(_widthCss)
-    setInputBtn(true);
-    setInputVal(val)
-  }
 
   // 주민등록번호 두번쨰 값이 변경 될때마다 체크 (resInputVal값이 변경될때마다)
   useEffect(()=>{
@@ -75,14 +71,10 @@ export const Select = ({setPage, errMsg }) => {
     }
     if( resInputVal !== '' ){
       setResDisplay('none')
+      setIsActive('_is-active')
     }
   }, [resInputVal])
 
-  // 주민등록번호 뒷자리 input 값 입력값 체크 및 css 추가
-  function _inputChange(val){
-    setIsActive('_is-active')
-    setResInputVal(val)
-  }
 
   // dot 배열
   let numDot = () => {
@@ -91,15 +83,17 @@ export const Select = ({setPage, errMsg }) => {
     let space = 13;
     for( let i = 0; i < dotLength; i++){
       result.push(
-        <i key={i} className={
-          i === 0 ? '_line ' + isActive : null
-        } aria-hidden="true" 
+        <i key={i} 
+          className={
+            i === 0 ? '_line ' + isActive : null
+          } 
+        aria-hidden="true" 
         style={{
           'left' : (
             (i === 0) ? left :
             (i === 1) ? space :
             (i > 1 ) ? space += 16 : 0
-          ) + 'px', 
+          ) , 
           'opacity' : i === 0 ? opacityNum : null,
           'display' : i === 0 ? resDisplay : null
         }}
@@ -129,12 +123,12 @@ export const Select = ({setPage, errMsg }) => {
           <label className="field-label">이메일</label>
           <div className="field-outline">
             <div className="field-input grow _input">
-              <input type="tel" className="_format _number" placeholder="메일아이디" maxLength="5"
-                style={{"width": widthCss}}
+              <input type="tel" 
+                className={ widthCss === true ? "_format _number txt-none" : "_format _number" } 
+                placeholder="메일아이디" maxLength="5"
                 value={inputVal}
                 onChange={(e)=>{
-                  let val = e.target.value
-                  inputChange(val)
+                  setInputVal(e.target.value)
                 }}
               />
               {
@@ -173,12 +167,12 @@ export const Select = ({setPage, errMsg }) => {
           <label className="field-label">주민등록번호</label>
           <div className="field-outline">
             <div className="field-input grow _input">
-              <input type="text" className="_format _number" placeholder="생년월일 6자리" maxLength="6"
-                style={{"width": widthCss}}
+              <input type="text" 
+                className={ widthCss === true ? "_format _number txt-none" : "_format _number" }  
+                placeholder="생년월일 6자리" maxLength="6"
                 value={inputVal}
                 onChange={(e)=>{
-                  let val = e.target.value
-                  inputChange(val)
+                  setInputVal(e.target.value)
                 }}
               />
               {
@@ -197,8 +191,7 @@ export const Select = ({setPage, errMsg }) => {
               <label className="_secureTxt _num" data-length="7" data-secureline="1">
                 <input type="tel" className="_format _password" placeholder="" maxLength="1" 
                   onChange={(e)=>{
-                    let val = e.target.value
-                    _inputChange(val)
+                    setResInputVal(e.target.value)
                   }}
                   // 포커스가 될때 opactiy 0.5
                   onClick={()=>{
@@ -240,8 +233,7 @@ export const Select = ({setPage, errMsg }) => {
                 style={{"width": widthCss}}
                 value={inputVal}
                 onChange={(e)=>{
-                  let val = e.target.value
-                  inputChange(val)
+                  setInputVal(e.target.value)
                 }}
               />
               {
@@ -297,14 +289,6 @@ function Dimmed(){
 
 // Modal
 function ModalPop(props){
-
-  // modal 통신사 선택 기본 index 값 
-  let [countIndex, setCountIndex] = useState(props.comNumber);
-  // 클릭시 통신사 setCountIndex으로 변경된 index 값 전달
-  let handleOnClick = (e, idx) =>{
-    setCountIndex(idx);
-  }
-
   return(
     <div className={
       props.Ani === true ? 'modalPop _bottom _is-active' : 'modalPop _bottom'
@@ -328,10 +312,10 @@ function ModalPop(props){
                 props.comAgency.map(function(data, idx){
                   return(
                     <li key={idx} 
-                      className={ countIndex === idx ? '_is-active' : null }>
+                      className={ props.comNumber === idx ? '_is-active' : null }>
                       <a href="#/" className="sel-opt " 
-                      onClick={ (e)=>{
-                        handleOnClick(e, idx)
+                      onClick={(e)=>{
+                        props.setComNumber(idx)
                         e.preventDefault()
                       }
                       }>{props.comAgency[idx]}
@@ -346,7 +330,7 @@ function ModalPop(props){
             <div className="btnWrap grow">
               <button className="btn btn-size md type2 bg btn-selChoice" 
                 onClick={()=>{
-                  props.setComNumber(countIndex)
+                  props.setComNumber(props.comNumber)
                   props.setModal(false)
                 }}
               >선택</button>
