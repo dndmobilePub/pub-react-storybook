@@ -22,9 +22,8 @@ import 'swiper/css/scrollbar';
 
 export const TySwiper = ({setPage}) => {
 
-  const [currentTab, setCurrentTab] = useState(0);
-  const [swiper, setSwiper] = useState();
-  const swiperRef = useRef(null);
+  const [currentTabs, setCurrentTabs] = useState(new Array(10).fill(0));
+  const [swipers, setSwipers] = useState(new Array(10).fill(null).map(() => useRef(null)));
 
   const menuArr = [
     { id:'1', name: 'Tab1', content: 'Tab swiper 1' },
@@ -39,130 +38,161 @@ export const TySwiper = ({setPage}) => {
     { id:'10', name: 'Tab10', content: 'Tab swiper 10' },
   ];
 
-  const swiperHandler = (index) => {
-    setCurrentTab(index);
+  const swiperArr = [
+    { id: '1', name: 'Tab1', content: 'Tab swiper 1' },
+    { id: '2', name: 'TabTab2', content: 'Tab swiper 2' },
+    { id: '3', name: 'TabTabTab3', content: 'Tab swiper 3' },
+  ];
+
+  const swiperHandlers = new Array(swiperArr.length).fill(0).map((_, i) => (index) => {
     // .tab-nav의 첫번째에 위치하도록 스크롤 조정
     // swiperRef.current.slideTo(index);
     // .tab-nav의 가운데에 위치하도록 스크롤 조정
-    const tabNav = document.querySelector('.tab-nav');
+    const tabNav = document.querySelector(`.tab-nav-${i}`);
     const slideWidth = tabNav.scrollWidth / menuArr.length;
     const offsetLeft = index * slideWidth - tabNav.offsetWidth / 2 + slideWidth / 2;
     tabNav.scrollTo({ left: offsetLeft, behavior: 'smooth' });
-  };
+    setCurrentTabs((prev) => prev.map((tab, j) => (i === j ? index : tab)));
+  });
 
-  const onClickTab = (index) => {
-    if (swiper) {
-      swiper.slideTo(index, 1000);
+  const onClickTabs = new Array(swiperArr.length).fill(0).map((_, i) => (index) => {
+    if (swipers[i]) {
+      swipers[i].slideTo(index, 1000);
     }
-  }
- 
+  });
+
 
   switch (setPage){
 
     case 'Base':
       return (
         <div className='cp-content storybook' style={{width: 500}}>
-            <Swiper
-              className='tab-content'
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={50}
-              slidesPerView={1}
-              navigation={true}
-              pagination={true}
-              onSwiper={setSwiper} 
+           {swiperArr.map((_, i) => (
+            <div className='' key={i}>
+              <Swiper style={{marginBottom: 30}}
+                className={`tab-content tab-content-${i}`}
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                slidesPerView={1}
+                navigation={true}
+                pagination={true}
+                onSwiper={(swiper) => setSwipers((prev) => prev.map((prevSwiper, j) => (i === j ? swiper : prevSwiper)))}
+                onSlideChange={(e) => {
+                  swiperHandlers[i](e.activeIndex);
+                  onClickTabs[i](e.activeIndex);
+                }}
               >
-              {menuArr.map((el,index) => (
-                <SwiperSlide key={el.id} data-index={index} className={index === currentTab ? "swiper-slide swiper-slide-active" : "swiper-slide" }>
-                  {el.content}
-                </SwiperSlide>
-              ))} 
-            </Swiper>
+                {menuArr.map((el, index) => (
+                  <SwiperSlide
+                    key={el.id}
+                    data-index={index}
+                    className={index === currentTabs[i] ? 'swiper-slide swiper-slide-active' : 'swiper-slide'}
+                  >
+                    {el.content}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ))}
         </div>
       )
 
     case 'Tab':
       return (
-        <div className='cp-content' style={{width: 350}}>
-          <div className='tab-swiper'>
-            <Swiper
-              ref={swiperRef}
-              className='tab-nav'
-              modules={[Scrollbar, A11y]}
-              slidesPerView={'auto'}
-              onSwiper={(swiper) => (swiperRef.current = swiper)}
-              onSlideChange={(swiper) => {
-                swiperHandler(swiper.activeIndex) // 슬라이드 변경시 이벤트 동작
-                }}> 
-              {menuArr.map((el,index) => (
-                <SwiperSlide key={el.id} className={index === currentTab ? "swiper-slide active" : "swiper-slide" } 
-                onClick={() => {
-                  swiperHandler(index);
-                  onClickTab(index);
-                  return false; // 클릭 이벤트에서 기본 동작을 막기 위해 false 반환
-                }}>
-                  {/* <a onClick={e => e.preventDefault}>{el.name}</a> */}
-                  <a>{el.name}</a>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <Swiper
-              className='tab-content'
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              //spaceBetween={50}
-              slidesPerView={1}
-              onSwiper={setSwiper} 
-              onSlideChange={(e) => {
-                swiperHandler(e.activeIndex) 
-                onClickTab(e.activeIndex)
-              }}>
-              {menuArr.map((el,index) => (
-                <SwiperSlide key={el.id} data-index={index} className={index === currentTab ? "swiper-slide swiper-slide-active" : "swiper-slide" } 
-                >
-                  {el.content}
-                </SwiperSlide>
-              ))} 
-            </Swiper>
+        <div className='cp-content storybook' style={{ width: 500 }}>
+          {swiperArr.map((_, i) => (
+            <div className='tab-swiper' key={i}>
+              <Swiper
+                ref={swipers[i]}
+                className={`tab-nav tab-nav-${i}`}
+                modules={[Scrollbar, A11y]}
+                slidesPerView={'auto'}
+              >
+                {menuArr.map((el, index) => (
+                  <SwiperSlide
+                    key={el.id}
+                    className={index === currentTabs[i] ? 'swiper-slide active' : 'swiper-slide'}
+                    onClick={() => {
+                      swiperHandlers[i](index);
+                      onClickTabs[i](index);
+                    }}
+                  >
+                    <a>{el.name}</a>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <Swiper
+                className={`tab-content tab-content-${i}`}
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                slidesPerView={1}
+                onSwiper={(swiper) => setSwipers((prev) => prev.map((prevSwiper, j) => (i === j ? swiper : prevSwiper)))}
+                onSlideChange={(e) => {
+                  swiperHandlers[i](e.activeIndex);
+                  onClickTabs[i](e.activeIndex);
+                }}
+              >
+                {menuArr.map((el, index) => (
+                  <SwiperSlide
+                    key={el.id}
+                    data-index={index}
+                    className={index === currentTabs[i] ? 'swiper-slide swiper-slide-active' : 'swiper-slide'}
+                  >
+                    {el.content}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
+          ))}
         </div>
-      )
+      );
 
     case 'ScrollTab':
       return (
-        <div className='cp-content storybook' style={{width: 500}}>
-          <div className='tab-swiper vertical'>
-            <Swiper
-              className='tab-nav'
-              slidesPerView={'auto'}
+        <div className='cp-content storybook' style={{ width: 500 }}>
+          {swiperArr.map((_, i) => (
+            <div className='tab-swiper' key={i}>
+              <Swiper
+                ref={swipers[i]}
+                className={`tab-nav tab-nav-${i}`}
+                modules={[Scrollbar, A11y]}
+                slidesPerView={'auto'}
               >
-              {menuArr.map((el,index) => (
-                <SwiperSlide key={el.id} className={index === currentTab ? "swiper-slide active" : "swiper-slide" } 
-                onClick={() => {
-                  swiperHandler(index) 
-                  onClickTab(index)
-                }}>
-                  <a onClick={e => e.preventDefault}>{el.name}</a>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <Swiper
-              className='tab-content'
-              modules={[Navigation, Pagination, Scrollbar, A11y, Mousewheel]}
-              //spaceBetween={50}
-              slidesPerView={1}
-              direction="vertical"
-              mousewheel={true}
-              onSwiper={setSwiper} 
-              onSlideChange={(e) => {
-                swiperHandler(e.activeIndex) 
-                onClickTab(e.activeIndex)
-              }}>
-              {menuArr.map((el,index) => (
-                <SwiperSlide key={el.id} data-index={index} className={index === currentTab ? "swiper-slide swiper-slide-active" : "swiper-slide" }>
-                  {el.content}
-                </SwiperSlide>
-              ))} 
-            </Swiper>
+                {menuArr.map((el, index) => (
+                  <SwiperSlide
+                    key={el.id}
+                    className={index === currentTabs[i] ? 'swiper-slide active' : 'swiper-slide'}
+                    onClick={() => {
+                      swiperHandlers[i](index);
+                      onClickTabs[i](index);
+                    }}
+                  >
+                    <a>{el.name}</a>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <Swiper
+                className={`tab-content tab-content-${i}`}
+                modules={[Navigation, Pagination, Scrollbar, A11y, Mousewheel]}
+                slidesPerView={1}
+                direction="vertical"
+                mousewheel={true}
+                onSwiper={(swiper) => setSwipers((prev) => prev.map((prevSwiper, j) => (i === j ? swiper : prevSwiper)))}
+                onSlideChange={(e) => {
+                  swiperHandlers[i](e.activeIndex);
+                  onClickTabs[i](e.activeIndex);
+                }}
+              >
+                {menuArr.map((el, index) => (
+                  <SwiperSlide
+                    key={el.id}
+                    data-index={index}
+                    className={index === currentTabs[i] ? 'swiper-slide swiper-slide-active' : 'swiper-slide'}
+                  >
+                    {el.content}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
+          ))}
         </div>
       )
       default:
