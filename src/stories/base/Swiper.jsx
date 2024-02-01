@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +14,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-
 /*
  * 파라미터 설명
  * setPage - 카테고리 화면별 스토리 이름
@@ -25,6 +24,7 @@ export const TySwiper = ({setPage}) => {
 
   const [currentTab, setCurrentTab] = useState(0);
   const [swiper, setSwiper] = useState();
+  const swiperRef = useRef(null);
 
   const menuArr = [
     { id:'1', name: 'Tab1', content: 'Tab swiper 1' },
@@ -41,6 +41,13 @@ export const TySwiper = ({setPage}) => {
 
   const swiperHandler = (index) => {
     setCurrentTab(index);
+    // .tab-nav의 첫번째에 위치하도록 스크롤 조정
+    // swiperRef.current.slideTo(index);
+    // .tab-nav의 가운데에 위치하도록 스크롤 조정
+    const tabNav = document.querySelector('.tab-nav');
+    const slideWidth = tabNav.scrollWidth / menuArr.length;
+    const offsetLeft = index * slideWidth - tabNav.offsetWidth / 2 + slideWidth / 2;
+    tabNav.scrollTo({ left: offsetLeft, behavior: 'smooth' });
   };
 
   const onClickTab = (index) => {
@@ -75,19 +82,26 @@ export const TySwiper = ({setPage}) => {
 
     case 'Tab':
       return (
-        <div className='cp-content storybook' style={{width: 500}}>
+        <div className='cp-content' style={{width: 350}}>
           <div className='tab-swiper'>
             <Swiper
+              ref={swiperRef}
               className='tab-nav'
+              modules={[Scrollbar, A11y]}
               slidesPerView={'auto'}
-              >
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              onSlideChange={(swiper) => {
+                swiperHandler(swiper.activeIndex) // 슬라이드 변경시 이벤트 동작
+                }}> 
               {menuArr.map((el,index) => (
                 <SwiperSlide key={el.id} className={index === currentTab ? "swiper-slide active" : "swiper-slide" } 
                 onClick={() => {
-                  swiperHandler(index) 
-                  onClickTab(index)
+                  swiperHandler(index);
+                  onClickTab(index);
+                  return false; // 클릭 이벤트에서 기본 동작을 막기 위해 false 반환
                 }}>
-                  <a onClick={e => e.preventDefault}>{el.name}</a>
+                  {/* <a onClick={e => e.preventDefault}>{el.name}</a> */}
+                  <a>{el.name}</a>
                 </SwiperSlide>
               ))}
             </Swiper>
