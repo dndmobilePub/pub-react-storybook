@@ -28,7 +28,7 @@ function ModalPop(props){
           <CloseButton setModal={props.setModal} setAni={props.setAni}/>
         </div>
         <div className="modal-container">
-          {props.popupData}
+          {props.popupData[props.popupNum].component}
           {/* <p 
             style={
               postionTxt === 'bottom' ? {

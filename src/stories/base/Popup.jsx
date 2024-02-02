@@ -67,10 +67,12 @@ export const Popup = ({setPage }) => {
 
   let [popupData, setPopupData] = useState([
     {id : 0, component : <Txt />},
-    {id : 1, component : <Txt />},
-    {id : 2, component : <Txt />},
-    {id : 3, component : <Txt />}
+    {id : 1, component : <Txt1 />},
+    {id : 2, component : <Txt2 />},
+    {id : 3, component : <Txt3 />}
   ]) 
+
+  let[ popupNum, setpopupNum] = useState(null)
 
 
   switch (setPage){
@@ -89,7 +91,7 @@ export const Popup = ({setPage }) => {
             onClick={(e)=>{
               setPostion(e.target.dataset.value)
               setModal(true)
-              setPopupData(1)
+              setpopupNum(0)
             }}
           data-modal="modal1">커스텀용</button>
 
@@ -105,6 +107,7 @@ export const Popup = ({setPage }) => {
         {
           modal === true ? 
             <ModalPop  
+            popupNum ={ popupNum}
             popupData={popupData}
             postion = {postion}
             Ani={Ani} setAni={setAni} 
