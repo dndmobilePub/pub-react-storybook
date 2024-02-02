@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+
 
 // scss&css import
 import './scss/cm.common.scss';
@@ -10,6 +10,9 @@ import './scss/storyBook.scss';
 import Dimmed from './components/popup/Dimmed';
 import ModalPop from './components/popup/ModalPop';
 import ToastPop from './components/popup/ToastPop';
+
+import { Txt, Txt1, Txt2, Txt3 } from './components/test_com/Txt';
+
 
 
 /*
@@ -60,13 +63,36 @@ export const Popup = ({setPage }) => {
   //   }
   // }
 
+  
+
+  let [popupData, setPopupData] = useState([
+    {id : 0, component : <Txt />},
+    {id : 1, component : <Txt />},
+    {id : 2, component : <Txt />},
+    {id : 3, component : <Txt />}
+  ]) 
+
 
   switch (setPage){
 
     case 'Top':
     return (
       <div className='cp-content storybook'>
+        {/* <ModalProvider>
+
+          <SomeComponent />
+          <Modal></Modal>
+        </ModalProvider> */}
         <div className="btnWrap">
+        
+          <button className="btn btn-size md bg _modalBtn" data-value={setPage}
+            onClick={(e)=>{
+              setPostion(e.target.dataset.value)
+              setModal(true)
+              setPopupData(1)
+            }}
+          data-modal="modal1">커스텀용</button>
+
           <button className="btn btn-size md bg _modalBtn" data-value={setPage}
             onClick={(e)=>{
               setPostion(e.target.dataset.value)
@@ -78,11 +104,12 @@ export const Popup = ({setPage }) => {
         {/* [s] modal */}
         {
           modal === true ? 
-          <ModalPop  
-          postion = {postion}
-          Ani={Ani} setAni={setAni} 
-          modal={modal} setModal={setModal}
-          /> : null
+            <ModalPop  
+            popupData={popupData}
+            postion = {postion}
+            Ani={Ani} setAni={setAni} 
+            modal={modal} setModal={setModal}
+            /> : null
         }
         {/* [e] modal  */}
         {

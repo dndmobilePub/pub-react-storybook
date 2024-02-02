@@ -1,9 +1,10 @@
 
 // 이전버튼
 import HisprecBtn from './HisprecBtn'
-// Modalfooter Btn 
+
 import BtnWrap from './BtnWrap'
-import CloseBtn from './CloseBtn'
+import CloseButton from './CloseButton';
+
 
 function ModalPop(props){
 
@@ -24,17 +25,18 @@ function ModalPop(props){
             (postionTxt === 'bottom') ? null : <HisprecBtn />
           }
           <h1 className="mp-title dep01">{postionTxt} Modal</h1>
-          <CloseBtn setModal={props.setModal} setAni={props.setAni}/>
+          <CloseButton setModal={props.setModal} setAni={props.setAni}/>
         </div>
         <div className="modal-container">
-          <p 
+          {props.popupData}
+          {/* <p 
             style={
               postionTxt === 'bottom' ? {
                 height: 100 + 'px',
                 background: 'yellow' 
               } : null
             }
-          >{postionTxt} Modal Content</p>
+          >{postionTxt} Modal Content</p> */}
         </div>
         <div className="modal-footer">
           <BtnWrap setModal={props.setModal} postion={postionTxt}/>

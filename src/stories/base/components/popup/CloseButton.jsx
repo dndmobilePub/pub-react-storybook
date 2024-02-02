@@ -1,5 +1,5 @@
 
-function CloseBtn(props){
+function CloseButton(props){
   return(
     <a href="#/" className="btn-close-pop ico ico-pop-close" role="button"
       onClick={(e)=>{
@@ -13,4 +13,4 @@ function CloseBtn(props){
   )
 }
 
-export default CloseBtn
+export default CloseButton
