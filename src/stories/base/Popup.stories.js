@@ -15,31 +15,31 @@ export default {
 
 export const ModalTop = {
   args: {
-    setPage : 'TOP',
+    setPage : 'Top',
   }
 };
 
 export const ModalCenter = {
   args: {
-    setPage : 'CENTER',
+    setPage : 'Center',
   }
 };
 
 export const ModalLeft = {
   args: {
-    setPage : 'LEFT',
+    setPage : 'Left',
   }
 };
 
 export const ModalBottom = {
   args: {
-    setPage : 'BOTTOM',
+    setPage : 'Bottom',
   }
 };
 
 export const ModalToast = {
   args: {
-    setPage : 'TOAST',
+    setPage : 'Toast',
   }
 };
 

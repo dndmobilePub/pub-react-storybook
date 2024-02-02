@@ -6,6 +6,11 @@ import './scss/cm.common.scss';
 import './scss/_cp.popup.scss';
 import './scss/storyBook.scss';
 
+// componet import
+import Dimmed from './components/popup/Dimmed';
+import ModalPop from './components/popup/ModalPop';
+import ToastPop from './components/popup/ToastPop';
+
 
 /*
  * 파라미터 설명
@@ -18,6 +23,7 @@ import './scss/storyBook.scss';
  */
 export const Popup = ({setPage }) => {
   
+
   // modal show&hide
   let [modal,  setModal] = useState(false)
   let [toastModal,  setToastModal] = useState(false)
@@ -26,11 +32,6 @@ export const Popup = ({setPage }) => {
   // modal 위치 담는 useState
   let [postion, setPostion] =useState('')
   
-  let dataValueCheck = (e) => {
-    let data = e.target.dataset.value
-    setPostion(data)
-  }
-
  // _is-active 시간차 추가
   useEffect(()=>{
     if( modal === true){
@@ -56,17 +57,16 @@ export const Popup = ({setPage }) => {
 
   switch (setPage){
 
-    case 'TOP':
+    case 'Top':
     return (
       <div className='cp-content storybook'>
         <div className="btnWrap">
-          <button className="btn btn-size md bg _modalBtn" data-value='Top'
+          <button className="btn btn-size md bg _modalBtn" data-value={setPage}
             onClick={(e)=>{
-              dataValueCheck(e)
+              setPostion(e.target.dataset.value)
               setModal(true)
-              
             }}
-          data-modal="modal1">Top Modal</button>
+          data-modal="modal1">{setPage} Modal</button>
         </div>
 
         {/* [s] modal */}
@@ -82,23 +82,19 @@ export const Popup = ({setPage }) => {
         {
           modal === true ? <Dimmed /> : null
         }  
-        {
-          toastModal === true ? <ToastPop/> : null
-        }
       </div>
     )
 
-    case 'CENTER':
+    case 'Center':
     return (
       <div className='cp-content storybook'>
         <div className="btnWrap">
-          <button className="btn btn-size md bg _modalBtn" data-value='Center'
+          <button className="btn btn-size md bg _modalBtn" data-value={setPage}
             onClick={(e)=>{
-              dataValueCheck(e)
+              setPostion(e.target.dataset.value)
               setModal(true)
-              
             }}
-          data-modal="modal2">Center Modal</button>
+          data-modal="modal1">{setPage} Modal</button>
         </div>
 
         {/* [s] modal */}
@@ -114,23 +110,20 @@ export const Popup = ({setPage }) => {
         {
           modal === true ? <Dimmed /> : null
         }  
-        {
-          toastModal === true ? <ToastPop/> : null
-        }
+       
       </div>
     )
 
-    case 'LEFT':
+    case 'Left':
     return (
       <div className='cp-content storybook'>
         <div className="btnWrap">
-          <button className="btn btn-size md bg _modalBtn" data-value='Left'
+          <button className="btn btn-size md bg _modalBtn" data-value={setPage}
             onClick={(e)=>{
-              dataValueCheck(e)
+              setPostion(e.target.dataset.value)
               setModal(true)
-              
             }}
-          data-modal="modal3">Left Modal</button>
+          data-modal="modal1">{setPage} Modal</button>
         </div>
 
         {/* [s] modal */}
@@ -146,177 +139,67 @@ export const Popup = ({setPage }) => {
         {
           modal === true ? <Dimmed /> : null
         }  
-        {
-          toastModal === true ? <ToastPop/> : null
-        }
       </div>
     )
 
-    case 'BOTTOM':
+    case 'Bottom':
     return (
       <div className='cp-content storybook'>
-        <div className="btnWrap">
-          <button className="btn btn-size md bg _modalBtn" data-value='Bottom'
-            onClick={(e)=>{
-              dataValueCheck(e)
-              setModal(true)
-              
-            }}
-          data-modal="modal4">Bottom Modal</button>
-        </div>
-
-        {/* [s] modal */}
-        {
-          modal === true ? 
-          <ModalPop  
-          postion = {postion}
-          Ani={Ani} setAni={setAni} 
-          modal={modal} setModal={setModal}
-          /> : null
-        }
-        {/* [e] modal  */}
-        {
-          modal === true ? <Dimmed /> : null
-        }  
-        {
-          toastModal === true ? <ToastPop/> : null
-        }
+      <div className="btnWrap">
+        <button className="btn btn-size md bg _modalBtn" data-value={setPage}
+          onClick={(e)=>{
+            setPostion(e.target.dataset.value)
+            setModal(true)
+          }}
+        data-modal="modal1">{setPage} Modal</button>
       </div>
+
+      {/* [s] modal */}
+      {
+        modal === true ? 
+        <ModalPop  
+        postion = {postion}
+        Ani={Ani} setAni={setAni} 
+        modal={modal} setModal={setModal}
+        /> : null
+      }
+      {/* [e] modal  */}
+      {
+        modal === true ? <Dimmed /> : null
+      }  
+    </div>
     )
-    case 'TOAST':
+    case 'Toast':
     return (
       <div className='cp-content storybook'>
         <div className="btnWrap">
-          <button className="btn btn-size md bg _toastBtn" data-value='toast'
+          <button className="btn btn-size md bg _toastBtn" data-value={setPage}
             onClick={()=>{
               setToastModal(true)
-              
             }}
           data-toast="토스트 팝업메세지를 출력" >토스트팝업</button>
         </div>
 
         {/* [s] modal */}
         {
-          modal === true ? 
-          <ModalPop  
-          postion = {postion}
-          Ani={Ani} setAni={setAni} 
-          modal={modal} setModal={setModal}
-          /> : null
+          toastModal === true ? <ToastPop/> : null
         }
         {/* [e] modal  */}
         {
           modal === true ? <Dimmed /> : null
         }  
-        {
-          toastModal === true ? <ToastPop/> : null
-        }
+       
       </div>
     )
     default:
   }
 };
 
-function Dimmed(){
-  return(
-    <div className="dimmed" aria-hidden="true"></div>
-  )
-}
 
 
-function ModalPop(props){
-
-  // 문자열 소문자로 변경
-  let checkPostion = props.postion.toLowerCase();
-
-  return(
-    <div className={
-      props.Ani === true ? 'modalPop _is-active _' + checkPostion : 'modalPop _' + checkPostion 
-      } 
-      select-target="modal1"
-    >
-      <div className="modalWrap">
-        <div className="modal-header">
-          {/* center&bottom 일경우 이전페이지 버튼 숨기기 */}
-          {
-            (checkPostion === 'center') ? null :
-            (checkPostion === 'bottom') ? null : <Hisprec />
-          }
-          <h1 className="mp-title dep01">{props.postion} Modal</h1>
-          <a href="#/" className="btn-close-pop ico ico-pop-close" role="button"
-            onClick={(e)=>{
-              e.preventDefault()
-              props.setModal(false)
-              props.setAni(false)
-            }}
-          >
-            <span className="hide">창닫기</span>
-          </a>
-        </div>
-        <div className="modal-container">
-          <p 
-            style={
-              checkPostion === 'bottom' ? {
-                height: 100 + 'px',
-                background: 'yellow' 
-              } : null
-            }
-          >{props.postion} Modal Content</p>
-        </div>
-        <div className="modal-footer">
-          <BtnWrap setModal={props.setModal} checkPostion={checkPostion}/>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 
-function Hisprec(){
-  return(
-    <a href="#/" className="ico ico-his-prev" role="button"
-      onClick={(e)=> e.preventDefault()}
-    >
-      <span className="hide">이전페이지</span>
-  </a>
-  )
-}
 
-function BtnWrap(props){
-  return(
-    <div className="btnWrap grow">
-      <button className={ 
-        props.checkPostion === 'center' ? 'btn btn-size md type2 bg btn-close-pop' : 'btn btn-size md type2 bg' 
-      }
-        onClick={()=>{
-          props.setModal(false)
-        }}
-      >확인</button>
-      {
-        props.checkPostion === 'center' ? null : 
-        <button className="btn btn-size md bg btn-close-pop"
-          onClick={(()=>{
-            props.setModal(false)
-          })}
-        >취소</button>
-      }
-      
-    </div>
-  )
-}
-
-function ToastPop(){
-  return(
-    <div className='toastWrap' role='alert' aria-live="assertive" tabIndex={0}>
-      <div className='toast-msg'>토스트팝업메시지를 출력</div>
-      <a href="#/" className='btn icon-close' aria-label='Close' tabIndex={-1}
-        onClick={(e)=>e.preventDefault()}
-      >
-        <span className='hide'>토스트팝업닫기</span>
-      </a>
-    </div>
-  )
-}
 
 
 
