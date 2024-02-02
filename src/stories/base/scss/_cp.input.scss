@@ -43,7 +43,12 @@
     /* FIELD - INPUT */
     &-input {
         height: 4.0rem;
-        input:not([type=checkbox]):not([type=radio]) {padding: 1.0rem 0; width: 100%; height: 100%; border: 0; background-color: transparent;}
+        input:not([type=checkbox]):not([type=radio]) {
+            padding: 1.0rem 0; width: 100%; height: 100%; border: 0; background-color: transparent;
+            &._format{
+                width: calc(100% - 2.4rem);
+            }
+        }
         input:not([type=checkbox]):not([type=radio]):focus {outline: none;}
         input:not([type=checkbox]):not([type=radio])::placeholder {color:$color-gray8;}
 
@@ -110,9 +115,10 @@
 
                 & > #{$field} {
                     &-label {
-                        @include pos-offset-l(0,0);
+                        // @include pos-offset-l(0,0);
                         display:flex; align-items:center;
-                        width:100%; height:100%;
+                        // width:100%; height:100%;
+                        position: static; margin-bottom: 0;
                         &._is-active {
                             position: initial; flex:none;
                             width:100%; margin:1rem 0 0; padding:0;

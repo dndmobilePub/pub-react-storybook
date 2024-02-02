@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './css/cm.common.css';
-import './css/storyBook.css';
 
 // scss import
 import './scss/cm.common.scss';
@@ -12,28 +10,21 @@ import './scss/_cp.input.scss';
  * setPage - 카테고리 화면별 스토리 이름
  * type - input 타입
  * label - label 내용 
- * placeholder - placeholder 내용
  * disabled -버튼 Disabld 상태
  * errMsg - errMsg 노출
  * fieldState - input 상태 선택
  */
 
 
-export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , fieldState}) => {
+export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState}) => {
   const Disable = disabled ? 'disabled' : '';
 
   const ErrMsg = errMsg ? '' : 'hr' 
   const _fieldState = fieldState ? 'valid' : 'invalid';
 
-  let [widthCss, setWidthCss] = useState()
-
-  // 이메일 & 주민등록번호 첫번째 input 
-  let [inputBtn, setInputBtn] = useState(false)
-  let [inputVal, setInputVal] = useState('')
-  
   // 주민등록번호 두번째 input useState
   let [resInputVal, setResInputVal] = useState('')
-  
+
   // 첫번째 dot display style 
   let [resDisplay, setResDisplay] = useState('block')
 
@@ -45,22 +36,6 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
   // input 값 입력시 투명도값 변경
   let [opacityNum, setOpacityNum] = useState('1')
   
-
-  // inputVal 값이 변경 될때마다 체크 (inputVal값이 변경될때마다)
-  useEffect(()=>{
-    if( inputVal === '' ){
-      setInputBtn(false)
-      setWidthCss('')
-    }
-  }, [inputVal])
-
-  // 이메일&주민등록번호 첫번째 input 값 입력값 체크 및 css 추가
-  function inputChange(val){
-    let _widthCss = 'calc(100% - 2.4rem)' 
-    setWidthCss(_widthCss)
-    setInputBtn(true);
-    setInputVal(val)
-  }
 
   // 주민등록번호 두번쨰 값이 변경 될때마다 체크 (resInputVal값이 변경될때마다)
   useEffect(()=>{
@@ -105,22 +80,74 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
 
   //input 2개 이상일 경우
   const [inputStates, setInputStates] = useState([
-    { value: '', active: false, widthCss: '', placeholder: '010', maxLength:'3'},
-    { value: '', active: false, widthCss: '', placeholder: '1234', maxLength:'4'},
-    { value: '', active: false, widthCss: '', placeholder: '5678', maxLength:'4'},
+    { value: '', active: false, placeholder: 'text default1', label: 'text default1', Disable: 'disabled'},
+    { value: '', active: false, placeholder: 'text default2', label: 'text default2', Disable: 'disabled'},
   ]);
 
-  const handleInputChange = (index, value) => {
-    const updatedInputStates = [...inputStates];
-    updatedInputStates[index] = { ...updatedInputStates[index], value, widthCss: 'calc(100% - 2.4rem)', active: true };
-    setInputStates(updatedInputStates);
+  //input 2개 이상일 경우 : 휴대폰 번호 input
+  const [InputPhoneStates, setInputPhoneStates] = useState([
+    { value: '', active: false, placeholder: '010', maxLength:'3'},
+    { value: '', active: false, placeholder: '1234', maxLength:'4'},
+    { value: '', active: false, placeholder: '5678', maxLength:'4'},
+  ]);
+
+  //삭제버튼 이벤트
+  const handleInputValueChange = (index, value, inputType) => {
+    let updatedInputStates;
+    if (inputType === 'phone') {
+      updatedInputStates = [...InputPhoneStates];
+    } else {
+      updatedInputStates = [...inputStates];
+    }
+  
+    updatedInputStates[index] = {
+      ...updatedInputStates[index],
+      value,
+      active: true
+    };
+  
+    if (inputType === 'phone') {
+      setInputPhoneStates(updatedInputStates);
+    } else {
+      setInputStates(updatedInputStates);
+    }
+  };
+  
+  const handleInputClear = (index, inputType) => {
+    let updatedInputStates;
+    if (inputType === 'phone') {
+      updatedInputStates = [...InputPhoneStates];
+    } else {
+      updatedInputStates = [...inputStates];
+    }
+  
+    updatedInputStates[index] = {
+      ...updatedInputStates[index],
+      value: '',
+      active: false
+    };
+  
+    if (inputType === 'phone') {
+      setInputPhoneStates(updatedInputStates);
+    } else {
+      setInputStates(updatedInputStates);
+    }
   };
 
-  const handleInputClear = (index) => {
-    const updatedInputStates = [...inputStates];
-    updatedInputStates[index] = { ...updatedInputStates[index], value: '', widthCss: '', active: false };
-    setInputStates(updatedInputStates);
-  };
+  //placeholder input
+  const [isInputFocused, setIsInputFocused] = useState(Array(inputStates.length).fill(false));
+
+  const handleInputFocus = (index) => {
+    const newIsInputFocused = [...isInputFocused];
+    newIsInputFocused[index] = true;
+    setIsInputFocused(newIsInputFocused);
+  }
+
+  const handleInputBlur = (index) => {
+    const newIsInputFocused = [...isInputFocused];
+    newIsInputFocused[index] = false;
+    setIsInputFocused(newIsInputFocused);
+  }
 
 
   switch (setPage){
@@ -128,36 +155,30 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
     case 'Base':
     return (
       <div className='cp-content storybook'>
-        <div className="field">
-          <label className="field-label">{label}</label>
-          <div className={"field-outline " + Disable}>
-            <div className="field-input grow _input">
-              <input className="_format" 
-                type={type}
-                placeholder={placeholder}
-                disabled = {Disable}
-                style={{"width": widthCss}}
-                value={inputVal}
-                onChange={(e)=>{
-                  let val = e.target.value
-                  inputChange(val)
-                }}
-              />
-              {
-                inputBtn === true ? 
-                <InputDelBtn 
-                  setWidthCss={setWidthCss} 
-                  inputVal={inputVal} setInputVal={setInputVal} 
-                  inputBtn={inputBtn} setInputBtn={setInputBtn}
-                /> 
-                : null 
-              }
+        {inputStates.map((inputState, index) => (
+          <div className={['field', fieldState].join(' ')}>
+            <label className="field-label">{inputState.label}</label>
+            <div className={"field-outline " + Disable}>
+              <div className="field-input grow _input">
+                <input className="_format" 
+                  type={type}
+                  placeholder={inputState.placeholder}
+                  disabled = {Disable}
+                  value={inputState.value}
+                  onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                />
+                {inputState.active && (
+                  <InputDelBtn
+                    handleInputClear={() => handleInputClear(index, 'default')}
+                  />
+                )}
+              </div>
             </div>
+            <p className={"field-msg " + ErrMsg}>
+              <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
+            </p>
           </div>
-          <p className={"field-msg " + ErrMsg}>
-            <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
-          </p>
-        </div>
+        ))}
       </div>
   
     )
@@ -165,19 +186,20 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
     case 'exception':
     return (
       <div className='cp-content storybook'>
-        <div className='field'>
-          {label}
-          <div className={"field-outline " + Disable}>
-            <div className="field-input grow _input">
-              <input 
-                type={type}
-                placeholder={placeholder}
-                disabled = {Disable}
-                style={{"width": widthCss}}
-              />
+        {inputStates.map((inputState) => (
+          <div className='field'>
+            {label}
+            <div className={"field-outline " + Disable}>
+              <div className="field-input grow _input">
+                <input 
+                  type={type}
+                  placeholder={inputState.placeholder}
+                  disabled = {Disable}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
   
     )
@@ -185,33 +207,28 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
     case 'disable':
       return (
         <div className='cp-content storybook'>
-          <div className='field'>
-            {label}
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input className="_format" 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                  style={{"width": widthCss}}
-                  value={inputVal}
-                  onChange={(e)=>{
-                    let val = e.target.value
-                    inputChange(val)
-                  }}
-                />
-                {
-                  inputBtn === true ? 
-                  <InputDelBtn 
-                    setWidthCss={setWidthCss} 
-                    inputVal={inputVal} setInputVal={setInputVal} 
-                    inputBtn={inputBtn} setInputBtn={setInputBtn}
-                  /> 
-                  : null 
-                }
+          {inputStates.map((inputState, index) => (
+            <div className='field'>
+              <label className="field-label">{inputState.label}</label>
+              <div className={"field-outline " + Disable}>
+                <div className="field-input grow _input">
+                  <input className="_format" 
+                    type={type}
+                    placeholder={inputState.placeholder}
+                    disabled = {Disable}
+                    value={inputState.value}
+                    onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                    />
+                    {inputState.active && (
+                      <InputDelBtn
+                        handleInputClear={() => handleInputClear(index, 'default')}
+                      />
+                    )}
+                </div>
               </div>
             </div>
-          </div>
+            
+          ))}
         </div>
   
       )
@@ -219,36 +236,31 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
       case 'infoMsg':
       return (
         <div className='cp-content storybook'>
-          <div className='field'>
-            {label}
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input className="_format" 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                  style={{"width": widthCss}}
-                  value={inputVal}
-                  onChange={(e)=>{
-                    let val = e.target.value
-                    inputChange(val)
-                  }}
-                />
-                {
-                  inputBtn === true ? 
-                  <InputDelBtn 
-                    setWidthCss={setWidthCss} 
-                    inputVal={inputVal} setInputVal={setInputVal} 
-                    inputBtn={inputBtn} setInputBtn={setInputBtn}
-                  /> 
-                  : null 
-                }
+          {inputStates.map((inputState, index) => (
+            <div className='field'>
+              <label className="field-label">{inputState.label}</label>
+              <div className={"field-outline " + Disable}>
+                <div className="field-input grow _input">
+                  <input className="_format" 
+                    type={type}
+                    placeholder={inputState.placeholder}
+                    disabled = {Disable}
+                    value={inputState.value}
+                    onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                    />
+                    {inputState.active && (
+                      <InputDelBtn
+                        handleInputClear={() => handleInputClear(index, 'default')}
+                      />
+                    )}
+                </div>
               </div>
+              <p className={"field-msg " + ErrMsg} >
+                <span className="ico ico-info txt-r">안내성 메세지</span>
+              </p>
             </div>
-            <p className={"field-msg " + ErrMsg} >
-              <span className="ico ico-info txt-r">안내성 메세지</span>
-            </p>
-          </div>
+            
+          ))}
         </div>
     
       )
@@ -256,122 +268,112 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
       case 'validState':
       return (
         <div className='cp-content storybook'>
-          <div className={['field',  _fieldState].join(' ')}>
-          <label className="field-label">{label}</label>
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input className="_format" 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                  style={{"width": widthCss}}
-                  value={inputVal}
-                  onChange={(e)=>{
-                    let val = e.target.value
-                    inputChange(val)
-                  }}
-                />
-                {
-                  inputBtn === true ? 
-                  <InputDelBtn 
-                    setWidthCss={setWidthCss} 
-                    inputVal={inputVal} setInputVal={setInputVal} 
-                    inputBtn={inputBtn} setInputBtn={setInputBtn}
-                  /> 
-                  : null 
-                }
+          {inputStates.map((inputState, index) => (
+            <div className={['field',  fieldState].join(' ')}>
+              <label className="field-label">{label}</label>
+              <div className={"field-outline " + Disable}>
+                <div className="field-input grow _input">
+                  <input className="_format" 
+                    type={type}
+                    placeholder={inputState.placeholder}
+                    disabled = {Disable}
+                    value={inputState.value}
+                    onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                    />
+                    {inputState.active && (
+                      <InputDelBtn
+                        handleInputClear={() => handleInputClear(index, 'default')}
+                      />
+                    )}
+                </div>
               </div>
+              <p className={"field-msg " + ErrMsg} >
+                <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+              </p>
             </div>
-            <p className={"field-msg " + ErrMsg} >
-              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
-            </p>
-          </div>
+          ))}
         </div>
       )
 
       case 'residentNum':
       return (
         <div className='cp-content storybook'>
-          <div className="field">
-            <label className="field-label">주민등록번호</label>
-            <div className="field-outline">
-              <div className="field-input grow _input">
-                <input type="text" className="_format _number" placeholder="생년월일 6자리" maxLength="6"
-                  style={{"width": widthCss}}
-                  value={inputVal}
-                  onChange={(e)=>{
-                    let val = e.target.value
-                    inputChange(val)
-                  }}
-                />
-                {
-                  inputBtn === true ? 
-                  <InputDelBtn 
-                    setWidthCss={setWidthCss} 
-                    inputVal={inputVal} setInputVal={setInputVal} 
-                    inputBtn={inputBtn} setInputBtn={setInputBtn}
-                  /> 
-                  : null 
-                }
-              </div>
-              <span className="field-txt">-</span>
-              <div className="field-input grow _input">
-              {/* data-secureLine -> data-secureline 으로 수정 */}
-                <label className="_secureTxt _num" data-length="7" data-secureline="1">
-                  <input type="tel" className="_format _password" placeholder="" maxLength="1" 
-                    onChange={(e)=>{
-                      let val = e.target.value
-                      _inputChange(val)
-                    }}
-                    // 포커스가 될때 opactiy 0.5
-                    onClick={()=>{
-                      setOpacityNum('0.5')
-                    }}
-                    // 포커스가 나갈때 opactiy 1
-                    onBlur={()=>{
-                      setOpacityNum('1')
-                    }}
+          {inputStates.map((inputState, index) => (
+            <div className="field">
+              <label className="field-label">주민등록번호</label>
+              <div className="field-outline">
+                <div className="field-input grow _input">
+                  <input type="text" className="_format _number" 
+                    placeholder="생년월일 6자리"
+                    maxLength="6"
+                    value={inputState.value}
+                    onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
                   />
-                  {numDot()}
-                </label>
+                    {inputState.active && (
+                      <InputDelBtn
+                        handleInputClear={() => handleInputClear(index, 'default')}
+                      />
+                    )}
+                </div>
+                <span className="field-txt">-</span>
+                <div className="field-input grow _input">
+                {/* data-secureLine -> data-secureline 으로 수정 */}
+                  <label className="_secureTxt _num" data-length="7" data-secureline="1">
+                    <input type="tel" className="_format _password" placeholder="" maxLength="1" 
+                      onChange={(e)=>{
+                        let val = e.target.value
+                        _inputChange(val)
+                      }}
+                      // 포커스가 될때 opactiy 0.5
+                      onClick={()=>{
+                        setOpacityNum('0.5')
+                      }}
+                      // 포커스가 나갈때 opactiy 1
+                      onBlur={()=>{
+                        setOpacityNum('1')
+                      }}
+                    />
+                    {numDot()}
+                  </label>
+                </div>
               </div>
+              <p className={"field-msg " + ErrMsg} >
+                <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+              </p>
+              <p className="field-info">
+                <span className="ico ico-info txt-r">안내성 메세지</span>
+              </p>
             </div>
-            <p className={"field-msg " + ErrMsg} >
-              <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
-            </p>
-            <p className="field-info">
-              <span className="ico ico-info txt-r">안내성 메세지</span>
-            </p>
-          </div>
+          ))}
         </div>
       )
 
       case 'phoneNum':
       return (
-        <div className='cp-content storybook'>
+        <div className='cp-content storybook' style={{width: 500}}>
+          {inputStates.map((inputState, index) => (
           <div className={['field', '_label', fieldState].join(' ')}>
-            <label className="field-label">{label}</label>
+            <label className="field-label">휴대폰번호 입력</label>
             <div className={"field-outline " + Disable}>
-              {inputStates.map((inputState, index) => (
+              {InputPhoneStates.map((InputPhoneState, index) => (
                 <React.Fragment key={index}>
                   <div className="field-input grow _input">
                     <input
                       className="_format _number _format1"
-                      maxLength={inputState.maxLength}
+                      maxLength={InputPhoneState.maxLength}
                       type='text'
-                      placeholder={inputState.placeholder} 
+                      placeholder={InputPhoneState.placeholder} 
                       disabled={Disable}
-                      style={{ "width": inputState.widthCss }}
-                      value={inputState.value}
-                      onChange={(e) => handleInputChange(index, e.target.value)}
+                      value={InputPhoneState.value}
+                      onChange={(e) => handleInputValueChange(index, e.target.value, 'phone')}
                     />
-                    {inputState.active && (
-                      <InputDelBtn2
-                        handleInputClear={() => handleInputClear(index)}
+                    {InputPhoneState.active && (
+                      <InputDelBtn
+                        handleInputClear={() => handleInputClear(index, 'phone')}
                       />
                     )}
                   </div>
-                  {index !== inputStates.length - 1 && <span className="field-txt">-</span>}
+                  {index !== InputPhoneStates.length - 1 && <span className="field-txt">-</span>}
                 </React.Fragment>
               ))}
             </div>
@@ -379,33 +381,50 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
               <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
             </p>
           </div>
+          ))}
         </div>
   
       )
       default:
 
+      case 'Placehoder':
+      return (
+        <div className='cp-content storybook'>
+          {inputStates.map((inputState, index) => (
+            <div className={['field', '_label', fieldState].join(' ')} style={{marginBottom:20}}>
+              <div className={"field-outline " + Disable}>
+                <label className={`field-label ${isInputFocused[index] ? '_is-active' : ''}`}>{inputState.label}</label>
+                <div className="field-input grow _input">
+                  <input className="_format" 
+                    type={type}
+                    placeholder={inputState.placeholder}
+                    disabled = {Disable}
+                    value={inputState.value}
+                    onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                    onFocus={() => handleInputFocus(index)}
+                    onBlur={() => handleInputBlur(index)}
+                  />
+                  {inputState.active && (
+                    <InputDelBtn
+                      handleInputClear={() => handleInputClear(index, 'default')}
+                    />
+                  )}
+                </div>
+              </div>
+              <p className={"field-msg " + ErrMsg}>
+                <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
+              </p>
+            </div>
+          ))}
+        </div>
+    
+      )
   }
 };
 
-// 삭제 버튼 
-function InputDelBtn(props){
-  return(
-    <button type="button" className="field-btn _input-clear _active"
-      onClick={()=>{
-
-        props.setInputBtn(false)
-        let selectInput = document.getElementsByClassName('_format')[0] 
-        selectInput.value = null
-        props.setWidthCss('')
-        props.setInputVal('')
-      }}
-    ><span className="hide">입력값삭제</span></button>
-
-  )
-}
 
 // input 2개 이상일 경우 삭제 버튼 
-function InputDelBtn2({ handleInputClear }) {
+function InputDelBtn({ handleInputClear }) {
   return (
     <button
       type="button"
@@ -423,10 +442,14 @@ InputBox.propTypes = {
    * input 타이틀
    */
   label: PropTypes.string.isRequired,
-   /**
+  /**
    * input 타입
    */
-   type: PropTypes.oneOf(['text', 'number', 'password']),
+  type: PropTypes.oneOf(['text', 'number', 'password']),
+  /**
+   * input 타입
+   */
+  fieldState: PropTypes.oneOf(['', 'valid', 'invalid']),
 };
 
 

@@ -16,6 +16,7 @@ export const Base = {
     type: 'text',
     label: 'text default',
     placeholder: 'default',
+    fieldState : '',
   },
 };
 
@@ -72,5 +73,15 @@ export const PhoneNum = {
   args: {
     setPage : 'phoneNum',
     label: '휴대폰번호 입력',
+  },
+};
+
+export const Placehoder = {
+  args: {
+    setPage : 'Placehoder',
+    type: 'text',
+    label: 'text default',
+    placeholder: 'default',
+    fieldState : '',
   },
 };
