@@ -1,6 +1,6 @@
 
 // 이전버튼
-import Hisprec from './Hisprec'
+import HisprecBtn from './HisprecBtn'
 // Modalfooter Btn 
 import BtnWrap from './BtnWrap'
 import CloseBtn from './CloseBtn'
@@ -21,13 +21,12 @@ function ModalPop(props){
           {/* center&bottom 일경우 이전페이지 버튼 숨기기 */}
           {
             (postionTxt === 'center') ? null :
-            (postionTxt === 'bottom') ? null : <Hisprec />
+            (postionTxt === 'bottom') ? null : <HisprecBtn />
           }
           <h1 className="mp-title dep01">{postionTxt} Modal</h1>
           <CloseBtn setModal={props.setModal} setAni={props.setAni}/>
         </div>
         <div className="modal-container">
-
           <p 
             style={
               postionTxt === 'bottom' ? {

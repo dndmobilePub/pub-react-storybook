@@ -54,6 +54,12 @@ export const Popup = ({setPage }) => {
   }, [toastModal])
 
 
+  // const openModal = ()=>{
+  //   if( modal === true){
+  //     html?.classList.add('scroll-locked')
+  //   }
+  // }
+
 
   switch (setPage){
 

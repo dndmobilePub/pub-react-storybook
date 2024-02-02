@@ -1,6 +1,6 @@
 
 
-function Hisprec(){
+function HisprecBtn(){
   return(
     <a href="#/" className="ico ico-his-prev" role="button"
       onClick={(e)=> e.preventDefault()}
@@ -10,4 +10,4 @@ function Hisprec(){
   )
 }
 
-export default Hisprec;
+export default HisprecBtn;
