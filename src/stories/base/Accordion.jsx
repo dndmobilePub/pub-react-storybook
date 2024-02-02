@@ -5,6 +5,7 @@ import React, { useEffect, useState} from 'react';
 import './scss/cm.common.scss';
 import './scss/_cp.accodion.scss';
 import './scss/storyBook.scss';
+import { element } from 'prop-types';
 
 
 /** 
@@ -12,7 +13,6 @@ import './scss/storyBook.scss';
  * setPage - 카테고리 화면별 스토리 이름
  * onChkBox - checkbox show/hide
  */
-
 
 /** 
  * Accordion 컴포넌트 정의
@@ -32,7 +32,7 @@ export const Accordion = ({setPage, onChkBox}) => {
   let [sub, setSub] = useState(new Array(data.length).fill(false))
 
   // 아코디언 기본형
-  const toggle1 = (i) => {
+  const bassToggle = (i) => {
       let arr = [...sub]
       if( arr[i] === true){
         arr[i] = false;
@@ -42,8 +42,9 @@ export const Accordion = ({setPage, onChkBox}) => {
       setSub(arr)
   }
 
-  // 스크롤탑
+  // 스크롤Y 값
   let [ScrollY, setScrollY] = useState(0)
+
   let handleScroll = (e) =>{
     // 선택한 요소 top 값 
     let data = e.target.getBoundingClientRect().top
@@ -61,18 +62,8 @@ export const Accordion = ({setPage, onChkBox}) => {
     }, 100)
   },[ScrollY])
 
-  const toggleTop = (i) => {
-    let arr = [...sub]
-    if( arr[i] === true){
-      arr[i] = false;
-    } else {
-      arr[i] = true;
-    }
-    setSub(arr)
-  }
-
   // 하나만 열림
-  const toggle2 = (i) => {
+  const OneOpentoggle = (i) => {
     if(selected === i){
       return setSelected(null)
     }
@@ -90,37 +81,55 @@ export const Accordion = ({setPage, onChkBox}) => {
     setSub(arr)
   }  
   
-  function IsChecked(e){
+  // checkbox 가 checkd가 되었을때 닫기
+  const IsChecked = (e) => {
     let id =(e.currentTarget.id)
     let arr = [...sub]
-
     if( arr[id] === false){
       arr[id] = true;
     } else {
       arr[id] = false;
     }
-
     setSub(arr)
   }
 
+
   // 체크된 체크박스 담을 배열
   let [checkItem, setCheckItem] = useState([])
-  let checkList = [{id : 'exChk1'},{id : 'exChk2'},{id : 'exChk3'}]
+  let checkList = [{id : 0},{id : 1},{id : 2}]
+  // console.log(checkItem)
+  
   // 체크박스 단일 선택 
-  let handleSingleCheck = (id, checked) => {
-    // console.log(id)
+  let handleSingleCheck = (id, num, name, checked) => {
+    let checkArr = [...checkItem]
+    
+    // console.log(id, num, name, checked)
     if(checked){
+
+      let user = {groupId : id, name : name , checked : checked}
+      
       // 단일 선택시 체크된 아이템 배열 추가
-      setCheckItem(checkItem => [...checkItem, id]);
+      // checkArr[id]
+      console.log(user)
+      checkArr.push(user)
+      console.log(checkArr)
+      setCheckItem(checkArr);
+    
+
     } else {
-       // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
-      setCheckItem(checkItem.filter(( item ) => item !== id))
+      // 단일 선택 해제 시 체크된 아이템을 제외한 배열 (필터)
+      let removeArr = checkArr.filter(( item ) => item.name !== name)
+      console.log(removeArr)
+      setCheckItem()
+
     }
   } 
 
+
+
+
   // 체크박스 전체 선택
   let handleAllCheck = (e) =>{
-    // console.log(e.target.checked)
     if(e.target.checked){
       setCheckItem(checkList.map((item) => item.id))
     } else {
@@ -144,11 +153,11 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-            <Sampledata 
+            <BaseData 
               data={data}
               onChkBox={onChkBox} 
               sub={sub} setSub={setSub} 
-              toggle1={toggle1} 
+              bassToggle={bassToggle} 
               selected={selected} setSelected={setSelected}
             />            
 					</div>
@@ -160,11 +169,11 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-            <Sampledata2 
+            <ScrollTopData 
               data={data}
               onChkBox={onChkBox} 
               sub={sub} setSub={setSub}
-              handleScroll={handleScroll} toggleTop={toggleTop}  
+              handleScroll={handleScroll} bassToggle={bassToggle}  
               selected={selected} setSelected={setSelected}
             />                            
             <SampleDummy data={data}/>                            
@@ -179,12 +188,12 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-            <Sampledata3 
+            <OneOpenData 
               data={data}
               onChkBox={onChkBox} 
               sub={sub} setSub={setSub}
               handleScroll={handleScroll}  
-              toggle2={toggle2}  
+              OneOpentoggle={OneOpentoggle}  
               selected={selected} setSelected={setSelected}
             />                            
           </div>
@@ -196,11 +205,11 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
 					<div className="accordion-wrap">
-          <Sampledata4 
+          <BtnChangeColorData 
             data={data} 
             onChkBox={onChkBox} 
             sub={sub} setSub={setSub} 
-            toggle1={toggle1} 
+            bassToggle={bassToggle} 
             selected={selected} setSelected={setSelected}
           />
           </div>
@@ -212,7 +221,7 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
           <div className="accordion-wrap">
-            <Sampledata5 
+            <CheckBoxToggleData
               IsChecked={IsChecked} 
               onChkBox={onChkBox} 
               sub={sub} setSub={setSub} 
@@ -229,7 +238,8 @@ export const Accordion = ({setPage, onChkBox}) => {
       <div className='cp-content storybook'>
         <div className="field">
           <div className="accordion-wrap">
-            <Sampledata6 
+          <MyComponent/>
+            <CheckBoxAllData 
               IsChecked={IsChecked}
               checkList= {checkList}
               onChkBox={onChkBox} 
@@ -247,13 +257,13 @@ export const Accordion = ({setPage, onChkBox}) => {
     )
     case 'ToggleInToggle':
     return ( 
-      <div className='cp-content storybook'>
+      <div className={'cp-content storybook ' + setPage} >
         <div className="field">
           <div className="accordion-wrap">
-            <Sampledata7
+            <ToggleInToggleData
               onChkBox={onChkBox} 
               sub={sub} setSub={setSub} 
-              toggle1={toggle1} 
+              bassToggle={bassToggle} 
               data={data} 
               selected={selected} 
               setSelected={setSelected}
@@ -268,7 +278,7 @@ export const Accordion = ({setPage, onChkBox}) => {
 };
 
 // Base
-function Sampledata(props){
+function BaseData(props){
   return(
     <>
       {
@@ -291,7 +301,7 @@ function Sampledata(props){
                   aria-expanded={ props.sub[i] === true ? 'false' : 'true'} 
                   aria-label={ props.sub[i] === true ? '열기' : '닫기'}
                   onClick={(e)=> { e.preventDefault()
-                    props.toggle1(i)
+                    props.bassToggle(i)
                   }}
                 >
                   <span>{"기본형 : " + props.data[i].title}</span>
@@ -317,7 +327,7 @@ function Sampledata(props){
 }
 
 // ScrollTop
-function Sampledata2(props){
+function ScrollTopData(props){
 
   return(
     <>
@@ -337,7 +347,7 @@ function Sampledata2(props){
                   aria-label={ props.sub[i] === true ? '열기' : '닫기'}
                   onClick={(e)=> {
                     e.preventDefault()
-                    props.toggleTop(i)
+                    props.bassToggle(i)
                     props.handleScroll(e)
                   }}
                 >
@@ -364,7 +374,7 @@ function Sampledata2(props){
 }
 
 // OneOpen
-function Sampledata3(props){
+function OneOpenData(props){
   return(
     <>
       {
@@ -383,7 +393,7 @@ function Sampledata3(props){
                   aria-label={ props.selected === i ? '열기' : '닫기'}
                   onClick={(e)=> {
                     e.preventDefault()
-                    props.toggle2(i)
+                    props.OneOpentoggle(i)
                   }}
                 >
                   <span>{"하나만 열림 : " +props.data[i].title}</span>
@@ -409,7 +419,7 @@ function Sampledata3(props){
 }
 
 // BtnChangeColor
-function Sampledata4(props){
+function BtnChangeColorData(props){
   return(
     <>
       {
@@ -429,7 +439,7 @@ function Sampledata4(props){
                   aria-label={ props.sub[i] === true ? '열기' : '닫기'}
                   onClick={(e)=> {
                     e.preventDefault()
-                    props.toggle1(i)
+                    props.bassToggle(i)
                   }}
                 >
                   
@@ -455,7 +465,7 @@ function Sampledata4(props){
 }
 
 // CheckBoxToggle
-function Sampledata5(props){
+function CheckBoxToggleData(props){
   return(
     <>
       {
@@ -501,11 +511,11 @@ function Sampledata5(props){
 
 
 // CheckBoxAllToggle
-function Sampledata6(props){
+function CheckBoxAllData(props){
 
   // 배열 하나로 수정
   let cArr = [...props.data]
-  cArr = cArr.slice(1,2)
+  // cArr = cArr.slice(1,2)
 
   return(
     <>
@@ -521,7 +531,7 @@ function Sampledata6(props){
                   
                   <label className="field-checkbox">
                     <input type="checkbox"
-                      name='exChkAll' 
+                      name={'exChkAll_' + i} 
                       onChange={(e)=>{
                         props.handleAllCheck(e)
                         props.IsChecked(e)
@@ -552,6 +562,7 @@ function Sampledata6(props){
                 >
                   <div>
                     <CheckList 
+                      accArr={i}
                       checkList={props.checkList}
                       sub={props.sub} 
                       handleSingleCheck={props.handleSingleCheck}
@@ -568,7 +579,7 @@ function Sampledata6(props){
 }
 
 // Base
-function Sampledata7(props){
+function ToggleInToggleData(props){
 
   let [toggleData] = useState([
     {title : '아코디언 제목입니다', subT : '아코디언 내용입니다'},
@@ -611,7 +622,7 @@ function Sampledata7(props){
                   aria-label={ props.sub[i] === true ? '열기' : '닫기'}
                   onClick={(e)=> {
                     e.preventDefault()
-                    props.toggle1(i)
+                    props.bassToggle(i)
                   }}
                 >
                   <span>{"기본형 : " + props.data[i].title}</span>
@@ -711,14 +722,18 @@ function CheckList(props){
         props.checkList.map(function(item, i){
           return(
               <div className="c-line"
+                  key={i}    
                   style={{
                     marginTop : i >= 1 ? 20 : null
                   }}
                 >
                 <label className="field-checkbox">
-                  <input type="checkbox" name={item.id} id={i}
-                    onChange={(e)=>{ props.handleSingleCheck(e.target.name,e.target.checked, e.target.id) }}
-                    checked={props.checkItem.includes(item.id) ? true :false}
+                  <input type="checkbox" name={'ekm'+ props.accArr + '_' +item.id} id={'ekm'+ props.accArr + '_' + item.id}
+                    onChange={(e)=>{ 
+                      props.handleSingleCheck(props.accArr, i, e.target.name, e.target.checked ) 
+                      // console.log(props.accArr)
+                    }}
+                    checked={props.checkItem.includes('ekm'+ props.accArr + '_' +item.id) ? true :false}
                   />
                   <i className="field-icon"></i>
                   <span className="field-label">아코디언 내용입니다</span>
@@ -791,3 +806,28 @@ Accordion.defaultProps = {
   // type: 'default',
 };
 
+
+
+function MyComponent() {
+  // 배열 상태 초기화
+  const [items, setItems] = useState([1, 2, 3, 4, 5]);
+
+  // 선택한 값 제거 함수
+  const removeItem = (valueToRemove) => {
+    // filter를 사용하여 valueToRemove를 제외한 새 배열 생성
+    setItems(items.filter(item => item !== valueToRemove));
+  };
+
+  return (
+    <div>
+      <ul>
+        {items.map(item => (
+          <li key={item} >
+            {item}
+            <button onClick={() => removeItem(item)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

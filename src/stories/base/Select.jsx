@@ -53,6 +53,7 @@ export const Select = ({setPage, errMsg }) => {
   
   // inputVal 값이 변경 될때마다 체크 (inputVal값이 변경될때마다)
   // input 값이 공백일때 clear 버튼 hide / txt-none class 제거
+
   useEffect(()=>{
     if( inputVal === '' ){
       setInputBtn(false)

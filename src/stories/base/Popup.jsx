@@ -12,6 +12,7 @@ import ModalPop from './components/popup/ModalPop';
 import ToastPop from './components/popup/ToastPop';
 
 import { Txt, Txt1, Txt2, Txt3 } from './components/test_com/Txt';
+import TestData from './components/test_com/testData';
 
 
 
@@ -71,6 +72,7 @@ export const Popup = ({setPage }) => {
     {id : 2, component : <Txt2 />},
     {id : 3, component : <Txt3 />}
   ]) 
+
 
   let[ popupNum, setpopupNum] = useState(null)
 

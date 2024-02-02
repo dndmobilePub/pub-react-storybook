@@ -43,20 +43,15 @@ export const TabMenu = ({ setPage, postion, poLine, direction }) => {
     setSelected(i)
   }
 
-  // const message = (info <= 5) ? "5 이하입니다."
-  //   : (info <= 10) ? "10 이하입니다."
-  //   : (info <= 15) ? "15 이하입니다."
-  //   : "15보다 큽니다.";
-
   // 탭 라인 위치값 구하기 
   let tabLineCheck = (e, i) => {
     // console.log(e.target.getBoundingClientRect().width)
     let check = e.target.getBoundingClientRect().width
-    
+    console.log(check)
     if( postion === 'center'){
       let co = cenLinePo + (20 * i) + (check * i)
       console.log(co)
-      setLinePo(co )
+      setLinePo(co)
     } else {
       setLinePo(0 + (20 * i) + (check * i) )
     }
@@ -243,7 +238,11 @@ function TabList2(props){
                   props.tabMenu(i)
                   props.tabLineCheck(e, i)
                 }}
-              > Tab 0{props.tabList[i]}
+              > 
+              {
+                i === 2 ? ('Tab Tab 0' + props.tabList[i]) : ('Tab 0' + props.tabList[i])
+              }
+              
               </a>
             </li>
           )
@@ -295,7 +294,6 @@ function TabContentWrap(props){
           )
         })
       }
-    
     </div>
   )
 }
@@ -310,11 +308,8 @@ function TabContentWrap(props){
     poLine: PropTypes.oneOf(['default', 'top']),
     postion: PropTypes.oneOf(['default', 'center']),
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
-  
-  
-    
+      
   };
-
 
   // Docs 기본값
   TabMenu.defaultProps = {
