@@ -9,7 +9,7 @@ import CloseButton from './CloseButton';
 function ModalPop(props){
 
    // 문자열 소문자로 변경
-   let postionTxt  = props.postion.toLowerCase();
+  let postionTxt  = props.postion.toLowerCase();
 
   return(
     <div className={
@@ -28,15 +28,18 @@ function ModalPop(props){
           <CloseButton setModal={props.setModal} setAni={props.setAni}/>
         </div>
         <div className="modal-container">
-          {props.popupData[props.popupNum].component}
-          {/* <p 
-            style={
-              postionTxt === 'bottom' ? {
-                height: 100 + 'px',
-                background: 'yellow' 
-              } : null
-            }
-          >{postionTxt} Modal Content</p> */}
+        {/* 선택한 컴포넌트가 있을경우 props.Component 불러오고 없을경우는 p tag 불러오기 */}
+        {props.Component ? 
+          <props.Component /> : 
+          <p 
+          style={
+            postionTxt === 'bottom' ? {
+              height: 100 + 'px',
+              background: 'yellow' 
+            } : null
+          }
+        >{postionTxt} Modal Content</p>
+        }
         </div>
         <div className="modal-footer">
           <BtnWrap setModal={props.setModal} postion={postionTxt}/>
