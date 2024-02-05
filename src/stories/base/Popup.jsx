@@ -11,10 +11,6 @@ import Dimmed from './components/popup/Dimmed';
 import ModalPop from './components/popup/ModalPop';
 import ToastPop from './components/popup/ToastPop';
 
-import { Txt, Txt1, Txt2, Txt3 } from './components/test_com/Txt';
-import TestData from './components/test_com/testData';
-
-
 
 /*
  * 파라미터 설명
@@ -58,45 +54,12 @@ export const Popup = ({setPage }) => {
   }, [toastModal])
 
 
-  // const openModal = ()=>{
-  //   if( modal === true){
-  //     html?.classList.add('scroll-locked')
-  //   }
-  // }
-
-  
-
-  let [popupData, setPopupData] = useState([
-    {id : 0, component : <Txt />},
-    {id : 1, component : <Txt1 />},
-    {id : 2, component : <Txt2 />},
-    {id : 3, component : <Txt3 />}
-  ]) 
-
-
-  let[ popupNum, setpopupNum] = useState(null)
-
-
   switch (setPage){
 
     case 'Top':
     return (
       <div className='cp-content storybook'>
-        {/* <ModalProvider>
-
-          <SomeComponent />
-          <Modal></Modal>
-        </ModalProvider> */}
         <div className="btnWrap">
-        
-          <button className="btn btn-size md bg _modalBtn" data-value={setPage}
-            onClick={(e)=>{
-              setPostion(e.target.dataset.value)
-              setModal(true)
-              setpopupNum(0)
-            }}
-          data-modal="modal1">커스텀용</button>
-
           <button className="btn btn-size md bg _modalBtn" data-value={setPage}
             onClick={(e)=>{
               setPostion(e.target.dataset.value)
@@ -109,8 +72,6 @@ export const Popup = ({setPage }) => {
         {
           modal === true ? 
             <ModalPop  
-            popupNum ={ popupNum}
-            popupData={popupData}
             postion = {postion}
             Ani={Ani} setAni={setAni} 
             modal={modal} setModal={setModal}
