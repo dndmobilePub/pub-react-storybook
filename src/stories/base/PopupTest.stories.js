@@ -15,7 +15,7 @@ export default {
 
 export const ModalTop = {
   args: {
-    setPage : 'Top',
+    // setPage : 'Top',
   }
 };
 

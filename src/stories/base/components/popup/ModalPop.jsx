@@ -1,54 +1,47 @@
-
-// 이전버튼
-import HisprecBtn from './HisprecBtn'
-
-import BtnWrap from './BtnWrap'
+import React, { useEffect, useState } from "react";
+import HisprecBtn from './HisprecBtn';
+import BtnWrap from './BtnWrap';
 import CloseButton from './CloseButton';
 
+function ModalPop(props) {
+  const [animate, setAni] = useState(false);
 
-function ModalPop(props){
+  useEffect(() => {
+    if (props.modal === true) {
+      const timer = setTimeout(() => {
+        setAni(true);
+      }, 100);
+      return () => clearTimeout(timer);
+    } else {
+      setAni(false);
+    }
+  }, [props.modal]);
 
-   // 문자열 소문자로 변경
-  let postionTxt  = props.postion.toLowerCase();
+  //let posTxt = props.postion.toLowerCase();
+  const posTxt = props.postion ? props.postion.toLowerCase() : '';
+  const modalPopTxt = props.targetPop ? props.targetPop.toLowerCase() : '';
 
-  return(
-    <div className={
-      props.Ani === true ? 'modalPop _is-active _' + postionTxt : 'modalPop _' + postionTxt 
-      } 
-      select-target="modal1"
-    >
+  return (
+    <div className={animate ? 'modalPop _is-active _' + posTxt : 'modalPop _' + posTxt} select-modal={'modalPop_' + modalPopTxt}>
       <div className="modalWrap">
         <div className="modal-header">
-          {/* center&bottom 일경우 이전페이지 버튼 숨기기 */}
-          {
-            (postionTxt === 'center') ? null :
-            (postionTxt === 'bottom') ? null : <HisprecBtn />
-          }
-          <h1 className="mp-title dep01">{postionTxt} Modal</h1>
-          <CloseButton setModal={props.setModal} setAni={props.setAni}/>
+          {(posTxt === 'center') ? null :
+            (posTxt === 'bottom') ? null : <HisprecBtn />}
+          <h1 className="mp-title dep01">{posTxt} Modal</h1>
+          <CloseButton setModal={props.setModal} setAni={props.setAni} />
         </div>
         <div className="modal-container">
-        {/* 선택한 컴포넌트가 있을경우 props.Component 불러오고 없을경우는 p tag 불러오기 */}
-        {props.Component ? 
-          <props.Component /> : 
-          <p 
-          style={
-            postionTxt === 'bottom' ? {
-              height: 100 + 'px',
-              background: 'yellow' 
-            } : null
+          {props.Component ?
+            <props.Component /> :
+            <p style={posTxt === 'bottom' ? { height: 100 + 'px', background: 'yellow' } : null}>{posTxt} Modal Content</p>
           }
-        >{postionTxt} Modal Content</p>
-        }
         </div>
         <div className="modal-footer">
-          <BtnWrap setModal={props.setModal} postion={postionTxt}/>
+          <BtnWrap setModal={props.setModal} position={posTxt} />
         </div>
       </div>
     </div>
- 
-  )
+  );
 }
-
 
 export default ModalPop;
