@@ -16,7 +16,7 @@ import './scss/_cp.input.scss';
  */
 
 
-export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState}) => {
+export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , fieldState}) => {
   const Disable = disabled ? 'disabled' : '';
 
   const ErrMsg = errMsg ? '' : 'hr' 
@@ -81,7 +81,6 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
   //input 2개 이상일 경우
   const [inputStates, setInputStates] = useState([
     { value: '', active: false, placeholder: 'text default1', label: 'text default1', Disable: 'disabled'},
-    { value: '', active: false, placeholder: 'text default2', label: 'text default2', Disable: 'disabled'},
   ]);
 
   //input 2개 이상일 경우 : 휴대폰 번호 input
@@ -157,12 +156,12 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
       <div className='cp-content storybook'>
         {inputStates.map((inputState, index) => (
           <div className={['field', fieldState].join(' ')}>
-            <label className="field-label">{inputState.label}</label>
+            <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
               <div className="field-input grow _input">
                 <input className="_format" 
                   type={type}
-                  placeholder={inputState.placeholder}
+                  placeholder={placeholder}
                   disabled = {Disable}
                   value={inputState.value}
                   onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
@@ -188,12 +187,12 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
       <div className='cp-content storybook'>
         {inputStates.map((inputState) => (
           <div className='field'>
-            {label}
+            <label className="field-label">{label}</label>
             <div className={"field-outline " + Disable}>
               <div className="field-input grow _input">
                 <input 
                   type={type}
-                  placeholder={inputState.placeholder}
+                  placeholder={placeholder}
                   disabled = {Disable}
                 />
               </div>
@@ -209,12 +208,12 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
         <div className='cp-content storybook'>
           {inputStates.map((inputState, index) => (
             <div className='field'>
-              <label className="field-label">{inputState.label}</label>
+             <label className="field-label">{label}</label>
               <div className={"field-outline " + Disable}>
                 <div className="field-input grow _input">
                   <input className="_format" 
                     type={type}
-                    placeholder={inputState.placeholder}
+                    placeholder={placeholder}
                     disabled = {Disable}
                     value={inputState.value}
                     onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
@@ -238,12 +237,12 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
         <div className='cp-content storybook'>
           {inputStates.map((inputState, index) => (
             <div className='field'>
-              <label className="field-label">{inputState.label}</label>
+             <label className="field-label">{label}</label>
               <div className={"field-outline " + Disable}>
                 <div className="field-input grow _input">
                   <input className="_format" 
                     type={type}
-                    placeholder={inputState.placeholder}
+                    placeholder={placeholder}
                     disabled = {Disable}
                     value={inputState.value}
                     onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
@@ -275,7 +274,7 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
                 <div className="field-input grow _input">
                   <input className="_format" 
                     type={type}
-                    placeholder={inputState.placeholder}
+                    placeholder={placeholder}
                     disabled = {Disable}
                     value={inputState.value}
                     onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
@@ -362,7 +361,7 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
                       className="_format _number _format1"
                       maxLength={InputPhoneState.maxLength}
                       type='text'
-                      placeholder={InputPhoneState.placeholder} 
+                      placeholder={placeholder}
                       disabled={Disable}
                       value={InputPhoneState.value}
                       onChange={(e) => handleInputValueChange(index, e.target.value, 'phone')}
@@ -385,7 +384,7 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
         </div>
   
       )
-      default:
+
 
       case 'Placehoder':
       return (
@@ -397,7 +396,7 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
                 <div className="field-input grow _input">
                   <input className="_format" 
                     type={type}
-                    placeholder={inputState.placeholder}
+                    placeholder={placeholder}
                     disabled = {Disable}
                     value={inputState.value}
                     onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
@@ -419,8 +418,9 @@ export const InputBox = ({setPage, type, disabled, label,  errMsg , fieldState})
         </div>
     
       )
-  }
-};
+    }
+  };
+  export default InputBox;
 
 
 // input 2개 이상일 경우 삭제 버튼 

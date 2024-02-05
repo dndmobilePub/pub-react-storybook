@@ -240,11 +240,10 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
           </div>
         </div>
       )
-      default:
   }
-
-  
+ 
 };
+export default Table;
 
 
 

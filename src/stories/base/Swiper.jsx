@@ -195,14 +195,13 @@ export const TySwiper = ({setPage}) => {
           ))}
         </div>
       )
-      default:
   
 
   }
 
   
 };
-
+export default TySwiper;
 
 // Docs 문서 작성 영역
 TySwiper.propTypes = {

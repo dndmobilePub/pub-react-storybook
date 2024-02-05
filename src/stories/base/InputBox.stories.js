@@ -7,7 +7,7 @@ export default {
   parameters: {
     layout: 'centered',
   },
-  // tags: ['autodocs'],
+  tags: ['autodocs'],
 } ;
 
 export const Base = {
