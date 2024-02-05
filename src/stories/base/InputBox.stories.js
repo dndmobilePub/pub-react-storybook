@@ -44,6 +44,7 @@ export const InfoMsg = {
     placeholder: 'placeholder',
     disabled: false,
     errMsg : true,
+    InfoMessage:'안내성 메세지'
   },
 };
 
@@ -54,6 +55,7 @@ export const ValidState = {
     placeholder: 'placeholder',
     errMsg : true,
     fieldState : 'valid',
+    InfoMessage:'입력값의 유효성이 정상입니다.'
   },
 };
 
