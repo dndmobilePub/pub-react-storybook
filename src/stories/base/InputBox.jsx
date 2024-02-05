@@ -16,7 +16,7 @@ import './scss/_cp.input.scss';
  */
 
 
-export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , fieldState}) => {
+export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , fieldState, InfoMessage}) => {
   const Disable = disabled ? 'disabled' : '';
 
   const ErrMsg = errMsg ? '' : 'hr' 
@@ -174,7 +174,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
               </div>
             </div>
             <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
+              <span className="ico ico-info txt-r">{InfoMessage}</span>
             </p>
           </div>
         ))}
@@ -255,7 +255,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
                 </div>
               </div>
               <p className={"field-msg " + ErrMsg} >
-                <span className="ico ico-info txt-r">안내성 메세지</span>
+                <span className="ico ico-info txt-r">{InfoMessage}</span>
               </p>
             </div>
             
@@ -287,7 +287,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
                 </div>
               </div>
               <p className={"field-msg " + ErrMsg} >
-                <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
+                <span className="ico ico-error txt-r">{InfoMessage}</span>
               </p>
             </div>
           ))}
@@ -337,10 +337,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
                 </div>
               </div>
               <p className={"field-msg " + ErrMsg} >
-                <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
-              </p>
-              <p className="field-info">
-                <span className="ico ico-info txt-r">안내성 메세지</span>
+                <span className="ico ico-error txt-r">{InfoMessage}</span>
               </p>
             </div>
           ))}
@@ -377,7 +374,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
               ))}
             </div>
             <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
+              <span className="ico ico-info txt-r">{InfoMessage}</span>
             </p>
           </div>
           ))}
@@ -392,7 +389,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
           {inputStates.map((inputState, index) => (
             <div className={['field', '_label', fieldState].join(' ')} style={{marginBottom:20}}>
               <div className={"field-outline " + Disable}>
-                <label className={`field-label ${isInputFocused[index] ? '_is-active' : ''}`}>{inputState.label}</label>
+                <label className={`field-label ${isInputFocused[index] ? '_is-active' : ''}`}>{label}</label>
                 <div className="field-input grow _input">
                   <input className="_format" 
                     type={type}
@@ -411,7 +408,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
                 </div>
               </div>
               <p className={"field-msg " + ErrMsg}>
-                <span className="ico ico-info txt-r">오류체크 메세지 출력</span>
+                <span className="ico ico-info txt-r">{InfoMessage}</span>
               </p>
             </div>
           ))}
