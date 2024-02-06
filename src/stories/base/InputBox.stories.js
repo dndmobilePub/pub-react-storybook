@@ -14,7 +14,7 @@ export const Base = {
   args: {
     setPage : 'Base',
     type: 'text',
-    label: 'text default',
+    label: 'Base',
     placeholder: 'default',
     fieldState : '',
   },
@@ -23,6 +23,7 @@ export const Base = {
 export const Exception = {
   args: {
     setPage : 'exception',
+    label: 'clear btn 없음',
     type: 'text',
     placeholder: 'clear btn 없음',
   },
@@ -31,6 +32,7 @@ export const Exception = {
 export const Disable = {
   args: {
     setPage : 'disable',
+    label: 'disabled',
     type: 'text',
     placeholder: 'disabled',
     disabled: true,
@@ -40,6 +42,7 @@ export const Disable = {
 export const InfoMsg = {
   args: {
     setPage : 'infoMsg',
+    label: 'text default',
     type: 'text',
     placeholder: 'placeholder',
     disabled: false,
@@ -51,6 +54,7 @@ export const InfoMsg = {
 export const ValidState = {
   args: {
     setPage : 'validState',
+    label: 'text default',
     type: 'text',
     placeholder: 'placeholder',
     errMsg : true,
@@ -83,7 +87,14 @@ export const Placehoder = {
     setPage : 'Placehoder',
     type: 'text',
     label: 'text default',
-    placeholder: 'default',
+    placeholder: '',
     fieldState : '',
+  },
+};
+
+export const PlacehoderPhone = {
+  args: {
+    setPage : 'PlacehoderPhone',
+    label: '휴대폰번호 입력',
   },
 };

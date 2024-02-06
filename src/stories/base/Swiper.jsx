@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,10 +20,10 @@ import 'swiper/css/scrollbar';
  */
 
 
-export const TySwiper = ({setPage}) => {
+export const TySwiper = ({ setPage , direction}) => {
 
   const [currentTabs, setCurrentTabs] = useState(new Array(10).fill(0));
-  const [swipers, setSwipers] = useState(new Array(10).fill(null).map(() => useRef(null)));
+  const swipers = useRef(new Array(10).fill(null));
 
   const menuArr = [
     { id:'1', name: 'Tab1', content: 'Tab swiper 1' },
@@ -39,9 +39,7 @@ export const TySwiper = ({setPage}) => {
   ];
 
   const swiperArr = [
-    { id: '1', name: 'Tab1', content: 'Tab swiper 1' },
-    { id: '2', name: 'TabTab2', content: 'Tab swiper 2' },
-    { id: '3', name: 'TabTabTab3', content: 'Tab swiper 3' },
+    { id: '1',},
   ];
 
   const swiperHandlers = new Array(swiperArr.length).fill(0).map((_, i) => (index) => {
@@ -56,8 +54,8 @@ export const TySwiper = ({setPage}) => {
   });
 
   const onClickTabs = new Array(swiperArr.length).fill(0).map((_, i) => (index) => {
-    if (swipers[i]) {
-      swipers[i].slideTo(index, 1000);
+    if (swipers.current[i]) {
+      swipers.current[i].slideTo(index, 1000);
     }
   });
 
@@ -75,7 +73,7 @@ export const TySwiper = ({setPage}) => {
                 slidesPerView={1}
                 navigation={true}
                 pagination={true}
-                onSwiper={(swiper) => setSwipers((prev) => prev.map((prevSwiper, j) => (i === j ? swiper : prevSwiper)))}
+                onSwiper={(swiper) => swipers.current[i] = swiper}
                 onSlideChange={(e) => {
                   swiperHandlers[i](e.activeIndex);
                   onClickTabs[i](e.activeIndex);
@@ -102,7 +100,7 @@ export const TySwiper = ({setPage}) => {
           {swiperArr.map((_, i) => (
             <div className='tab-swiper' key={i}>
               <Swiper
-                ref={swipers[i]}
+                ref={swipers.current[i]}
                 className={`tab-nav tab-nav-${i}`}
                 modules={[Scrollbar, A11y]}
                 slidesPerView={'auto'}
@@ -124,7 +122,7 @@ export const TySwiper = ({setPage}) => {
                 className={`tab-content tab-content-${i}`}
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 slidesPerView={1}
-                onSwiper={(swiper) => setSwipers((prev) => prev.map((prevSwiper, j) => (i === j ? swiper : prevSwiper)))}
+                onSwiper={(swiper) => swipers.current[i] = swiper}
                 onSlideChange={(e) => {
                   swiperHandlers[i](e.activeIndex);
                   onClickTabs[i](e.activeIndex);
@@ -151,7 +149,7 @@ export const TySwiper = ({setPage}) => {
           {swiperArr.map((_, i) => (
             <div className='tab-swiper' key={i}>
               <Swiper
-                ref={swipers[i]}
+                ref={swipers.current[i]}
                 className={`tab-nav tab-nav-${i}`}
                 modules={[Scrollbar, A11y]}
                 slidesPerView={'auto'}
@@ -173,9 +171,9 @@ export const TySwiper = ({setPage}) => {
                 className={`tab-content tab-content-${i}`}
                 modules={[Navigation, Pagination, Scrollbar, A11y, Mousewheel]}
                 slidesPerView={1}
-                direction="vertical"
+                direction={direction}
                 mousewheel={true}
-                onSwiper={(swiper) => setSwipers((prev) => prev.map((prevSwiper, j) => (i === j ? swiper : prevSwiper)))}
+                onSwiper={(swiper) => swipers.current[i] = swiper}
                 onSlideChange={(e) => {
                   swiperHandlers[i](e.activeIndex);
                   onClickTabs[i](e.activeIndex);
@@ -195,11 +193,7 @@ export const TySwiper = ({setPage}) => {
           ))}
         </div>
       )
-  
-
   }
-
-  
 };
 export default TySwiper;
 
@@ -211,4 +205,3 @@ TySwiper.propTypes = {
 TySwiper.defaultProps = {
   
 };
-

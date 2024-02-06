@@ -25,6 +25,7 @@ export const Tab = {
 export const ScrollTab = {
   args: {
     setPage : 'ScrollTab',
+    direction : 'vertical',
   }
 };
 
