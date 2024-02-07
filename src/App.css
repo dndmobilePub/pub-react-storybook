@@ -42,7 +42,6 @@ a {text-decoration:none;}
 .component-btn{font-size: 18px; color:#000;}
 .component-btn.active{border-bottom: 2px solid rgb(0, 3, 192);}
 .component-wrap{width: 90vw;  margin: 30px 0; background: #fff;}
-.component-wrap > div{margin: 0 auto; padding: 40px 0;}
-.component-wrap .cp-content + .cp-content {margin-top: 20px;} 
+.component-wrap > div{margin: 0 auto; }
 .component-wrap .cp-content .splitWrap{justify-content: center;}
 

@@ -16,10 +16,11 @@ import './scss/_cp.input.scss';
  */
 
 
-export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , fieldState, InfoMessage}) => {
+export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, errMsg , validMsg, fieldState, InfoMessage, inputType}) => {
   const Disable = disabled ? 'disabled' : '';
 
   const ErrMsg = errMsg ? '' : 'hr' 
+  const InfoMsg = infoMsg ? '' : 'hr' 
   const _fieldState = fieldState ? 'valid' : 'invalid';
 
   // 주민등록번호 두번째 input useState
@@ -153,7 +154,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
     
     case 'Base':
     return (
-      <div className='cp-content storybook'>
+      <>
         {inputStates.map((inputState, index) => (
           <div className={['field', fieldState].join(' ')} key={index}>
             <label className="field-label">{label}</label>
@@ -162,141 +163,34 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
                 <input className="_format" 
                   type={type}
                   placeholder={placeholder}
-                  disabled = {Disable}
+                  disabled={Disable}
                   value={inputState.value}
+                  inputType={inputType}
                   onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
                 />
-                {inputState.active && (
+                {inputState.active && inputType !== "exception" && ( 
                   <InputDelBtn
                     handleInputClear={() => handleInputClear(index, 'default')}
                   />
                 )}
               </div>
             </div>
-            <p className={"field-msg " + ErrMsg}>
+            <p className={"field-info " + InfoMsg}>
               <span className="ico ico-info txt-r">{InfoMessage}</span>
             </p>
-          </div>
-        ))}
-      </div>
-  
-    )
-
-    case 'exception':
-    return (
-      <div className='cp-content storybook'>
-        {inputStates.map((index) => (
-          <div className='field' key={index}>
-            <label className="field-label">{label}</label>
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-  
-    )
-
-    case 'disable':
-    return (
-      <div className='cp-content storybook'>
-        {inputStates.map((inputState, index) => (
-          <div className='field' key={index}>
-            <label className="field-label">{label}</label>
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input className="_format" 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                  value={inputState.value}
-                  onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
-                  />
-                  {inputState.active && (
-                    <InputDelBtn
-                      handleInputClear={() => handleInputClear(index, 'default')}
-                    />
-                  )}
-              </div>
-            </div>
-          </div>
-          
-        ))}
-      </div>
-
-    )
-
-    case 'infoMsg':
-    return (
-      <div className='cp-content storybook'>
-        {inputStates.map((inputState, index) => (
-          <div className='field' key={index}>
-            <label className="field-label">{label}</label>
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input className="_format" 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                  value={inputState.value}
-                  onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
-                  />
-                  {inputState.active && (
-                    <InputDelBtn
-                      handleInputClear={() => handleInputClear(index, 'default')}
-                    />
-                  )}
-              </div>
-            </div>
-            <p className={"field-msg " + ErrMsg} >
-              <span className="ico ico-info txt-r">{InfoMessage}</span>
-            </p>
-          </div>
-          
-        ))}
-      </div>
-  
-    )
-
-    case 'validState':
-    return (
-      <div className='cp-content storybook'>
-        {inputStates.map((inputState, index) => (
-          <div className={['field',  fieldState].join(' ')} key={index}>
-            <label className="field-label">{label}</label>
-            <div className={"field-outline " + Disable}>
-              <div className="field-input grow _input">
-                <input className="_format" 
-                  type={type}
-                  placeholder={placeholder}
-                  disabled = {Disable}
-                  value={inputState.value}
-                  onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
-                  />
-                  {inputState.active && (
-                    <InputDelBtn
-                      handleInputClear={() => handleInputClear(index, 'default')}
-                    />
-                  )}
-              </div>
-            </div>
-            <p className={"field-msg " + ErrMsg} >
-              <span className="ico ico-error txt-r">{InfoMessage}</span>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         ))}
-      </div>
+      </>
+
+  
     )
 
     case 'residentNum':
     return (
-      <div className='cp-content storybook'>
+      <>
         {inputStates.map((inputState, index) => (
           <div className="field" key={index}>
             <label className="field-label">주민등록번호</label>
@@ -341,12 +235,80 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
             </p>
           </div>
         ))}
-      </div>
+      </>
+    )
+
+    case 'LabelResidentNum':
+    return (
+      <>
+      {inputStates.map((inputState, index) => {
+        const allInputsEmpty = inputStates.every(state => !state.value); // 모든 input 요소의 value 값이 없는지 확인
+
+        return (
+          <div className={['field', '_label', fieldState].join(' ')} key={index}>
+            <div className={"field-outline " + Disable}>
+              <label 
+                className={`field-label ${isInputFocused[index] || InputPhoneStates.some(state => state.value) ? '_is-active' : ''}`}
+                onClick={() => handleInputFocus(index)}
+              >
+                {label}
+              </label>
+              <div className={`field-input-wrap ${isInputFocused[index] ? '' : 'hr'}`}>
+                <div className="field-input grow _input">
+                  <input type="text" className="_format _number" 
+                    placeholder={placeholder}
+                    maxLength="6"
+                    value={inputState.value}
+                    onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                    onFocus={() => handleInputFocus(index)}
+                    onBlur={() => {
+                      if (allInputsEmpty) { // 모든 input 요소의 value 값이 없는 경우에만 onBlur 이벤트 실행
+                        handleInputBlur(index);
+                      }
+                    }}
+                  />
+                  {inputState.active && (
+                    <InputDelBtn
+                      handleInputClear={() => handleInputClear(index, 'default')}
+                    />
+                  )}
+                </div>
+                <span className="field-txt">-</span>
+                <div className="field-input grow _input">
+                  <label className="_secureTxt _num" data-length="7" data-secureline="1">
+                    <input type="tel" className="_format _password" placeholder="" maxLength="1" 
+                      onChange={(e)=>{
+                        let val = e.target.value
+                        _inputChange(val)
+                      }}
+                      // 포커스가 될때 opactiy 0.5
+                      onClick={()=>{
+                        setOpacityNum('0.5')
+                      }}
+                      // 포커스가 나갈때 opactiy 1
+                      onBlur={()=>{
+                        setOpacityNum('1')
+                      }}
+                    />
+                    {numDot()}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <p className={"field-msg " + ErrMsg}>
+              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            </p>
+          </div>
+        );
+      })}
+    </>
+
+    
     )
 
     case 'phoneNum':
     return (
-      <div className='cp-content storybook' style={{width: 500}}>
+      <>
         {inputStates.map((inputState, index) => (
         <div className={['field', '_label', fieldState].join(' ')}  key={index}>
           <label className="field-label">휴대폰번호 입력</label>
@@ -378,13 +340,12 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
           </p>
         </div>
         ))}
-      </div>
-
+      </>
     )
 
-    case 'Placehoder':
+    case 'Label':
     return (
-      <div className='cp-content storybook'>
+      <>
         {inputStates.map((inputState, index) => (
           <div className={['field', '_label', fieldState].join(' ')} key={index}>
             <div className={"field-outline " + Disable}>
@@ -416,49 +377,53 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, errMsg , 
             </p>
           </div>
         ))}
-      </div>
+      </>
     )
 
-    case 'PlacehoderPhone':
+    case 'LabelPhone':
     return (
-      <div className='cp-content storybook' style={{width: 500}}>
+      <>
         {inputStates.map((inputState, index) => (
-        <div className={['field', '_label', fieldState].join(' ')}  key={index}>
-          <div className={"field-outline " + Disable}>
-            <label 
-              className={`field-label ${isInputFocused[index] || inputState.value ? '_is-active' : ''}`}
-              onClick={() => handleInputFocus(index)}
-            >
-              {label}
-            </label>
-            {InputPhoneStates.map((InputPhoneState, index) => (
-              <React.Fragment key={index}>
-                <div className="field-input grow _input">
-                  <input
-                    className="_format _number _format1"
-                    maxLength={InputPhoneState.maxLength}
-                    type='text'
-                    placeholder={placeholder}
-                    disabled={Disable}
-                    value={InputPhoneState.value}
-                    onChange={(e) => handleInputValueChange(index, e.target.value, 'phone')}
-                  />
-                  {InputPhoneState.active && (
-                    <InputDelBtn
-                      handleInputClear={() => handleInputClear(index, 'phone')}
+          <div className={['field', '_label', fieldState].join(' ')} key={index}>
+            <div className={"field-outline " + Disable}>
+              <label
+                className={`field-label ${isInputFocused[index] || InputPhoneStates.some(state => state.value) ? '_is-active' : ''}`}
+                onClick={() => handleInputFocus(index)}
+              >
+                {label}
+              </label>
+              {InputPhoneStates.map((InputPhoneState, index) => (
+                <React.Fragment key={index}>
+                  <div className="field-input grow _input">
+                    <input
+                      className="_format _number _format1"
+                      maxLength={InputPhoneState.maxLength}
+                      type='text'
+                      placeholder={placeholder}
+                      disabled={Disable}
+                      value={InputPhoneState.value}
+                      onChange={(e) => handleInputValueChange(index, e.target.value, 'phone')}
+                      onFocus={() => handleInputFocus(index)}
+                      onBlur={() => handleInputBlur(index)}
                     />
-                  )}
-                </div>
-                {index !== InputPhoneStates.length - 1 && <span className="field-txt">-</span>}
-              </React.Fragment>
-            ))}
+                    {InputPhoneState.active && (
+                      <InputDelBtn
+                        handleInputClear={() => handleInputClear(index, 'phone')}
+                      />
+                    )}
+                  </div>
+                  {index !== InputPhoneStates.length - 1 && <span className="field-txt">-</span>}
+                </React.Fragment>
+              ))}
+            </div>
+              <div className={`field-input-wrap ${isInputFocused[index] ? '' : 'hr'}`}>
+            </div>
+            <p className={"field-msg " + ErrMsg}>
+              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            </p>
           </div>
-          <p className={"field-msg " + ErrMsg}>
-            <span className="ico ico-info txt-r">{InfoMessage}</span>
-          </p>
-        </div>
         ))}
-      </div>
+      </>
     )
 
     }
@@ -482,7 +447,7 @@ function InputDelBtn({ handleInputClear }) {
 // Docs 문서 작성 영역
 InputBox.propTypes = {
   /**
-   * input 타이틀
+   * label
    */
   label: PropTypes.string.isRequired,
   /**
@@ -490,9 +455,17 @@ InputBox.propTypes = {
    */
   type: PropTypes.oneOf(['text', 'number', 'password']),
   /**
-   * input 타입
+   * 버튼 true 인 경우 Disabld 상태
+   */
+  disabled: PropTypes.bool,
+  /**
+   * input 오류체크
    */
   fieldState: PropTypes.oneOf(['', 'valid', 'invalid']),
+  /**
+   * 인포 메시지 노출
+   */
+  infoMsg: PropTypes.bool,
 };
 
 

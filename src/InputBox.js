@@ -8,53 +8,52 @@ function InputBoxPage() {
   
   
   return (
-    <div style={{width: '500px'}}>
+    <>
+    <div className='cp-content'>
+    <h2 class="cp-tit dep02">기본형</h2>
       <InputBox
         label="기본형"
         setPage="Base"
-        fieldState=""
-        placeholder="기본동장 INPUT"
         type="text"
+        placeholder="기본동장 INPUT"
       />
       <InputBox
-        label="기본형"
+        label="clear btn 없음"
         setPage="Base"
-        fieldState=""
-        placeholder="기본동장 INPUT"
         type="text"
+        placeholder="clear btn 없음"
+        inputType="exception"
       />
       <InputBox
         label="Disable"
-        setPage="disable"
-        disabled
-        placeholder="disabled"
+        setPage="Base"
         type="text"
+        placeholder="disabled"
+        disabled
       />
       <InputBox
         label="안내성 메세지"
-        setPage="infoMsg"
-        errMsg
-        placeholder="placeholder"
+        setPage="Base"
         type="text"
-        InfoMessage="안내성메세지"
+        placeholder="placeholder"
+        infoMsg="true"
+        InfoMessage="안내성 메세지"
       />
       <InputBox
         label="text : valid"
-        setPage="validState"
-        errMsg
-        fieldState="valid"
-        placeholder="placeholder"
+        setPage="Base"
         type="text"
-        InfoMessage="입력값의 유효성이 정상입니다."
+        placeholder="placeholder"
+        fieldState="valid"
+        validMsg='오류체크 메세지 출력'
       />
       <InputBox
         label="text : invalid"
-        setPage="validState"
-        errMsg
-        fieldState="invalid"
-        placeholder="placeholder"
+        setPage="Base"
         type="text"
-        InfoMessage="오류체크 메시지 출력"
+        placeholder="placeholder"
+        fieldState="invalid"
+        validMsg='오류체크 메세지 출력'
       />
       <InputBox
         label="주민등록번호"
@@ -66,15 +65,32 @@ function InputBoxPage() {
       <InputBox
         label="휴대폰번호 입력"
         setPage="phoneNum"
-      />
-      <InputBox
-        label="Placeholder Type"
-        setPage="Placehoder"
-        fieldState=""
-        placeholder="default"
-        type="text"
+        type="number"
       />
     </div>
+    <div className='cp-content'>
+    <h2 class="cp-tit dep02">Placeholder Type</h2>
+      <InputBox
+        label="Placeholder Type"
+        setPage="Label"
+        type="text"
+        placeholder=""
+      />
+      <InputBox
+        label="휴대폰번호 입력"
+        setPage="LabelPhone"
+        type="text"
+        placeholder=""
+      />
+      <InputBox
+        label="주민등록번호"
+        setPage="LabelResidentNum"
+        fieldState=""
+        placeholder=""
+        type="number"
+      />
+    </div>
+    </>
   );
 }
 

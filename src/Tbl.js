@@ -6,7 +6,7 @@ function TablePage() {
   
   
   return (
-    <div style={{width: '500px'}}>
+    <div className='cp-content'>
       <Table
         caption="기존 caption을 그대로 보여줘"
         captionState

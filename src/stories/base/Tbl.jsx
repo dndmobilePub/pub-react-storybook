@@ -72,7 +72,7 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
 
     case 'Base':
       return (
-        <div className='cp-content storybook'>
+        <>
           <div className='splitWrap'>
             <div className='tblExWrap'>
               <p>CASE 1 : 데이터 테이블 기본</p>
@@ -102,12 +102,12 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
               </table>
             </div>
           </div>
-        </div>
+        </>
       )
 
     case 'InnerTbl':
       return (
-        <div className='cp-content storybook'>
+        <>
           <div className='splitWrap'>
             <div className='tblExWrap'>
               <p>CASE 2: 테이블 안에 테이블</p>
@@ -167,12 +167,12 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
               </table>
             </div>
           </div>
-        </div>
+        </>
       )
 
     case 'TitleTbl':
       return (
-        <div className='cp-content storybook'>
+        <>
           <div className='splitWrap'>
             <div className='tblExWrap'>
               <p>CASE 3 : caption에 제목과 내용을 분리적용</p>
@@ -203,12 +203,12 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
               </table>
             </div>
           </div>
-        </div>
+        </>
       )
 
     case 'ScopeTbl':
       return (
-        <div className='cp-content storybook'>
+        <>
           <div className='splitWrap'>
             <div className='tblExWrap'>
               <p>CASE 1 : 데이터 테이블 기본</p>
@@ -238,7 +238,7 @@ export const Table = ({setPage , captionState, caption, dataTblTitle}) => {
               </table>
             </div>
           </div>
-        </div>
+        </>
       )
   }
  

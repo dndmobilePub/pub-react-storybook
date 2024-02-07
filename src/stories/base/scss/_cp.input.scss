@@ -63,6 +63,17 @@
                 font-family:'pass';
                 font-size:.4rem;}
         }
+        
+        &-wrap {
+            display: flex;
+            flex-grow: 1;
+            flex-shrink: 0;
+            flex-basis: 0;
+
+            .field-txt {
+               padding: 0 1rem;
+            }
+        }
     }
 
     /* FIELD - OUTLINE */

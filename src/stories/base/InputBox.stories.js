@@ -17,49 +17,11 @@ export const Base = {
     label: 'Base',
     placeholder: 'default',
     fieldState : '',
-  },
-};
-
-export const Exception = {
-  args: {
-    setPage : 'exception',
-    label: 'clear btn 없음',
-    type: 'text',
-    placeholder: 'clear btn 없음',
-  },
-};
-
-export const Disable = {
-  args: {
-    setPage : 'disable',
-    label: 'disabled',
-    type: 'text',
-    placeholder: 'disabled',
-    disabled: true,
-  },
-};
-
-export const InfoMsg = {
-  args: {
-    setPage : 'infoMsg',
-    label: 'text default',
-    type: 'text',
-    placeholder: 'placeholder',
-    disabled: false,
-    errMsg : true,
-    InfoMessage:'안내성 메세지'
-  },
-};
-
-export const ValidState = {
-  args: {
-    setPage : 'validState',
-    label: 'text default',
-    type: 'text',
-    placeholder: 'placeholder',
-    errMsg : true,
-    fieldState : 'valid',
-    InfoMessage:'입력값의 유효성이 정상입니다.'
+    infoMsg: true,
+    InfoMessage:'안내성 메세지',
+    validMsg:'오류체크 메세지 출력',
+    inputType:''
+    
   },
 };
 
@@ -82,9 +44,9 @@ export const PhoneNum = {
   },
 };
 
-export const Placehoder = {
+export const Label = {
   args: {
-    setPage : 'Placehoder',
+    setPage : 'Label',
     type: 'text',
     label: 'text default',
     placeholder: '',
@@ -92,9 +54,9 @@ export const Placehoder = {
   },
 };
 
-export const PlacehoderPhone = {
+export const LabelPhone = {
   args: {
-    setPage : 'PlacehoderPhone',
+    setPage : 'LabelPhone',
     label: '휴대폰번호 입력',
   },
 };

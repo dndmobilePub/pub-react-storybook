@@ -7,6 +7,7 @@ import ButtonPage from './Button';
 import InputBoxPage from './InputBox';
 import TablePage from './Tbl';
 import ModalPopPage from './Modal';
+import TySwiperPage from './Swiper';
 
 
 function App() {
@@ -76,13 +77,16 @@ function App() {
             <Link className={`component-btn ${activeLink === 'InputBox' ? 'active' : ''}`} to="/InputBox" onClick={() => setActiveLink('InputBox')}>InputBox</Link>
             <Link className={`component-btn ${activeLink === 'Tbl' ? 'active' : ''}`} to="/Tbl" onClick={() => setActiveLink('Tbl')}>Table</Link>
             <Link className={`component-btn ${activeLink === 'Modal' ? 'active' : ''}`} to="/Modal" onClick={() => setActiveLink('Modal')}>ModalPop</Link>
+            <Link className={`component-btn ${activeLink === 'Swiper' ? 'active' : ''}`} to="/Swiper" onClick={() => setActiveLink('Swiper')}>Swiper</Link>
           </div>
-          <div className="component-wrap">
+          <div id="cp-wrap" className="component-wrap">
+            <h1 className="cp-tit dep01">{activeLink ? activeLink : ''}</h1>
             <Routes>
               <Route path="/Button" element={<ButtonPage />} />
               <Route path="/InputBox" element={<InputBoxPage />} />
               <Route path="/Tbl" element={<TablePage />} />
               <Route path="/Modal" element={<ModalPopPage />} />
+              <Route path="/Swiper" element={<TySwiperPage />} />
             </Routes>
           </div>
         </div>
