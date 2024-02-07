@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
 // scss&css import
 import './scss/cm.common.scss';
@@ -20,7 +21,7 @@ import './scss/storyBook.scss';
  * Button 컴포넌트 정의
  */
 
-export const ButtonGroup = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, onClick }) => {
+export const ButtonGroup = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, wType, onClick }) => {
   
   const Disable = disabled ? 'disable' : null;
   
@@ -29,42 +30,27 @@ export const ButtonGroup = ({ setPage, disabled, backgroundColor, style, size, l
 
     case 'grow':
     return (
-      <div className='cp-content storybook'>        
-        <div className={['btnWrap', `${setPage}`].join(' ')}>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}` ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type2'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type3' ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'full' ,'line' ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
+      <>
+        <div className="btnWrap grow">
+          <Button
+            label="기본BTN"
+            onClick={() => {}}
+            setPage="1st"
+          />
+          <Button
+            label="긍정BTN"
+            onClick={() => {}}
+            setPage="2nd"
+          />
+          <Button
+            label="FULL BTN"
+            onClick={() => {}}
+            setPage="1st"
+            style="line"
+            wType="full"
+          />
         </div>
-      </div>
+      </>
     )
 
     case 'grow full':
@@ -197,4 +183,4 @@ ButtonGroup.defaultProps = {
   size: 'md',
 };
 
-export default ButtButtonGroupn;
+export default ButtonGroup;

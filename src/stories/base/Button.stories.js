@@ -21,9 +21,23 @@ export default {
 //               MenuTab 으로 작성시 스토리북에서 띄어쓰기 -> Menu Tab
 // args : 스토리의 전달인자를 작성 및 기본값 설정
 
-export const Primary = {
+export const primary = {
   args: {
-    setPage : 'primary',
+    setPage : '1st',
+    disabled: false,
+    label: '기본BTN',
+  },
+};
+export const secondary = {
+  args: {
+    setPage : '2nd',
+    disabled: false,
+    label: '기본BTN',
+  },
+};
+export const thirdly = {
+  args: {
+    setPage : '3rtjd',
     disabled: false,
     label: '기본BTN',
   },

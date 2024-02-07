@@ -3,6 +3,7 @@
 /****************************************/
 @import 'variables';
 @import 'mixin';
+%widFull {width:100%; margin:0; margin-bottom:0 !important;}
 
 .btnWrap {
     &.split {
@@ -18,20 +19,24 @@
     }
 
     &.full > #{$btn} {
-        width:100%; margin:0; margin-bottom:0 !important;
+        @extend %widFull;
         & ~ .btn {margin-bottom:0 !important; margin-top:1rem;}
     }
 
-    &.grow {
+    &.grow {        
         @include display(flex);
         flex-wrap: wrap;
         & > * {flex:1 0 0; @include display(block);}
-
-        & > .full {flex:none;}
+        & > #{$btn} {
+            &:not(.full) {margin-bottom:.5rem;}
+            & ~ #{$btn}:not(.full) {margin-left:.5rem;}
+            &.full {flex:none;}
+        }
+        
 
         &.full > #{$btn} {
             margin:0;
-            & ~ .btn {margin:0;}
+            & ~ #{$btn} {margin:0;}
             &:first-child {border-radius:0.3rem 0 0 0.3rem;}
             & + & {border-radius: 0;}
             &:last-child {border-radius:0 0.3rem 0.3rem 0;}
@@ -43,6 +48,9 @@
 #{$btn} { 
     padding:.5rem 1rem;
     vertical-align: middle;
+    &.full {
+        @extend %widFull;
+    }
 
     & ~ .btn {margin-left:.5rem;}
     // SIZE
@@ -64,15 +72,10 @@
                 color:$color-white;
                 background:$color-violet2; border-color:$color-violet2;
             }
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus, &.is-active {
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus,
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]).is-active {
                 color:$color-white;
                 background:$color-violet2; border-color:$color-violet2;
-            }
-            &[aria-disabled="disabled"], &.disabled {
-                color:$color-white;
-                &:hover, &:focus {
-                    background:$color-violet2; color:$color-white;  border-color:$color-violet2;
-                }
             }
         }
         &.type3 {
@@ -82,15 +85,10 @@
                 color:$color-white;
                 background:$color-blue2; border-color:$color-blue2;
             }
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus, &.is-active {
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus,
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]).is-active {
                 color:$color-white;
                 background:$color-blue2; border-color:$color-blue2;
-            }
-            &[aria-disabled="disabled"], &.disabled {
-                color:$color-white;
-                &:hover, &:focus {
-                    background:$color-blue2; color:$color-white;  border-color:$color-blue2;
-                }
             }
         }
     }
@@ -151,7 +149,8 @@
                 background:$color-gray4;
                 @include transition(0.5s, all, ease);
             }
-            &:hover, &:focus {
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover, 
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
                 @include line-effect($color-gray1, before, center) {
                     @include transition(0.5s, all, ease);
                     width:0; opacity:0;
@@ -162,21 +161,14 @@
                 width:0; height:.2rem;
             }
             
-            &:hover, &:focus {
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
                 @include line-effect($color-gray1, after, center) {
                     @include transition(0.3s, all, ease);
                     background:$color-violet;
                     width:100%; height:.2rem;
                 }
             }
-            /*
-            @include el-content(after){
-                margin:0;
-                width:100%; height:.1rem;
-                background:$color-gray1;
-                position:absolute; left:0; bottom:0;
-            }
-            */
         }
     }
 
@@ -194,12 +186,13 @@
                 transform:rotate(-135deg);                
             }
 
-            &:hover, &:focus {
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
+            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
                 @include el-content(before){
                     @include transition(0.3s, all, ease);
                     border-color:$color-orange;
                 // border-width:2px;  margin-top:calc(-.6rem/2);
-                }                
+                }           
             }
         }
 
@@ -211,7 +204,8 @@
             @include transition(0.5s, all, ease);
         }
         
-        &:hover, &:focus {
+        &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
+        &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
             @include line-effect($color-gray1, after, center) {
                 @include transition(0.5s, all, ease);
                 background:$color-orange;

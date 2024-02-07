@@ -33,19 +33,49 @@ import './scss/storyBook.scss';
  * </div>
  */
 
-export const Button = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, onClick }) => {
+export const Button = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, wType, onClick }) => {
   
   const Disable = disabled ? 'disable' : null;
+  const Style = style === 'normal' ? '' : style;
+  const widthType = wType ? 'full' : null;
   
   // setPage 이름별로 스토리 컴포넌트 노출
   switch (setPage){
 
-    case 'primary':
+    case '1st':
     return (
       <>
       <button
             type="button"
-            className={['btn', 'btn-size', 'bg', `${style}`, `${size}` ].join(' ')}
+            className={['btn', 'btn-size', 'bg', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+            disabled = {Disable}
+            style={backgroundColor && { backgroundColor }}
+          >
+          {label}
+      </button>
+      </>
+    )
+
+    case '2nd':
+    return (
+      <>
+      <button
+            type="button"
+            className={['btn', 'btn-size', 'bg', 'type2', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+            disabled = {Disable}
+            style={backgroundColor && { backgroundColor }}
+          >
+          {label}
+      </button>
+      </>
+    )   
+
+    case '3rd':
+    return (
+      <>
+      <button
+            type="button"
+            className={['btn', 'btn-size', 'bg', 'type3', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
           >
@@ -59,7 +89,7 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
         <>
           <button
               type="button"
-              className={['btn', 'btn-size', 'bg', `${style}`, `${size}` ].join(' ')}
+              className={['btn', 'btn-size', 'bg', '_modalBtn', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
               disabled={Disable} // const Disable 값을 사용하여 버튼 비활성화
               style={backgroundColor && { backgroundColor }}
               data-value={dataValue} // dataValue prop의 값 사용
@@ -77,7 +107,7 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
         <div className='btnWrap'>
           <button
             type="button"
-            className={['btn', 'btn-size', 'bg', `${style}`, `${size}`].join(' ')}
+            className={['btn', 'btn-size', 'bg', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
           >
@@ -94,11 +124,15 @@ Button.propTypes = {
   /**
    * 버튼 용도 선택
    */
-  setPage: PropTypes.oneOf(['primary', 'modal']),
+  setPage: PropTypes.oneOf(['1st','2nd','3rd', 'modal']),
   /**
    * Disabled 상태 : true 인 경우 버튼 disabled 적용
   */
   disabled: PropTypes.bool,
+  /**
+   * 버튼의 가로 사이즈 full/free : true 인 경우 full 클래스 적용
+  */
+  wType: PropTypes.bool,
   /**
    * <div className="sb-guide">
    * <strong class="key-color1 uline keyTxt">★모달버튼 전용</strong> : 모달팝업이 뜨는 위치 설정
@@ -116,7 +150,7 @@ Button.propTypes = {
   /**
  * 버튼 타입 선택
  */
-  style: PropTypes.oneOf(['', 'round', 'shadow', 'line']),
+  style: PropTypes.oneOf(['normal', 'round', 'shadow', 'line']),
   /**
    * 버튼 사이즈 선택
    */
@@ -138,8 +172,9 @@ Button.propTypes = {
 // Docs Parameter 기본값 설정
 Button.defaultProps = {
   backgroundColor: null,
-  style: 'normal',
+  style: '',
   disabled: false,
+  widthType: '',
   size: 'md',
 };
 

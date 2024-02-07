@@ -25,7 +25,7 @@ import './scss/storyBook.scss';
 
 export const ALink = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, onClick }) => {
   
-  const Disable = disabled ? 'disable' : null;
+  const Disable = disabled ? 'disabled' : null;
   
   // setPage 이름별로 스토리 컴포넌트 노출
   switch (setPage){

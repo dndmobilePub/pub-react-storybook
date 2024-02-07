@@ -88,6 +88,8 @@ a:active, a:hover {text-decoration:none;}
 
 legend, caption{@include ir("hide");}
 #{$hr} {display:none; visibility:hidden;}
+
+img { object-fit: cover; } 
 /****************************************/
 /*	PART: BASIC CSS
 /****************************************/
