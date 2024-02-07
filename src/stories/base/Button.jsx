@@ -16,52 +16,60 @@ import './scss/storyBook.scss';
  * label - 버튼 label
  */
 
+/* Docs 설명 */
 /** 
- * Button 컴포넌트 정의
+ * <div className="sb-guide">
+ *  <h2 className="sb-tit-h2">Button 컴포넌트 정의</h2>
+ *  <p className="sb-info desc">
+ *    <strong class="key-color1">[주의]</strong> 모달팝 옵션인 <strong class="uline keyTxt">"dataValue, dataModal" 은 setPage : "modal" 일 경우에만 선택</strong>해야 됩니다.
+ *  </p>
+ *  <ul className="sb-lst desc">
+ *    <li>dataValue : 모달팝업의 위치 지정</li>
+ *    <li>
+ *      dataModal : 모달팝에 들어갈 컨텐츠 페이지 지정.
+ *      <p>ex) 컨텐츠 페이지의 <strong class="key-color3 uline keyTxt">파일명 규칙은 Lpop로 시작</strong>되어야 하며, LpopSample.js일 경우 입력값은 <strong class="key-color2 uline keyTxt">Sample</strong>이 됩니다.</p>
+ *    </li>
+ *  </ul>
+ * </div>
  */
 
-export const Button = ({setPage, disabled, backgroundColor, style, size, label  }) => {
+export const Button = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, onClick }) => {
   
   const Disable = disabled ? 'disable' : null;
   
   // setPage 이름별로 스토리 컴포넌트 노출
   switch (setPage){
+
     case 'primary':
     return (
-      <div className='cp-content storybook'>
-        <div className='btnWrap'>
-          <button
+      <>
+      <button
             type="button"
-            className={['btn', 'btn-size', `${style}`, 'bg', `${size}` ].join(' ')}
+            className={['btn', 'btn-size', 'bg', `${style}`, `${size}` ].join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
           >
           {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size', `${style}`, 'bg', `${size}` ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-        </div>
-      </div>
-    )
-    
+      </button>
+      </>
+    )    
 
-    case 'txt':
+    case 'modal':
       return (
-        <div className='cp-content storybook'>
-          <div className='btnWrap'>
-            <a href="#/" onClick={(e)=> e.preventDefault()} className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ].join(' ')} ariaRole="button">기본링크</a>
-            <a href="#/" onClick={(e)=> e.preventDefault()} className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` ,'uline' ].join(' ')}  ariaRole="button">라인링크</a>
-            <a href="#/" onClick={(e)=> e.preventDefault()} className={['btn', 'btn-size',`${style}`, `${setPage}`, `${size}` , 'ico arrow'].join(' ')}  ariaRole="button">링크+화살표</a>
-          </div>
-        </div>
-    
-    )
+        <>
+          <button
+              type="button"
+              className={['btn', 'btn-size', 'bg', `${style}`, `${size}` ].join(' ')}
+              disabled={Disable} // const Disable 값을 사용하여 버튼 비활성화
+              style={backgroundColor && { backgroundColor }}
+              data-value={dataValue} // dataValue prop의 값 사용
+              data-modal={dataModal} // dataModal prop의 값 사용
+              onClick={onClick} // onClick prop 추가
+            >
+              {label}
+            </button>
+        </>
+      )
 
     case 'disable':
     return (
@@ -69,7 +77,7 @@ export const Button = ({setPage, disabled, backgroundColor, style, size, label  
         <div className='btnWrap'>
           <button
             type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}` ].join(' ')}
+            className={['btn', 'btn-size', 'bg', `${style}`, `${size}`].join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
           >
@@ -78,152 +86,37 @@ export const Button = ({setPage, disabled, backgroundColor, style, size, label  
         </div>
       </div>
     )
-
-    case 'grow':
-    return (
-      <div className='cp-content storybook'>        
-        <div className={['btnWrap', `${setPage}`].join(' ')}>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}` ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type2'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type3' ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'full' ,'line' ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-        </div>
-      </div>
-    )
-
-    case 'grow full':
-    return (
-      <div className='cp-content storybook'>        
-        <div className={['btnWrap', `${setPage}`].join(' ')}>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type2'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-        </div>
-      </div>
-    )
-
-    case 'full':
-    return (
-      <div className='cp-content storybook'>        
-        <div className={['btnWrap', `${setPage}`].join(' ')}>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type2'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, 'type3'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-        </div>
-      </div>
-    )
-
-    case 'full el':
-    return (
-      <div className='cp-content storybook'>        
-        <div className={['btnWrap'].join(' ')}>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, `${setPage}` ].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`, `${setPage}`, 'type2'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-          <button
-            type="button"
-            className={['btn', 'btn-size',`${style}`, 'bg', `${size}`,`${setPage}`, 'type3'].join(' ')}
-            disabled = {Disable}
-            style={backgroundColor && { backgroundColor }}
-          >
-          {label}
-          </button>
-        </div>
-      </div>
-    )
-    default:
   }
 };
 
 // Docs 문서 작성 영역
 Button.propTypes = {
   /**
-   * 버튼 스토리 이름
+   * 버튼 용도 선택
    */
-  setPage: PropTypes.oneOf(['primary', 'txt', 'disable', 'grow', 'grow full', 'full', 'full el']),
-   /**
-   * 버튼 true 인 경우 Disabld 상태
+  setPage: PropTypes.oneOf(['primary', 'modal']),
+  /**
+   * Disabled 상태 : true 인 경우 버튼 disabled 적용
+  */
+  disabled: PropTypes.bool,
+  /**
+   * <div className="sb-guide">
+   * <strong class="key-color1 uline keyTxt">★모달버튼 전용</strong> : 모달팝업이 뜨는 위치 설정
+   * </div>
    */
-   disabled: PropTypes.func,
+  dataValue: PropTypes.oneOf(['', 'Top', 'Left', 'Right', 'Center', 'Toast']),
+
+  /**
+   * <div className="sb-guide">
+   * <strong class="key-color1 uline keyTxt">★모달버튼 전용</strong> : 모달팝업 컨텐츠 페이지명 LpopSample.js 일경우 Sample만 입력
+   * </div>
+   */
+  dataModal: PropTypes.string,
+
   /**
  * 버튼 타입 선택
  */
-  style: PropTypes.oneOf(['normal', 'round', 'shadow', 'line']),
+  style: PropTypes.oneOf(['', 'round', 'shadow', 'line']),
   /**
    * 버튼 사이즈 선택
    */
@@ -236,6 +129,10 @@ Button.propTypes = {
    * 버튼 text 값 입력
    */
   label: PropTypes.string,
+  /**
+   * 클릭 이벤트 핸들러
+   */
+  onClick: PropTypes.func, // onClick prop 추가
 };
 
 // Docs Parameter 기본값 설정
@@ -246,3 +143,4 @@ Button.defaultProps = {
   size: 'md',
 };
 
+export default Button;

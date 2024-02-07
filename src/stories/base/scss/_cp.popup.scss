@@ -11,8 +11,14 @@
 .modalPop {
     // 2024 스토리북 주석
     // @include display(none);
+    visibility: hidden;
     @include pos(fixed) {left: 0; z-index: 9995;}
     @include el-size(100%, 100%);
+
+    &._is-active {
+        visibility: visible;
+        height: auto;
+    }
     
     &._top {
         @include pos-offset-l(-100%, 0, fixed);
@@ -21,6 +27,10 @@
         & > .modalWrap {
             @extend %transition3s;
             border-radius:0 0 1rem 1rem;
+        }
+        &._is-active {
+            top:0%;
+            @include transition(0.3s, top, ease-in-out );
         }
     }
 
@@ -44,11 +54,15 @@
         &._scroll {
             .modal-container {@include overflow(y, auto);}
         }
+
+        &._is-active {
+            left:0%; height:100%;
+            @include transition(0.3s, left, ease-in-out );
+        }
     }
 
     &._center {
-        @include pos-offset-l(50%, 50%, fixed);
-        // transform: translate(-50%, -50%);
+        opacity:0;
         width:80%;
 
         &._scroll {
@@ -56,6 +70,14 @@
         }
 
         & > .modalWrap {min-height:30%; border-radius:1rem;}
+
+        &._is-active {
+            opacity:1;
+            @include pos-offset-l(50%, 50%, fixed);
+            @include transition(0.3s, opacity, ease-in-out ){
+                transition-delay: .1s
+            }
+        }
     }
 
     &._bottom {
@@ -68,6 +90,11 @@
         }
 
         & > .modalWrap {@extend %transition3s; border-radius:1rem 1rem 0 0;}
+
+        &._is-active {
+            bottom:0; max-height: 796px;
+            @include transition(0.3s, bottom, ease-in-out );
+        }
     }
 
     .modal {

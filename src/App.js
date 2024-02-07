@@ -4,6 +4,7 @@ import logo from './stories/assets/logo_dndm.png';
 import './App.css';
 import InputBoxPage from './InputBox';
 import TablePage from './Tbl';
+import ModalPopPage from './Modal';
 
 
 function App() {
@@ -71,11 +72,13 @@ function App() {
           <div className="component-btn-wrap">
             <Link className={`component-btn ${activeLink === 'InputBox' ? 'active' : ''}`} to="/InputBox" onClick={() => setActiveLink('InputBox')}>InputBox</Link>
             <Link className={`component-btn ${activeLink === 'Tbl' ? 'active' : ''}`} to="/Tbl" onClick={() => setActiveLink('Tbl')}>Table</Link>
+            <Link className={`component-btn ${activeLink === 'Modal' ? 'active' : ''}`} to="/Modal" onClick={() => setActiveLink('Modal')}>ModalPop</Link>
           </div>
           <div className="component-wrap">
             <Routes>
               <Route path="/InputBox" element={<InputBoxPage />} />
               <Route path="/Tbl" element={<TablePage />} />
+              <Route path="/Modal" element={<ModalPopPage />} />
             </Routes>
           </div>
         </div>

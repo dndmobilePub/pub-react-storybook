@@ -7,6 +7,48 @@
 
 
 /* 2024 스토리북 적용 scss 추가 */
+$sb:'.sb';
+#{$sb} {
+  &-guide {
+    & > * {letter-spacing:-.5px;}
+    .key {
+      &-color {
+        &1 {color:$color-orange;}
+        &2 {color:$color-violet2;}
+        &3 {color:$color-green;}
+      }
+    }
+    .uline {
+      &.keyTxt {
+        display:inline-block;
+        @include el-content(after) {
+          background: $color-yellow;
+          height: 1rem; margin-top: -1rem;
+        }
+      &.key {
+        &-color {
+          &3 {
+            @include el-content(after) {
+              background:$color-green3;
+            }
+          }
+          &2 {
+            @include el-content(after) {
+              background: $color-violet3;
+            }
+          }
+        }
+      }
+      }
+    }
+    #{$sb} {
+      &-tit-h2 {font-size:calc(12px + 1vmin);}
+      &-lst.desc {
+        & > li {list-style: disc;}
+      }
+    }
+  }
+}
 
 .sb-container { margin-bottom: 48px; } 
 .sb-section { width: 100%; display: flex; flex-direction: row; gap: 20px; } 
@@ -138,7 +180,7 @@ img { object-fit: cover; }
     -moz-transition: all 0.8s cubic-bezier(0,1,0,1);
     -ms-transition: all 0.8s cubic-bezier(0,1,0,1);
     -o-transition: all 0.8s cubic-bezier(0,1,0,1);
-} 
+  } 
 }
 
 .storybook.ToggleInToggle {
