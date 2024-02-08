@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import InputBox from './stories/base/InputBox';
 // import Table from './stories/base/Tbl';
@@ -10,7 +10,7 @@ function InputBoxPage() {
   return (
     <>
     <div className='cp-content'>
-    <h2 class="cp-tit dep02">기본형</h2>
+      <h2 className="cp-tit dep02">기본형</h2>
       <InputBox
         label="기본형"
         setPage="Base"
@@ -22,7 +22,7 @@ function InputBoxPage() {
         setPage="Base"
         type="text"
         placeholder="clear btn 없음"
-        inputType="exception"
+        inputcase="exception"
       />
       <InputBox
         label="Disable"
@@ -36,7 +36,7 @@ function InputBoxPage() {
         setPage="Base"
         type="text"
         placeholder="placeholder"
-        infoMsg="true"
+        infoMsg={true}
         InfoMessage="안내성 메세지"
       />
       <InputBox
@@ -69,7 +69,7 @@ function InputBoxPage() {
       />
     </div>
     <div className='cp-content'>
-    <h2 class="cp-tit dep02">Placeholder Type</h2>
+      <h2 className="cp-tit dep02">Placeholder Type</h2>
       <InputBox
         label="Placeholder Type"
         setPage="Label"
@@ -86,8 +86,11 @@ function InputBoxPage() {
         label="주민등록번호"
         setPage="LabelResidentNum"
         fieldState=""
-        placeholder=""
         type="number"
+      />
+      <InputBox
+        label="휴대폰번호 입력 : 자동 하이픈 생성"
+        setPage="LabelPhoneAuto"
       />
     </div>
     </>

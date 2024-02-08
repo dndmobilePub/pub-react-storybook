@@ -16,7 +16,7 @@ import './scss/_cp.input.scss';
  */
 
 
-export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, errMsg , validMsg, fieldState, InfoMessage, inputType}) => {
+export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, errMsg , validMsg, fieldState, InfoMessage, inputcase}) => {
   const Disable = disabled ? 'disabled' : '';
 
   const ErrMsg = errMsg ? '' : 'hr' 
@@ -150,6 +150,21 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
   }
 
 
+
+  // 자동 하이픈 생성 함수
+  const handleAutoHyphen = (value) => {
+    // 숫자만 남기고 하이픈 제거
+    value = value.replace(/[^0-9]/g, '');
+    // 휴대폰번호 형식에 맞춰 하이픈 추가
+    if (value.length > 3 && value.length <= 7) {
+      value = value.replace(/^(.{3})(.*)/, '$1-$2');
+    } else if (value.length > 7) {
+      value = value.replace(/^(.{3})(.{4})(.*)/, '$1-$2-$3');
+    }
+    return value;
+  };
+
+
   switch (setPage){
     
     case 'Base':
@@ -165,10 +180,10 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                   placeholder={placeholder}
                   disabled={Disable}
                   value={inputState.value}
-                  inputType={inputType}
+                  inputcase={inputcase}
                   onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
                 />
-                {inputState.active && inputType !== "exception" && ( 
+                {inputState.active && inputcase !== "exception" && ( 
                   <InputDelBtn
                     handleInputClear={() => handleInputClear(index, 'default')}
                   />
@@ -426,6 +441,49 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
       </>
     )
 
+    case 'LabelPhoneAuto':
+    return (
+      <>
+        {inputStates.map((inputState, index) => (
+          <div className={['field', '_label', fieldState].join(' ')} key={index}>
+            <div className={"field-outline " + Disable}>
+            <label 
+              className={`field-label ${isInputFocused[index] || inputState.value ? '_is-active' : ''}`}
+              onClick={() => handleInputFocus(index)}
+            >
+              {label}
+            </label>
+              <div className="field-input grow _input">
+                <input className="_format" 
+                  type={type}
+                  placeholder={placeholder}
+                  disabled = {Disable}
+                  value={inputState.value}
+                  maxLength={13}
+                  // 자동 하이픈 생성 함수를 포함한 input 요소의 onChange 핸들러
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    const hyphenatedValue = handleAutoHyphen(value);
+                    handleInputValueChange(index, hyphenatedValue, 'default');
+                  }}
+                  onFocus={() => handleInputFocus(index)}
+                  onBlur={() => handleInputBlur(index)}
+                />
+                {inputState.active && (
+                  <InputDelBtn
+                    handleInputClear={() => handleInputClear(index, 'default')}
+                  />
+                )}
+              </div>
+            </div>
+            <p className={"field-msg " + ErrMsg}>
+              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            </p>
+          </div>
+        ))}
+      </>
+    );
+    
     }
   };
   export default InputBox;

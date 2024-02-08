@@ -60,3 +60,10 @@ export const LabelPhone = {
     label: '휴대폰번호 입력',
   },
 };
+
+export const LabelPhoneAuto = {
+  args: {
+    setPage : 'LabelPhoneAuto',
+    label: '휴대폰번호 입력',
+  },
+};
