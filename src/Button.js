@@ -25,7 +25,7 @@ function ButtonPage() {
   return (
     <>
       <section className="cp-content">
-        <h2 className="cp-tit dep02">제목: 기본형, #333</h2>
+        <h2 className="cp-tit dep02">텍스트 링크</h2>
         <div className="component">
           <h3 className="cp-tit dep03">텍스트링크</h3>
           <div className="btnWrap">
@@ -55,9 +55,9 @@ function ButtonPage() {
         </div>
       </section>
       <section className="cp-content">
-        <h2 className="cp-tit dep02">제목: 기본형, #333</h2>
+        <h2 className="cp-tit dep02">Button : 기본형</h2>
         <div className="component">
-          <h3 className="cp-tit dep03">텍스트링크</h3>
+          <h3 className="cp-tit dep03">버튼 기본형</h3>
           <div className="btnWrap">
             <Button
               label={activeButton['opt2'] ? '도움말 닫기' : '도움말 열기'}
