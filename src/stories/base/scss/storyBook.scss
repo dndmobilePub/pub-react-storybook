@@ -42,11 +42,49 @@ $sb:'.sb';
       }
       }
     }
+    &.descWrap {
+      background:$color-light-yellow1;
+      padding:1rem;
+      border-radius:.5rem;
+      border:1px solid $color-light-brown1;
+    }
     #{$sb} {
+      
       &-tit-h2 {font-size:calc(12px + 1vmin);}
+      
       &-lst.desc {
-        & > li {list-style: disc;}
+        padding-left:2rem;
+        & > li {
+          list-style: disc;
+          & + li {padding:.5rem 0;}
+        }
       }
+    }
+    .desc ~ .desc {margin-top:1rem;}
+  }
+}
+
+.cp-tit {
+  & > .btn {margin-left:1rem; vertical-align: middle;}
+  & + .btnWrap {margin-bottom:0 !important;}
+}
+
+.cp-btn {
+  &._is-active {
+    &:focus, &:hover {
+      background:$color-brown !important;
+      border-color:$color-brown !important;
+      color:$color-white !important;
+    }
+
+    @include pos(relative){z-index:1;};
+    background:$color-brown;
+    border-color:$color-brown;
+    @include el-content(after) {
+      @include pos-offset-b(-10px, 50%){z-index:0;}
+      margin-left:-5px;
+      border : $color-brown 5px solid;
+      border-left-color:transparent; border-right-color:transparent; border-bottom-color:transparent;
     }
   }
 }

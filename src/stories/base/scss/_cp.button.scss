@@ -6,6 +6,7 @@
 %widFull {width:100%; margin:0; margin-bottom:0 !important;}
 
 .btnWrap {
+    margin:1rem 0;
     &.split {
         &.col2 {
             flex-wrap: wrap;
@@ -68,12 +69,12 @@
         &.type2 {
             background:$color-violet;  border-color:$color-violet;
             color:$color-white;
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover {
                 color:$color-white;
                 background:$color-violet2; border-color:$color-violet2;
             }
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus,
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]).is-active {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus,
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]).is-active {
                 color:$color-white;
                 background:$color-violet2; border-color:$color-violet2;
             }
@@ -81,12 +82,12 @@
         &.type3 {
             background:$color-blue;  border-color:$color-blue;
             color:$color-white;
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover {
                 color:$color-white;
                 background:$color-blue2; border-color:$color-blue2;
             }
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus,
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]).is-active {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus,
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]).is-active {
                 color:$color-white;
                 background:$color-blue2; border-color:$color-blue2;
             }
@@ -105,9 +106,9 @@
     &.shadow {
         @include btn("bg");
         box-shadow: 0 3px 8px rgba(0, 0, 0, .2), 0 2px 3px rgba(0, 0, 0, .05);
-        &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
-        &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {box-shadow: 0 0 0 0 rgba(0, 0, 0, .3);}
-        &[aria-disabled="disabled"], &[disabled], &.disabled {
+        &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover,
+        &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus {box-shadow: 0 0 0 0 rgba(0, 0, 0, .3);}
+        &[aria-disabled=disabled], &[disabled], &.disabled {
             box-shadow: 0 3px 8px rgba(0, 0, 0, .2), 0 2px 3px rgba(0, 0, 0, .05);
         }
     }
@@ -116,6 +117,7 @@
 
     &.txt {
         & ~ & {margin-top:0;}
+        z-index:0;
         padding:0;
         @include pos(relative);
         @include transition(0.5s, color, ease);
@@ -127,7 +129,7 @@
             width:0;
         }
 
-        &:hover {                
+        &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover {                
             @include line-effect($color-green, after, center) {
                 @include transition(0.3s, all, ease);
                 height:.7rem;
@@ -149,8 +151,8 @@
                 background:$color-gray4;
                 @include transition(0.5s, all, ease);
             }
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover, 
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover, 
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus {
                 @include line-effect($color-gray1, before, center) {
                     @include transition(0.5s, all, ease);
                     width:0; opacity:0;
@@ -161,8 +163,8 @@
                 width:0; height:.2rem;
             }
             
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover,
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus {
                 @include line-effect($color-gray1, after, center) {
                     @include transition(0.3s, all, ease);
                     background:$color-violet;
@@ -186,8 +188,8 @@
                 transform:rotate(-135deg);                
             }
 
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
-            &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover,
+            &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus {
                 @include el-content(before){
                     @include transition(0.3s, all, ease);
                     border-color:$color-orange;
@@ -204,8 +206,8 @@
             @include transition(0.5s, all, ease);
         }
         
-        &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):hover,
-        &:not(.disabled):not([disabled]):not([aria-disabled="disabled"]):focus {
+        &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):hover,
+        &:not(.disabled):not([disabled]):not([aria-disabled=disabled]):focus {
             @include line-effect($color-gray1, after, center) {
                 @include transition(0.5s, all, ease);
                 background:$color-orange;

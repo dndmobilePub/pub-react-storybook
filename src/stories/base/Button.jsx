@@ -33,11 +33,12 @@ import './scss/storyBook.scss';
  * </div>
  */
 
-export const Button = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, wType, onClick }) => {
+export const Button = ({ setPage, disabled, backgroundColor, style, size, label, dataValue, dataModal, wType, btnAddClass, onClick }) => {
   
   const Disable = disabled ? 'disable' : null;
   const Style = style === 'normal' ? '' : style;
   const widthType = wType ? 'full' : null;
+  
   
   // setPage 이름별로 스토리 컴포넌트 노출
   switch (setPage){
@@ -47,9 +48,10 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
       <>
       <button
             type="button"
-            className={['btn', 'btn-size', 'bg', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+            className={['btn', 'btn-size', 'bg', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : '', btnAddClass || ''].filter(Boolean).join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
+            onClick={onClick}
           >
           {label}
       </button>
@@ -61,9 +63,10 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
       <>
       <button
             type="button"
-            className={['btn', 'btn-size', 'bg', 'type2', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+            className={['btn', 'btn-size', 'bg', 'type2', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : '', btnAddClass || ''].filter(Boolean).join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
+            onClick={onClick}
           >
           {label}
       </button>
@@ -75,9 +78,10 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
       <>
       <button
             type="button"
-            className={['btn', 'btn-size', 'bg', 'type3', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+            className={['btn', 'btn-size', 'bg', 'type3', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : '', btnAddClass || ''].filter(Boolean).join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
+            onClick={onClick}
           >
           {label}
       </button>
@@ -89,7 +93,7 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
         <>
           <button
               type="button"
-              className={['btn', 'btn-size', 'bg', '_modalBtn', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+              className={['btn', 'btn-size', 'bg', '_modalBtn', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : '', btnAddClass || ''].filter(Boolean).join(' ')}
               disabled={Disable} // const Disable 값을 사용하여 버튼 비활성화
               style={backgroundColor && { backgroundColor }}
               data-value={dataValue} // dataValue prop의 값 사용
@@ -107,7 +111,7 @@ export const Button = ({ setPage, disabled, backgroundColor, style, size, label,
         <div className='btnWrap'>
           <button
             type="button"
-            className={['btn', 'btn-size', 'bg', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : ''].filter(Boolean).join(' ')}
+            className={['btn', 'btn-size', 'bg', style !== 'normal' ? Style : '', size, widthType || '', Disable ? 'disabled' : '', btnAddClass || ''].filter(Boolean).join(' ')}
             disabled = {Disable}
             style={backgroundColor && { backgroundColor }}
           >

@@ -169,20 +169,6 @@
     }
 }
 
-.btn {
-    &Wrap {margin:1rem;}
-    &-modal {
-        background:#333;
-        padding:.5rem 1rem;
-        color:#fff;
-        border-radius:.3rem;
-        & ~ & {margin-left:.5rem;}
-        &:hover {
-        background:#0048ff;
-        }
-    }
-}
-
 
 .tooltip {
     @include display(none); opacity:0;
