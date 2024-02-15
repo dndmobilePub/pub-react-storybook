@@ -89,6 +89,19 @@ $sb:'.sb';
   }
 }
 
+/*스토리북 화면에만 적용*/
+#storybook{
+
+  &-root , &-docs{
+    .swiper{
+      width: 400px;
+    }
+    .field {
+      width: 400px;
+    }
+  }
+}
+
 // .storybook {
 //   .btnWrap {
 //     text-align: center; margin: 0;

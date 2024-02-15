@@ -9,17 +9,18 @@ import './scss/storyBook.scss';
 /*
  * 파라미터 설명
  * setPage - 카테고리 화면별 스토리 이름
- * errMsg - 에러메시지 on/off
  */
 
 /** 
  * Select 컴포넌트 정의
  */
 
-export const Select = ({setPage, errMsg }) => {
+export const Select = ({setPage, type, disabled, label, placeholder, infoState, validMsg, fieldState, infoMsg, inputcase}) => {
   
   // 에러 메시지 true일대 invalid 클래스 추가
-  const ErrMsg = errMsg ? 'invalid' : null 
+  // const ErrMsg = errMsg ? 'invalid' : null 
+  const Disable = disabled ? 'disabled' : '';
+  const InfoState = infoState ? '' : 'hr' 
 
   let [widthCss, setWidthCss] = useState(false)
 
@@ -115,171 +116,185 @@ export const Select = ({setPage, errMsg }) => {
   }, [modal])
 
 
+  //input 2개 이상일 경우
+  const [inputStates, setInputStates] = useState([
+    { value: '', active: false, placeholder: 'text default1', label: 'text default1', Disable: 'disabled'},
+  ]);
+
+  //삭제버튼 이벤트
+  const handleInputValueChange = (index, value, inputType) => {
+    let updatedInputStates;
+    if (inputType === 'phone') {
+      // updatedInputStates = [...InputPhoneStates];
+    } else {
+    }
+    updatedInputStates = [...inputStates];
+  
+    updatedInputStates[index] = {
+      ...updatedInputStates[index],
+      value,
+      active: true
+    };
+  
+    if (inputType === 'phone') {
+      // setInputPhoneStates(updatedInputStates);
+    } else {
+      setInputStates(updatedInputStates);
+    }
+  };
+  
+  const handleInputClear = (index, inputType) => {
+    let updatedInputStates;
+    if (inputType === 'phone') {
+      // updatedInputStates = [...InputPhoneStates];
+    } else {
+      updatedInputStates = [...inputStates];
+    }
+  
+    updatedInputStates[index] = {
+      ...updatedInputStates[index],
+      value: '',
+      active: false
+    };
+  
+    if (inputType === 'phone') {
+      // setInputPhoneStates(updatedInputStates);
+    } else {
+      setInputStates(updatedInputStates);
+    }
+  };
+
+  const options = ['선택', 'SKT', 'KT', 'LG U+', '알뜰폰'];
+
+  //select 기본 베이스
+  const SelectBox = ({ className }) => {
+    return (
+      <select className={`${className}`} disabled={Disable}>
+          {options.map((option, index) => (
+            <option key={index} value={option}>{option}</option>
+          ))}
+        </select>
+    );
+  };
+
   switch (setPage){
+
+    case 'Base':
+    return (
+      <>
+       <SelectBox className="_select" options={options}></SelectBox>
+      </>
+    )
 
     case 'Email':
     return (
-      <div className='cp-content storybook'>
-        <div className="field">
-          <label className="field-label">이메일</label>
-          <div className="field-outline">
-            <div className="field-input grow _input">
-              <input type="tel" 
-                className={ widthCss === true ? "_format _number txt-none" : "_format _number" } 
-                placeholder="메일아이디" maxLength="5"
-                value={inputVal}
-                onChange={(e)=>{
-                  setInputVal(e.target.value)
-                }}
-              />
-              {
-                inputBtn === true ? 
-                <InputDelBtn 
-                  setWidthCss={setWidthCss} 
-                  inputVal={inputVal} setInputVal={setInputVal} 
-                  inputBtn={inputBtn} setInputBtn={setInputBtn}
-                /> : null 
-              }
-            </div>
-            <span className="field-txt">@</span>
-            <div className="field-select grow">
-              <select className="select-sys" title="메일도메인">
-                <option>선택해주세요</option>
-                <option>naver.com</option>
-                <option>daum.net</option>
-                <option>gmail.com</option>
-              </select>
-            </div>
-          </div>
-          <p className={"field-msg " + ErrMsg} >
-            <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
-          </p>
-          <p className="field-info">
-            <span className="ico ico-info txt-r">안내성 메세지</span>
-          </p>
-        </div>
-      </div>
-    )
-
-    case 'ResidentNum':
-    return (
-      <div className='cp-content storybook'>
-        <div className="field">
-          <label className="field-label">주민등록번호</label>
-          <div className="field-outline">
-            <div className="field-input grow _input">
-              <input type="text" 
-                className={ widthCss === true ? "_format _number txt-none" : "_format _number" }  
-                placeholder="생년월일 6자리" maxLength="6"
-                value={inputVal}
-                onChange={(e)=>{
-                  setInputVal(e.target.value)
-                }}
-              />
-              {
-                inputBtn === true ? 
-                <InputDelBtn 
-                  setWidthCss={setWidthCss} 
-                  inputVal={inputVal} setInputVal={setInputVal} 
-                  inputBtn={inputBtn} setInputBtn={setInputBtn}
-                /> 
-                : null 
-              }
-            </div>
-            <span className="field-txt">-</span>
-            <div className="field-input grow _input">
-            {/* data-secureLine -> data-secureline 으로 수정 */}
-              <label className="_secureTxt _num" data-length="7" data-secureline="1">
-                <input type="tel" className="_format _password" placeholder="" maxLength="1" 
-                  onChange={(e)=>{
-                    setResInputVal(e.target.value)
-                  }}
-                  // 포커스가 될때 opactiy 0.5
-                  onClick={()=>{
-                    setOpacityNum('0.5')
-                  }}
-                  // 포커스가 나갈때 opactiy 1
-                  onBlur={()=>{
-                    setOpacityNum('1')
-                  }}
+      <>
+        {inputStates.map((inputState, index) => (
+          <div className={['field', fieldState].join(' ')} key={index}>
+            <label className="field-label">{label}</label>
+            <div className={"field-outline " + Disable}>
+              <div className="field-input grow _input">
+                <input className="_format" 
+                  type={type}
+                  placeholder={placeholder}
+                  disabled={Disable}
+                  value={inputState.value}
+                  inputcase={inputcase}
+                  onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
                 />
-                {numDot()}
-              </label>
+                {inputState.active && inputcase !== "exception" && ( 
+                  <InputDelBtn
+                    handleInputClear={() => handleInputClear(index, 'default')}
+                  />
+                )}
+              </div>
+              <span className="field-txt">@</span>
+              <div className="field-select grow">
+                <SelectBox className="select-sys" options={options}></SelectBox>
+              </div>
             </div>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
+            </p>
           </div>
-          <p className={"field-msg " + ErrMsg} >
-            <span className="ico ico-error txt-r">오류체크 메세지 출력</span>
-          </p>
-          <p className="field-info">
-            <span className="ico ico-info txt-r">안내성 메세지</span>
-          </p>
-        </div>
-      </div>
+        ))}
+      </>
     )
 
     case 'UI select':
     return (
-      <div className='cp-content storybook'>
-        <div className="field">
-          <label className="field-label">휴대전화번호</label>
-          <div className="field-outline">
-            <button className="btn btn-size md bg _selectBtn" data-select="select1"
-              onClick={()=>{
-                setModal(true)
-              }}
-            
-            >{comAgency[comNumber]}</button>
-            <div className="field-input grow _input">
-              <input type="tel" className="_format _number" placeholder="휴대전화 앞자리" maxLength="3"
-                style={{"width": widthCss}}
-                value={inputVal}
-                onChange={(e)=>{
-                  setInputVal(e.target.value)
+      <>
+        {inputStates.map((inputState, index) => (
+          <div className={['field', fieldState].join(' ')} key={index}>
+            <label className="field-label">{label}</label>
+            <div className={"field-outline " + Disable}>
+              <button className="btn btn-size md bg _selectBtn" data-select="select1"
+                onClick={()=>{
+                  setModal(true)
                 }}
-              />
-              {
-                inputBtn === true ? <InputDelBtn setWidthCss={setWidthCss} inputVal={inputVal} setInputVal={setInputVal} inputBtn={inputBtn} setInputBtn={setInputBtn}/> : null 
-              }
+              
+              >{comAgency[comNumber]}</button>
+              <div className="field-input grow _input">
+                <input className="_format" 
+                  type={type}
+                  placeholder={placeholder}
+                  disabled={Disable}
+                  value={inputState.value}
+                  inputcase={inputcase}
+                  onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
+                />
+                {inputState.active && inputcase !== "exception" && ( 
+                  <InputDelBtn
+                    handleInputClear={() => handleInputClear(index, 'default')}
+                  />
+                )}
+              </div>
             </div>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
+            </p>
+            {/* [s] modal : _bottom */}
+            {
+              modal === true ? 
+              <ModalPop 
+                comNumber={comNumber}
+                setComNumber={setComNumber} 
+                comAgency={comAgency} 
+                setComAgency={setComAgency} 
+                Ani={Ani} setAni={setAni} 
+                modal={modal} setModal={setModal}
+              /> : null
+            }
+            {/* [e] modal : _bottom */}
+            {
+              modal === true ? <Dimmed /> : null
+            }
           </div>
-          {/* [s] modal : _bottom */}
-          {
-            modal === true ? 
-            <ModalPop 
-              comNumber={comNumber}
-              setComNumber={setComNumber} 
-              comAgency={comAgency} 
-              setComAgency={setComAgency} 
-              Ani={Ani} setAni={setAni} 
-              modal={modal} setModal={setModal}
-            /> : null
-          }
-          {/* [e] modal : _bottom */}
-          {
-            modal === true ? <Dimmed /> : null
-          }
-        
-        </div>
-      </div>
+        ))}
+      
+      </>
     )
-    default:
   }
 };
+export default Select;
+
 // 삭제 버튼 
-function InputDelBtn(props){
-  return(
-    <button type="button" className="field-btn _input-clear _active"
-      onClick={()=>{
-
-        props.setInputBtn(false)
-        let selectInput = document.getElementsByClassName('_format')[0] 
-        selectInput.value = null
-        props.setWidthCss('')
-        props.setInputVal('')
-      }}
-    ><span className="hide">입력값삭제</span></button>
-
-  )
+function InputDelBtn({ handleInputClear }) {
+  return (
+    <button
+      type="button"
+      className="field-btn _input-clear _active"
+      onClick={handleInputClear}
+    >
+      <span className="hide">입력값삭제</span>
+    </button>
+  );
 }
 // Dimmed 영역
 function Dimmed(){
@@ -351,15 +366,15 @@ function ModalPop(props){
 // Docs 문서 작성 영역
 Select.propTypes = {
   /**
-   * 오류 메시지 출력
+   * label
    */
-  errMsg: PropTypes.bool,
-
+  label: PropTypes.string.isRequired,
+  /**
+   * 버튼 true 인 경우 Disabld 상태
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Select 오류체크
+   */
+  fieldState: PropTypes.oneOf(['', 'valid', 'invalid']),
 };
-
-// Docs 기본값
-Select.defaultProps = {
-  errMsg : false,
- 
-};
-

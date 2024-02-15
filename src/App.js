@@ -8,6 +8,7 @@ import InputBoxPage from './InputBox';
 import TablePage from './Tbl';
 import ModalPopPage from './Modal';
 import TySwiperPage from './Swiper';
+import SelectPage from './Select';
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
     };
   }, []);
 
-  const [activeLink, setActiveLink] = useState(null);
+  const [activeLink, setActiveLink] = useState('Button');
 
   useEffect(() => {
     const links = document.querySelectorAll('.component-btn');
@@ -48,8 +49,11 @@ function App() {
       links.forEach(link => link.classList.remove('active'));
       event.target.classList.add('active');
     };
-
+    
     links.forEach(link => link.addEventListener('click', handleClick));
+    
+    // 처음 로드될 때 'Button'에 해당하는 페이지를 활성화
+    setActiveLink('Button');
 
     return () => {
       links.forEach(link => link.removeEventListener('click', handleClick));
@@ -78,15 +82,17 @@ function App() {
             <Link className={`component-btn ${activeLink === 'Tbl' ? 'active' : ''}`} to="/Tbl" onClick={() => setActiveLink('Tbl')}>Table</Link>
             <Link className={`component-btn ${activeLink === 'Modal' ? 'active' : ''}`} to="/Modal" onClick={() => setActiveLink('Modal')}>ModalPop</Link>
             <Link className={`component-btn ${activeLink === 'Swiper' ? 'active' : ''}`} to="/Swiper" onClick={() => setActiveLink('Swiper')}>Swiper</Link>
+            <Link className={`component-btn ${activeLink === 'Select' ? 'active' : ''}`} to="/Select" onClick={() => setActiveLink('Select')}>Select</Link>
           </div>
           <div id="cp-wrap" className="component-wrap">
-            <h1 className="cp-tit dep01">{activeLink ? activeLink : ''}</h1>
+            <h1 className="cp-tit dep01">{activeLink}</h1>
             <Routes>
               <Route path="/Button" element={<ButtonPage />} />
               <Route path="/InputBox" element={<InputBoxPage />} />
               <Route path="/Tbl" element={<TablePage />} />
               <Route path="/Modal" element={<ModalPopPage />} />
               <Route path="/Swiper" element={<TySwiperPage />} />
+              <Route path="/Select" element={<SelectPage />} />
             </Routes>
           </div>
         </div>

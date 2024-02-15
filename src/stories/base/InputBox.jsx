@@ -11,16 +11,14 @@ import './scss/_cp.input.scss';
  * type - input 타입
  * label - label 내용 
  * disabled -버튼 Disabld 상태
- * errMsg - errMsg 노출
  * fieldState - input 상태 선택
  */
 
 
-export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, errMsg , validMsg, fieldState, InfoMessage, inputcase}) => {
+export const InputBox = ({setPage, type, disabled, label, placeholder, infoState, validMsg, fieldState, infoMsg, inputcase}) => {
   const Disable = disabled ? 'disabled' : '';
 
-  const ErrMsg = errMsg ? '' : 'hr' 
-  const InfoMsg = infoMsg ? '' : 'hr' 
+  const InfoState = infoState ? '' : 'hr' 
   const _fieldState = fieldState ? 'valid' : 'invalid';
 
   // 주민등록번호 두번째 input useState
@@ -46,14 +44,9 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
     }
     if( resInputVal !== '' ){
       setResDisplay('none')
+      setIsActive('_is-active')
     }
   }, [resInputVal])
-
-  // 주민등록번호 뒷자리 input 값 입력값 체크 및 css 추가
-  function _inputChange(val){
-    setIsActive('_is-active')
-    setResInputVal(val)
-  }
 
   // dot 배열
   let numDot = () => {
@@ -190,29 +183,27 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                 )}
               </div>
             </div>
-            <p className={"field-info " + InfoMsg}>
-              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
             </p>
             <p className={"field-msg"} >
               <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         ))}
-      </>
-
-  
+      </> 
     )
 
-    case 'residentNum':
+    case 'ResidentNum':
     return (
       <>
         {inputStates.map((inputState, index) => (
-          <div className="field" key={index}>
+          <div className={['field', '_label', fieldState].join(' ')} key={index}>
             <label className="field-label">주민등록번호</label>
-            <div className="field-outline">
+            <div className={"field-outline " + Disable}>
               <div className="field-input grow _input">
                 <input type="text" className="_format _number" 
-                  placeholder="생년월일 6자리"
+                  placeholder={placeholder}
                   maxLength="6"
                   value={inputState.value}
                   onChange={(e) => handleInputValueChange(index, e.target.value, 'default')}
@@ -225,12 +216,10 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
               </div>
               <span className="field-txt">-</span>
               <div className="field-input grow _input">
-              {/* data-secureLine -> data-secureline 으로 수정 */}
                 <label className="_secureTxt _num" data-length="7" data-secureline="1">
                   <input type="tel" className="_format _password" placeholder="" maxLength="1" 
                     onChange={(e)=>{
-                      let val = e.target.value
-                      _inputChange(val)
+                      setResInputVal(e.target.value)
                     }}
                     // 포커스가 될때 opactiy 0.5
                     onClick={()=>{
@@ -245,8 +234,11 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                 </label>
               </div>
             </div>
-            <p className={"field-msg " + ErrMsg} >
-              <span className="ico ico-error txt-r">{InfoMessage}</span>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         ))}
@@ -293,8 +285,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                   <label className="_secureTxt _num" data-length="7" data-secureline="1">
                     <input type="tel" className="_format _password" placeholder="" maxLength="1" 
                       onChange={(e)=>{
-                        let val = e.target.value
-                        _inputChange(val)
+                        setResInputVal(e.target.value)
                       }}
                       // 포커스가 될때 opactiy 0.5
                       onClick={()=>{
@@ -310,8 +301,11 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                 </div>
               </div>
             </div>
-            <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         );
@@ -350,8 +344,11 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
               </React.Fragment>
             ))}
           </div>
-          <p className={"field-msg " + ErrMsg}>
-            <span className="ico ico-info txt-r">{InfoMessage}</span>
+          <p className={"field-info " + InfoState}>
+            <span className="ico ico-info txt-r">{infoMsg}</span>
+          </p>
+          <p className={"field-msg"} >
+            <span className="ico ico-error txt-r">{validMsg}</span>
           </p>
         </div>
         ))}
@@ -387,8 +384,11 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                 )}
               </div>
             </div>
-            <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         ))}
@@ -431,10 +431,13 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                 </React.Fragment>
               ))}
             </div>
-              <div className={`field-input-wrap ${isInputFocused[index] ? '' : 'hr'}`}>
-            </div>
-            <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">{InfoMessage}</span>
+              {/* <div className={`field-input-wrap ${isInputFocused[index] ? '' : 'hr'}`}>
+            </div> */}
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         ))}
@@ -476,8 +479,11 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
                 )}
               </div>
             </div>
-            <p className={"field-msg " + ErrMsg}>
-              <span className="ico ico-info txt-r">{InfoMessage}</span>
+            <p className={"field-info " + InfoState}>
+              <span className="ico ico-info txt-r">{infoMsg}</span>
+            </p>
+            <p className={"field-msg"} >
+              <span className="ico ico-error txt-r">{validMsg}</span>
             </p>
           </div>
         ))}
@@ -489,7 +495,7 @@ export const InputBox = ({setPage, type, disabled, label, placeholder, infoMsg, 
   export default InputBox;
 
 
-// input 2개 이상일 경우 삭제 버튼 
+//삭제 버튼 
 function InputDelBtn({ handleInputClear }) {
   return (
     <button
@@ -520,10 +526,6 @@ InputBox.propTypes = {
    * input 오류체크
    */
   fieldState: PropTypes.oneOf(['', 'valid', 'invalid']),
-  /**
-   * 인포 메시지 노출
-   */
-  infoMsg: PropTypes.bool,
 };
 
 
